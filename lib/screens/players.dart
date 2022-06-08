@@ -57,18 +57,38 @@ class _PlayersScreenState extends State<PlayersScreen> {
     //print(players[0].health);
     return Scaffold(
       body: Center(
-        child: Grid(
-          players: players,
-          selectedPlayer: selectedPlayer,
-          onPress: (Player player) {
-            setState(() {
-              if (selectedPlayer == player) {
-                selectedPlayer = null;
-              } else {
-                selectedPlayer = player;
-              }
-            });
-          },
+        child: Stack(
+          children: [
+            Grid(
+              players: players,
+              selectedPlayer: selectedPlayer,
+              onPress: (Player player) {
+                setState(() {
+                  if (selectedPlayer == player) {
+                    selectedPlayer = null;
+                  } else {
+                    selectedPlayer = player;
+                  }
+                });
+              },
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(10),
+                ),
+                child: const Icon(
+                  Icons.menu,
+                  color: Colors.blue,
+                  size: 30,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ],
         ),
       ),
     );
