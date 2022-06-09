@@ -12,6 +12,8 @@ class Player with ChangeNotifier {
   Map<String, int> data = {
     'health': 40,
     'poison': 0,
+    'energy': 0,
+    'experience': 0,
   };
 
   Player({

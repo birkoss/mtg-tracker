@@ -24,6 +24,10 @@ extension AmountBoxTypeExtension on AmountBoxType {
         return 'health';
       case AmountBoxType.poison:
         return 'poison';
+      case AmountBoxType.energy:
+        return 'energy';
+      case AmountBoxType.experience:
+        return 'experience';
       default:
         return 'health';
     }
@@ -52,6 +56,12 @@ class AmountBox extends StatefulWidget {
 
 class _AmountBox extends State<AmountBox> {
   AmountBoxType _type = AmountBoxType.normal;
+  final List<AmountBoxType> _types = [
+    AmountBoxType.normal,
+    AmountBoxType.poison,
+    AmountBoxType.energy,
+    AmountBoxType.experience,
+  ];
 
   int _amountChanges = 0;
   late RestartableTimer _timerAmountChanges;
@@ -61,24 +71,6 @@ class _AmountBox extends State<AmountBox> {
     setState(() {
       _amountChanges += value;
     });
-  }
-
-  double getAmountFontSize() {
-    double fontSize = 50; // 80
-
-    // switch (widget.size) {
-    //   case TrackerSize.small:
-    //     fontSize = 30;
-    //     break;
-    //   case TrackerSize.medium:
-    //     fontSize = 50;
-    //     break;
-    //   case TrackerSize.large:
-    //     fontSize = 80;
-    //     break;
-    // }
-
-    return fontSize;
   }
 
   @override
@@ -151,8 +143,8 @@ class _AmountBox extends State<AmountBox> {
                   ),
                   Text(
                     _getValue(),
-                    style: TextStyle(
-                      fontSize: getAmountFontSize(),
+                    style: const TextStyle(
+                      fontSize: 50,
                       color: Colors.white,
                     ),
                   ),
@@ -172,7 +164,7 @@ class _AmountBox extends State<AmountBox> {
                             child: IconButton(
                               icon: SvgPicture.asset(
                                 "assets/icons/commander.svg",
-                                color: Colors.white,
+                                color: Colors.white70,
                                 semanticsLabel: 'Commander',
                               ),
                               onPressed: () {
@@ -189,17 +181,21 @@ class _AmountBox extends State<AmountBox> {
                             child: IconButton(
                               icon: SvgPicture.asset(
                                 "assets/icons/" + _type.dataIndex + ".svg",
-                                color: Colors.white,
+                                color: Colors.white70,
                                 semanticsLabel: 'Commander',
                               ),
                               onPressed: () {
                                 print("@TODO : CHANGING TYPE...");
                                 setState(() {
-                                  if (_type == AmountBoxType.normal) {
-                                    _type = AmountBoxType.poison;
-                                  } else {
-                                    _type = AmountBoxType.normal;
+                                  print("Current: " +
+                                      _types.indexOf(_type).toString());
+                                  int index = _types.indexOf(_type) + 1;
+                                  if (index >= _types.length) {
+                                    index = 0;
                                   }
+                                  print("Next: " + index.toString());
+                                  _type = _types.elementAt(index);
+                                  print("Next: " + _type.dataIndex);
                                 });
                                 widget.onChangeType();
                               },
