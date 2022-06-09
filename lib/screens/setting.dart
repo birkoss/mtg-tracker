@@ -100,6 +100,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
               ),
             ),
+            const SizedBox(height: 20),
             Text(
               "Table Layouts",
               textAlign: TextAlign.start,
@@ -120,6 +121,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
               ),
             ),
+            const SizedBox(height: 20),
             Text(
               "Starting lives",
               textAlign: TextAlign.start,
@@ -142,7 +144,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
               ),
             ),
-            Row(
+            const SizedBox(height: 20),
+            Wrap(
+              spacing: 10,
               children: [
                 OutlinedButton(
                   onPressed: () {
@@ -156,8 +160,10 @@ class _SettingScreenState extends State<SettingScreen> {
                   style: CustomTheme.outlinedButtonStyle,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
-                  child: const Text("Pick a player"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Pick a player at random"),
                   style: CustomTheme.outlinedButtonStyle,
                 ),
               ],
