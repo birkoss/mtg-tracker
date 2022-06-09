@@ -24,7 +24,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
 
   @override
   void initState() {
-    print("initState");
     super.initState();
 
     final List<Color> colors = [

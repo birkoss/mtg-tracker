@@ -8,15 +8,36 @@ import '../../widgets/amount_changes.dart';
 import '../../widgets/button_updater.dart';
 import '../../widgets/boxes/player.dart';
 
+// What are we modifying in the Amount Box
+enum AmountBoxType {
+  normal,
+  poison,
+  energy,
+  experience,
+}
+
+extension AmountBoxTypeExtension on AmountBoxType {
+  String get dataIndex {
+    switch (this) {
+      case AmountBoxType.normal:
+        return 'health';
+      case AmountBoxType.poison:
+        return 'poison';
+      default:
+        return 'health';
+    }
+  }
+}
+
 class AmountBox extends StatefulWidget {
-  final PlayerBoxType boxType;
+  final PlayerBoxView boxView;
 
   final Function onSwitchCommander;
   final Function onChangeType;
 
   const AmountBox({
     Key? key,
-    required this.boxType,
+    required this.boxView,
     required this.onSwitchCommander,
     required this.onChangeType,
   }) : super(key: key);
@@ -26,6 +47,8 @@ class AmountBox extends StatefulWidget {
 }
 
 class _AmountBox extends State<AmountBox> {
+  AmountBoxType _type = AmountBoxType.normal;
+
   int _amountChanges = 0;
   late RestartableTimer _timerAmountChanges;
 
@@ -77,6 +100,22 @@ class _AmountBox extends State<AmountBox> {
   @override
   Widget build(BuildContext context) {
     var player = Provider.of<Player>(context, listen: false);
+
+    String _getValue() {
+      if (widget.boxView == PlayerBoxView.commander) {
+        return "CMD...";
+      }
+      return player.data[_type.dataIndex].toString();
+    }
+
+    void _changeValue(int modifier) {
+      if (widget.boxView == PlayerBoxView.commander) {
+        //return "CMD...";
+      }
+      //player.data[_type.dataIndex] += modifier;
+      player.data[_type.dataIndex] = player.data[_type.dataIndex]! + modifier;
+    }
+
     return Container(
       color: player.color,
       alignment: Alignment.center,
@@ -88,11 +127,8 @@ class _AmountBox extends State<AmountBox> {
             child: ButtonUpdater(
               label: "-",
               onPress: () {
-                if (widget.boxType == PlayerBoxType.normal) {
-                  player.health--;
-                } else {
-                  player.poison--;
-                }
+                _changeValue(-1);
+
                 updateAmount(-1);
               },
             ),
@@ -108,19 +144,17 @@ class _AmountBox extends State<AmountBox> {
                     amount: _amountChanges,
                   ),
                   Text(
-                    widget.boxType == PlayerBoxType.normal
-                        ? player.health.toString()
-                        : player.poison.toString(),
+                    _getValue(),
                     style: TextStyle(
                       fontSize: getAmountFontSize(),
                       color: Colors.white,
                     ),
                   ),
-                  if (widget.boxType == PlayerBoxType.commander)
+                  if (widget.boxView == PlayerBoxView.commander)
                     const SizedBox(
                       height: 20,
                     ),
-                  if (widget.boxType == PlayerBoxType.normal)
+                  if (widget.boxView == PlayerBoxView.normal)
                     Row(
                       children: [
                         Material(
@@ -147,6 +181,14 @@ class _AmountBox extends State<AmountBox> {
                               color: Colors.white70,
                             ),
                             onPressed: () {
+                              print("@TODO : CHANGING TYPE...");
+                              setState(() {
+                                if (_type == AmountBoxType.normal) {
+                                  _type = AmountBoxType.poison;
+                                } else {
+                                  _type = AmountBoxType.normal;
+                                }
+                              });
                               widget.onChangeType();
                             },
                           ),
@@ -163,7 +205,7 @@ class _AmountBox extends State<AmountBox> {
               label: "+",
               onPress: () {
                 // if (widget.type == PlayerBoxType.normal) {
-                player.health++;
+                _changeValue(1);
                 //} else {
                 //player.poison++;
                 //}

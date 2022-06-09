@@ -1,6 +1,11 @@
 import '../providers/player.dart';
 
-enum LayoutDirection { top, left, right, bottom }
+enum LayoutDirection {
+  top,
+  left,
+  right,
+  bottom,
+}
 
 class Layout {
   final Player player;

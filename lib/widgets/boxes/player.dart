@@ -12,15 +12,27 @@ enum PlayerBoxSize {
   large,
 }
 
+// What are we modifying in the Amount Box
 enum PlayerBoxType {
+  normal,
+  commander,
+  poison,
+  energy,
+  experience,
+}
+
+enum PlayerBoxView {
   normal,
   commander,
 }
 
 class PlayerBox extends StatefulWidget {
+  // Rotation of this widget within the Grid
   final int rotation;
+
   final PlayerBoxSize size;
   final PlayerBoxType type;
+  final PlayerBoxView view;
   final Function onToggleCommanderView;
   final bool isSelected;
 
@@ -29,6 +41,7 @@ class PlayerBox extends StatefulWidget {
     required this.rotation,
     required this.size,
     required this.type,
+    required this.view,
     required this.onToggleCommanderView,
     required this.isSelected,
   }) : super(key: key);
@@ -49,7 +62,7 @@ class _PlayerBox extends State<PlayerBox> {
                 onToggleCommanderView: widget.onToggleCommanderView,
               )
             : AmountBox(
-                boxType: widget.type,
+                boxView: widget.view,
                 onSwitchCommander: widget.onToggleCommanderView,
                 onChangeType: () {
                   print("CHANGE TYPE of " + player.id);
