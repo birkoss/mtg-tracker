@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../../providers/player.dart';
 
-import '../../widgets/amount_changes.dart';
-import '../../widgets/button_updater.dart';
+import '../../widgets/ui/amount/button.dart';
+import '../../widgets/ui/amount/text.dart';
 import '../../widgets/boxes/player.dart';
 
 // What are we modifying in the Amount Box
@@ -131,7 +131,7 @@ class _AmountBox extends State<AmountBox> {
         children: [
           Expanded(
             flex: 1,
-            child: ButtonUpdater(
+            child: AmountButton(
               label: "-",
               onPress: () {
                 _changeValue(-1);
@@ -145,7 +145,7 @@ class _AmountBox extends State<AmountBox> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  AmountChanges(
+                  AmountText(
                     amount: _amountChanges,
                   ),
                   Text(
@@ -206,7 +206,7 @@ class _AmountBox extends State<AmountBox> {
           ),
           Expanded(
             flex: 1,
-            child: ButtonUpdater(
+            child: AmountButton(
               label: "+",
               onPress: () {
                 _changeValue(1);

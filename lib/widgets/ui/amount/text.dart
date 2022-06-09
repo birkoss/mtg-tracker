@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-class AmountChanges extends StatelessWidget {
+class AmountText extends StatelessWidget {
   final int amount;
 
-  const AmountChanges({Key? key, required this.amount}) : super(key: key);
+  const AmountText({
+    Key? key,
+    required this.amount,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

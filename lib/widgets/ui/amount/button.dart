@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ButtonUpdater extends StatelessWidget {
+class AmountButton extends StatelessWidget {
   final String label;
   final VoidCallback onPress;
 
-  const ButtonUpdater({
+  const AmountButton({
     Key? key,
     required this.label,
     required this.onPress,
