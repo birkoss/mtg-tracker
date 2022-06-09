@@ -10,6 +10,9 @@ class SettingNotifier extends ChangeNotifier {
   int _playersNumber = 0;
   int get playersNumber => _playersNumber;
 
+  int _startingLives = 0;
+  int get startingLives => _startingLives;
+
   SettingNotifier() {
     _load();
   }
@@ -27,6 +30,7 @@ class SettingNotifier extends ChangeNotifier {
   Future _load() async {
     await _init();
     _playersNumber = _pref!.getInt("PLAYERS_NUMBER") ?? 4;
+    _startingLives = _pref!.getInt("STARTING_LIVES") ?? 40;
     notifyListeners();
 
     _isReady = true;
@@ -35,5 +39,6 @@ class SettingNotifier extends ChangeNotifier {
   Future _save() async {
     await _init();
     _pref!.setInt("PLAYERS_NUMBER", _playersNumber);
+    _pref!.setInt("STARTING_LIVES", _startingLives);
   }
 }

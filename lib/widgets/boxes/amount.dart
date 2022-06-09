@@ -134,8 +134,11 @@ class _AmountBox extends State<AmountBox> {
             child: Container(
               alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
                   AmountText(
                     amount: _amountChanges,
                   ),
@@ -196,6 +199,7 @@ class _AmountBox extends State<AmountBox> {
                         )
                       ],
                     ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),

@@ -96,6 +96,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SettingScreen(
+                        startingLives: setting.startingLives,
                         playersNumber: setting.playersNumber,
                       ),
                     ),

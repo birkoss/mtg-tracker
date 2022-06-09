@@ -23,7 +23,7 @@ class AmountButton extends StatelessWidget {
           child: Text(
             label,
             style: const TextStyle(
-              color: Colors.white70,
+              color: Colors.white30,
               fontSize: 40,
             ),
           ),
