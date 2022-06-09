@@ -9,16 +9,16 @@ import '../providers/player.dart';
 class Grid extends StatelessWidget {
   final List<Player> players;
   final Player? selectedPlayer;
-  final Function onPress;
+  final Function onToggleCommanderView;
 
   const Grid({
     Key? key,
     required this.players,
     required this.selectedPlayer,
-    required this.onPress,
+    required this.onToggleCommanderView,
   }) : super(key: key);
 
-  List<Widget> generate() {
+  List<List<Layout>> generateLayout(int playersLength) {
     List<List<Layout>> rows = [];
 
     switch (players.length) {
@@ -40,6 +40,7 @@ class Grid extends StatelessWidget {
         break;
       case 4:
         // Old layout
+        // -----------
         // rows.add([
         //   Layout(player: players[0], direction: LayoutDirection.top),
         // ]);
@@ -148,6 +149,12 @@ class Grid extends StatelessWidget {
         ]);
     }
 
+    return rows;
+  }
+
+  List<Widget> generateWidgets() {
+    List<List<Layout>> rows = generateLayout(players.length);
+
     PlayerBoxSize trackerSize = PlayerBoxSize.medium;
     if (players.length > 6) {
       trackerSize = PlayerBoxSize.small;
@@ -176,32 +183,18 @@ class Grid extends StatelessWidget {
             value: layout.player,
             key: ValueKey(layout.player.id),
             child: PlayerBox(
-              rotation: layout.getRotation(),
+              type: selectedPlayer == null
+                  ? PlayerBoxType.normal
+                  : PlayerBoxType.commander,
+              rotation: selectedPlayer == null
+                  ? layout.getRotation()
+                  : selectedPlayer != layout.player
+                      ? selectedPlayerLayout!.getRotation()
+                      : layout.getRotation(),
+              isSelected: selectedPlayer == layout.player,
               size: trackerSize,
-              type: PlayerBoxType.normal,
-              onPressOptions: onPress,
+              onToggleCommanderView: onToggleCommanderView,
             ),
-            /* selectedPlayer == null
-                ? Tracker(
-                    rotation: layout.getRotation(),
-                    size: trackerSize,
-                    type: TrackerType.normal,
-                    onPressOptions: onPress,
-                  )
-                : selectedPlayer != layout.player
-                    ? TrackerCommander(
-                        rotation: selectedPlayerLayout!.getRotation(),
-                        size: trackerSize,
-                        onPressOptions: onPress,
-                        currentPlayer: int.parse(selectedPlayer!.id) - 1,
-                      )
-                    : Tracker(
-                        rotation: layout.getRotation(),
-                        size: trackerSize,
-                        type: TrackerType.poison,
-                        onPressOptions: onPress,
-                      ),
-                      */
           ),
         );
       }
@@ -224,7 +217,7 @@ class Grid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: generate(),
+      children: generateWidgets(),
     );
   }
 }

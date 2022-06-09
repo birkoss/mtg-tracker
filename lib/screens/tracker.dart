@@ -4,18 +4,18 @@ import '../providers/player.dart';
 
 import '../widgets/grid.dart';
 
-class PlayersScreen extends StatefulWidget {
+class TrackerScreen extends StatefulWidget {
   static const routeName = '/players';
 
-  const PlayersScreen({
+  const TrackerScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<PlayersScreen> createState() => _PlayersScreenState();
+  State<TrackerScreen> createState() => _TrackerScreenState();
 }
 
-class _PlayersScreenState extends State<PlayersScreen> {
+class _TrackerScreenState extends State<TrackerScreen> {
   Player? selectedPlayer;
 
   List<Player> players = [];
@@ -65,14 +65,16 @@ class _PlayersScreenState extends State<PlayersScreen> {
             Grid(
               players: players,
               selectedPlayer: selectedPlayer,
-              onPress: (Player player) {
-                setState(() {
-                  if (selectedPlayer == player) {
-                    selectedPlayer = null;
-                  } else {
-                    selectedPlayer = player;
-                  }
-                });
+              onToggleCommanderView: (Player player) {
+                setState(
+                  () {
+                    if (selectedPlayer == player) {
+                      selectedPlayer = null;
+                    } else {
+                      selectedPlayer = player;
+                    }
+                  },
+                );
               },
             ),
             Align(
@@ -88,7 +90,9 @@ class _PlayersScreenState extends State<PlayersScreen> {
                   color: Colors.blue,
                   size: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  print("MENU SETTINGS...");
+                },
               ),
             ),
           ],

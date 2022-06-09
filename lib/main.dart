@@ -1,6 +1,7 @@
+// @TODO: Allow to change the direction of the commander view, instead of entering OUR cmd damage, changing the cmd damage dealt
 import 'package:flutter/material.dart';
 
-import '../screens/players.dart';
+import 'screens/tracker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PlayersScreen(),
+      home: const TrackerScreen(),
       routes: {
-        PlayersScreen.routeName: (ctx) => const PlayersScreen(),
+        TrackerScreen.routeName: (ctx) => const TrackerScreen(),
       },
     );
   }

@@ -116,38 +116,43 @@ class _AmountBox extends State<AmountBox> {
                       color: Colors.white,
                     ),
                   ),
-                  Row(
-                    children: [
-                      Material(
-                        color: Colors.transparent,
-                        child: IconButton(
-                          iconSize:
-                              22, //widget.size == TrackerSize.small ? 22 : 32,
-                          icon: const Icon(
-                            Icons.filter_alt,
-                            color: Colors.white70,
+                  if (widget.boxType == PlayerBoxType.commander)
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  if (widget.boxType == PlayerBoxType.normal)
+                    Row(
+                      children: [
+                        Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            iconSize:
+                                22, //widget.size == TrackerSize.small ? 22 : 32,
+                            icon: const Icon(
+                              Icons.filter_alt,
+                              color: Colors.white70,
+                            ),
+                            onPressed: () {
+                              widget.onSwitchCommander(player);
+                            },
                           ),
-                          onPressed: () {
-                            widget.onSwitchCommander(player);
-                          },
                         ),
-                      ),
-                      Material(
-                        color: Colors.transparent,
-                        child: IconButton(
-                          iconSize:
-                              22, //widget.size == TrackerSize.small ? 22 : 32,
-                          icon: const Icon(
-                            Icons.heart_broken,
-                            color: Colors.white70,
+                        Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            iconSize:
+                                22, //widget.size == TrackerSize.small ? 22 : 32,
+                            icon: const Icon(
+                              Icons.heart_broken,
+                              color: Colors.white70,
+                            ),
+                            onPressed: () {
+                              widget.onChangeType();
+                            },
                           ),
-                          onPressed: () {
-                            widget.onChangeType();
-                          },
-                        ),
-                      )
-                    ],
-                  ),
+                        )
+                      ],
+                    ),
                 ],
               ),
             ),
