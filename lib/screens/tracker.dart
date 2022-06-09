@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/screens/setting.dart';
 
 import '../providers/player.dart';
 
@@ -91,6 +92,12 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 ),
                 onPressed: () {
                   print("MENU SETTINGS...");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingScreen(),
+                    ),
+                  );
                 },
               ),
             ),
