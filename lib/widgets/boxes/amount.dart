@@ -162,43 +162,48 @@ class _AmountBox extends State<AmountBox> {
                     ),
                   if (widget.boxView == PlayerBoxView.normal)
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            iconSize:
-                                22, //widget.size == TrackerSize.small ? 22 : 32,
-                            icon: SvgPicture.asset(
-                              "assets/icons/commander.svg",
-                              color: Colors.white,
-                              semanticsLabel: 'Commander',
+                        SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/icons/commander.svg",
+                                color: Colors.white,
+                                semanticsLabel: 'Commander',
+                              ),
+                              onPressed: () {
+                                widget.onSwitchCommander(player);
+                              },
                             ),
-                            onPressed: () {
-                              widget.onSwitchCommander(player);
-                            },
                           ),
                         ),
-                        Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            iconSize:
-                                22, //widget.size == TrackerSize.small ? 22 : 32,
-                            icon: SvgPicture.asset(
-                              "assets/icons/" + _type.dataIndex + ".svg",
-                              color: Colors.white,
-                              semanticsLabel: 'Commander',
+                        SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/icons/" + _type.dataIndex + ".svg",
+                                color: Colors.white,
+                                semanticsLabel: 'Commander',
+                              ),
+                              onPressed: () {
+                                print("@TODO : CHANGING TYPE...");
+                                setState(() {
+                                  if (_type == AmountBoxType.normal) {
+                                    _type = AmountBoxType.poison;
+                                  } else {
+                                    _type = AmountBoxType.normal;
+                                  }
+                                });
+                                widget.onChangeType();
+                              },
                             ),
-                            onPressed: () {
-                              print("@TODO : CHANGING TYPE...");
-                              setState(() {
-                                if (_type == AmountBoxType.normal) {
-                                  _type = AmountBoxType.poison;
-                                } else {
-                                  _type = AmountBoxType.normal;
-                                }
-                              });
-                              widget.onChangeType();
-                            },
                           ),
                         )
                       ],
