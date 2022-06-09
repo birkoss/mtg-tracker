@@ -194,7 +194,7 @@ class Grid extends StatelessWidget {
                   : selectedPlayer != layout.player
                       ? selectedPlayerLayout!.getRotation()
                       : layout.getRotation(),
-              isSelected: selectedPlayer == layout.player,
+              selectedPlayer: selectedPlayer,
               size: trackerSize,
               onToggleCommanderView: onToggleCommanderView,
             ),

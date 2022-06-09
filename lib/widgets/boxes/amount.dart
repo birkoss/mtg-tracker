@@ -32,12 +32,15 @@ extension AmountBoxTypeExtension on AmountBoxType {
 class AmountBox extends StatefulWidget {
   final PlayerBoxView boxView;
 
+  final Player? selectedPlayer;
+
   final Function onSwitchCommander;
   final Function onChangeType;
 
   const AmountBox({
     Key? key,
     required this.boxView,
+    required this.selectedPlayer,
     required this.onSwitchCommander,
     required this.onChangeType,
   }) : super(key: key);
@@ -103,17 +106,21 @@ class _AmountBox extends State<AmountBox> {
 
     String _getValue() {
       if (widget.boxView == PlayerBoxView.commander) {
-        return "CMD...";
+        return player.commander[int.parse(widget.selectedPlayer!.id)]
+            .toString();
       }
       return player.data[_type.dataIndex].toString();
     }
 
     void _changeValue(int modifier) {
+      updateAmount(modifier);
+
       if (widget.boxView == PlayerBoxView.commander) {
-        //return "CMD...";
+        player.commander[int.parse(widget.selectedPlayer!.id)] =
+            player.commander[int.parse(widget.selectedPlayer!.id)] + modifier;
+      } else {
+        player.data[_type.dataIndex] = player.data[_type.dataIndex]! + modifier;
       }
-      //player.data[_type.dataIndex] += modifier;
-      player.data[_type.dataIndex] = player.data[_type.dataIndex]! + modifier;
     }
 
     return Container(
@@ -128,8 +135,6 @@ class _AmountBox extends State<AmountBox> {
               label: "-",
               onPress: () {
                 _changeValue(-1);
-
-                updateAmount(-1);
               },
             ),
           ),
@@ -204,12 +209,7 @@ class _AmountBox extends State<AmountBox> {
             child: ButtonUpdater(
               label: "+",
               onPress: () {
-                // if (widget.type == PlayerBoxType.normal) {
                 _changeValue(1);
-                //} else {
-                //player.poison++;
-                //}
-                updateAmount(1);
               },
             ),
           ),

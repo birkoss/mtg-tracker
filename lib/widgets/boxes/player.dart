@@ -34,7 +34,7 @@ class PlayerBox extends StatefulWidget {
   final PlayerBoxType type;
   final PlayerBoxView view;
   final Function onToggleCommanderView;
-  final bool isSelected;
+  final Player? selectedPlayer;
 
   const PlayerBox({
     Key? key,
@@ -43,7 +43,7 @@ class PlayerBox extends StatefulWidget {
     required this.type,
     required this.view,
     required this.onToggleCommanderView,
-    required this.isSelected,
+    required this.selectedPlayer,
   }) : super(key: key);
 
   @override
@@ -57,11 +57,12 @@ class _PlayerBox extends State<PlayerBox> {
     return Expanded(
       child: RotatedBox(
         quarterTurns: widget.rotation,
-        child: widget.isSelected
+        child: widget.selectedPlayer == player
             ? CommanderBox(
                 onToggleCommanderView: widget.onToggleCommanderView,
               )
             : AmountBox(
+                selectedPlayer: widget.selectedPlayer,
                 boxView: widget.view,
                 onSwitchCommander: widget.onToggleCommanderView,
                 onChangeType: () {
