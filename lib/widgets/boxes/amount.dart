@@ -114,107 +114,103 @@ class _AmountBox extends State<AmountBox> {
       }
     }
 
-    return Container(
-      color: player.color,
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 1,
-            child: AmountButton(
-              label: "-",
-              onPress: () {
-                _changeValue(-1);
-              },
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 1,
+          child: AmountButton(
+            label: "-",
+            onPress: () {
+              _changeValue(-1);
+            },
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                AmountText(
+                  amount: _amountChanges,
+                ),
+                Text(
+                  _getValue(),
+                  style: const TextStyle(
+                    fontSize: 50,
+                    color: Colors.white,
+                  ),
+                ),
+                if (widget.boxView == PlayerBoxView.commander)
                   const SizedBox(
                     height: 20,
                   ),
-                  AmountText(
-                    amount: _amountChanges,
-                  ),
-                  Text(
-                    _getValue(),
-                    style: const TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                    ),
-                  ),
-                  if (widget.boxView == PlayerBoxView.commander)
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  if (widget.boxView == PlayerBoxView.normal)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: IconButton(
-                              icon: SvgPicture.asset(
-                                "assets/icons/commander.svg",
-                                color: Colors.white70,
-                                semanticsLabel: 'Commander',
-                              ),
-                              onPressed: () {
-                                widget.onSwitchCommander(player);
-                              },
+                if (widget.boxView == PlayerBoxView.normal)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            icon: SvgPicture.asset(
+                              "assets/icons/commander.svg",
+                              color: Colors.white70,
+                              semanticsLabel: 'Commander',
                             ),
+                            onPressed: () {
+                              widget.onSwitchCommander(player);
+                            },
                           ),
                         ),
-                        SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: IconButton(
-                              icon: SvgPicture.asset(
-                                "assets/icons/" + _type.dataIndex + ".svg",
-                                color: Colors.white70,
-                                semanticsLabel: 'Commander',
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  int index = _types.indexOf(_type) + 1;
-                                  if (index >= _types.length) {
-                                    index = 0;
-                                  }
-                                  _type = _types.elementAt(index);
-                                });
-                              },
+                      ),
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            icon: SvgPicture.asset(
+                              "assets/icons/" + _type.dataIndex + ".svg",
+                              color: Colors.white70,
+                              semanticsLabel: 'Commander',
                             ),
+                            onPressed: () {
+                              setState(() {
+                                int index = _types.indexOf(_type) + 1;
+                                if (index >= _types.length) {
+                                  index = 0;
+                                }
+                                _type = _types.elementAt(index);
+                              });
+                            },
                           ),
-                        )
-                      ],
-                    ),
-                  const SizedBox(height: 10),
-                ],
-              ),
+                        ),
+                      )
+                    ],
+                  ),
+                const SizedBox(height: 10),
+              ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: AmountButton(
-              label: "+",
-              onPress: () {
-                _changeValue(1);
-              },
-            ),
+        ),
+        Expanded(
+          flex: 1,
+          child: AmountButton(
+            label: "+",
+            onPress: () {
+              _changeValue(1);
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

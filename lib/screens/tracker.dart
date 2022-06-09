@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/screens/setting.dart';
@@ -24,6 +27,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
   List<Player> players = [];
 
   void updateValue(player, newValue) {}
+
+  int _pickedPlayer = 0;
 
   @override
   void initState() {
@@ -57,6 +62,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     print("tracker.build()");
+    print(_pickedPlayer);
     //print(players[0].health);
     return Scaffold(
       body: Center(
@@ -65,6 +71,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
             Grid(
               players: players,
               selectedPlayer: selectedPlayer,
+              diceRollWinner: _pickedPlayer,
               onToggleCommanderView: (Player player) {
                 setState(
                   () {
@@ -97,10 +104,26 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SettingScreen(
-                        tableLayout: setting.tableLayout,
-                        startingLives: setting.startingLives,
-                        playersNumber: setting.playersNumber,
-                      ),
+                          tableLayout: setting.tableLayout,
+                          startingLives: setting.startingLives,
+                          playersNumber: setting.playersNumber,
+                          onPickNewPlayer: () {
+                            setState(() {
+                              if (_pickedPlayer == 0) {
+                                _pickedPlayer =
+                                    Random().nextInt(setting.playersNumber) + 1;
+
+                                Timer(
+                                  const Duration(seconds: 2),
+                                  () {
+                                    setState(() {
+                                      _pickedPlayer = 0;
+                                    });
+                                  },
+                                );
+                              }
+                            });
+                          }),
                     ),
                   );
                 },

@@ -30,6 +30,8 @@ class PlayerBox extends StatefulWidget {
   // The player currently in commander view
   final Player? selectedPlayer;
 
+  final bool diceRollWinner;
+
   const PlayerBox({
     Key? key,
     required this.rotation,
@@ -37,6 +39,7 @@ class PlayerBox extends StatefulWidget {
     required this.view,
     required this.onToggleCommanderView,
     required this.selectedPlayer,
+    required this.diceRollWinner,
   }) : super(key: key);
 
   @override
@@ -46,19 +49,31 @@ class PlayerBox extends StatefulWidget {
 class _PlayerBox extends State<PlayerBox> {
   @override
   Widget build(BuildContext context) {
+    print("playerbox.build()");
     var player = Provider.of<Player>(context, listen: false);
+
     return Expanded(
       child: RotatedBox(
         quarterTurns: widget.rotation,
-        child: widget.selectedPlayer == player
-            ? CommanderBox(
-                onToggleCommanderView: widget.onToggleCommanderView,
-              )
-            : AmountBox(
-                selectedPlayer: widget.selectedPlayer,
-                boxView: widget.view,
-                onSwitchCommander: widget.onToggleCommanderView,
-              ),
+        child: Container(
+          color: player.color,
+          alignment: Alignment.center,
+          child: widget.diceRollWinner
+              ? const Text("You Win the Dice Roll",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ))
+              : widget.selectedPlayer == player
+                  ? CommanderBox(
+                      onToggleCommanderView: widget.onToggleCommanderView,
+                    )
+                  : AmountBox(
+                      selectedPlayer: widget.selectedPlayer,
+                      boxView: widget.view,
+                      onSwitchCommander: widget.onToggleCommanderView,
+                    ),
+        ),
       ),
     );
   }

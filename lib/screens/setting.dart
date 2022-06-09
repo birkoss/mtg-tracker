@@ -9,11 +9,14 @@ class SettingScreen extends StatefulWidget {
   final int startingLives;
   final int tableLayout;
 
+  final Function onPickNewPlayer;
+
   const SettingScreen({
     Key? key,
     required this.playersNumber,
     required this.startingLives,
     required this.tableLayout,
+    required this.onPickNewPlayer,
   }) : super(key: key);
 
   @override
@@ -155,6 +158,8 @@ class _SettingScreenState extends State<SettingScreen> {
                     setting.changeTableLayout(_selectedTableLayout);
 
                     Navigator.pop(context);
+
+                    widget.onPickNewPlayer();
                   },
                   child: const Text("New Game"),
                   style: CustomTheme.outlinedButtonStyle,
@@ -162,6 +167,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 OutlinedButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    widget.onPickNewPlayer();
                   },
                   child: const Text("Pick a player at random"),
                   style: CustomTheme.outlinedButtonStyle,

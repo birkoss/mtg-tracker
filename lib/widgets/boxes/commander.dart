@@ -19,37 +19,33 @@ class _CommanderBox extends State<CommanderBox> {
   @override
   Widget build(BuildContext context) {
     var player = Provider.of<Player>(context, listen: false);
-    return Container(
-      color: player.color,
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const SizedBox(height: 10),
-          const Text(
-            "Please assign your Commander Damage",
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        const SizedBox(height: 10),
+        const Text(
+          "Please assign your Commander Damage",
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
           ),
-          Material(
-            color: Colors.transparent,
-            child: IconButton(
-              iconSize: 22, //widget.size == TrackerSize.small ? 22 : 32,
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white70,
-              ),
-              onPressed: () {
-                widget.onToggleCommanderView(player);
-              },
+          textAlign: TextAlign.center,
+        ),
+        Material(
+          color: Colors.transparent,
+          child: IconButton(
+            iconSize: 22, //widget.size == TrackerSize.small ? 22 : 32,
+            icon: const Icon(
+              Icons.close,
+              color: Colors.white70,
             ),
+            onPressed: () {
+              widget.onToggleCommanderView(player);
+            },
           ),
-          const SizedBox(height: 5),
-        ],
-      ),
+        ),
+        const SizedBox(height: 5),
+      ],
     );
   }
 }

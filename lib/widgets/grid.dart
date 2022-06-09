@@ -12,12 +12,14 @@ class Grid extends StatelessWidget {
   final List<Player> players;
   final Player? selectedPlayer;
   final Function onToggleCommanderView;
+  final int diceRollWinner;
 
   const Grid({
     Key? key,
     required this.players,
     required this.selectedPlayer,
     required this.onToggleCommanderView,
+    required this.diceRollWinner,
   }) : super(key: key);
 
   List<List<Layout>> generateLayout(BuildContext context, int playersNumber) {
@@ -218,6 +220,10 @@ class Grid extends StatelessWidget {
             child: layout.direction == null
                 ? const EmptyBox()
                 : PlayerBox(
+                    diceRollWinner:
+                        diceRollWinner.toString() == layout.player!.id
+                            ? true
+                            : false,
                     view: selectedPlayer == null
                         ? PlayerBoxView.normal
                         : PlayerBoxView.commander,
