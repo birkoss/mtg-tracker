@@ -10,6 +10,9 @@ class SettingNotifier extends ChangeNotifier {
   int _playersNumber = 0;
   int get playersNumber => _playersNumber;
 
+  int _tableLayout = 0;
+  int get tableLayout => _tableLayout;
+
   int _startingLives = 0;
   int get startingLives => _startingLives;
 
@@ -29,6 +32,12 @@ class SettingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeTableLayout(tableLayout) {
+    _tableLayout = tableLayout;
+    _save();
+    notifyListeners();
+  }
+
   Future _init() async {
     _pref ??= await SharedPreferences.getInstance();
   }
@@ -37,6 +46,7 @@ class SettingNotifier extends ChangeNotifier {
     await _init();
     _playersNumber = _pref!.getInt("PLAYERS_NUMBER") ?? 4;
     _startingLives = _pref!.getInt("STARTING_LIVES") ?? 40;
+    _tableLayout = _pref!.getInt("TABLE_LAYOUT") ?? 1;
     notifyListeners();
 
     _isReady = true;
@@ -46,5 +56,6 @@ class SettingNotifier extends ChangeNotifier {
     await _init();
     _pref!.setInt("PLAYERS_NUMBER", _playersNumber);
     _pref!.setInt("STARTING_LIVES", _startingLives);
+    _pref!.setInt("TABLE_LAYOUT", _tableLayout);
   }
 }

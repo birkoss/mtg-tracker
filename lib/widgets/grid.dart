@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/widgets/boxes/empty.dart';
 import 'package:mtgtracker/widgets/boxes/player.dart';
 import 'package:provider/provider.dart';
 
@@ -19,51 +20,77 @@ class Grid extends StatelessWidget {
     required this.onToggleCommanderView,
   }) : super(key: key);
 
-  List<List<Layout>> generateLayout(int playersNumber) {
+  List<List<Layout>> generateLayout(BuildContext context, int playersNumber) {
+    SettingNotifier setting =
+        Provider.of<SettingNotifier>(context, listen: false);
+
     List<List<Layout>> rows = [];
 
     switch (playersNumber) {
       case 2:
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.left),
-          Layout(player: players[1], direction: LayoutDirection.right),
-        ]);
+        if (setting.tableLayout == 2) {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.top),
+          ]);
+          rows.add([
+            Layout(player: players[1], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
+        }
+
         break;
       case 3:
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.left),
-          Layout(player: players[1], direction: LayoutDirection.right),
-        ]);
+        if (setting.tableLayout == 2) {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
 
-        rows.add([
-          Layout(player: players[2], direction: LayoutDirection.bottom),
-        ]);
+          rows.add([
+            Layout(player: players[2], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
+
+          rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: null),
+          ]);
+        }
+
         break;
       case 4:
-        // Old layout
-        // -----------
-        // rows.add([
-        //   Layout(player: players[0], direction: LayoutDirection.top),
-        // ]);
+        if (setting.tableLayout == 2) {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.top),
+          ]);
 
-        // rows.add([
-        //   Layout(player: players[1], direction: LayoutDirection.left),
-        //   Layout(player: players[2], direction: LayoutDirection.right),
-        // ]);
+          rows.add([
+            Layout(player: players[1], direction: LayoutDirection.left),
+            Layout(player: players[2], direction: LayoutDirection.right),
+          ]);
 
-        // rows.add([
-        //   Layout(player: players[3], direction: LayoutDirection.bottom),
-        // ]);
+          rows.add([
+            Layout(player: players[3], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
 
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.left),
-          Layout(player: players[1], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[2], direction: LayoutDirection.left),
-          Layout(player: players[3], direction: LayoutDirection.right),
-        ]);
+          rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
+        }
 
         break;
       case 5:
@@ -155,7 +182,7 @@ class Grid extends StatelessWidget {
 
   List<Widget> generateWidgets(BuildContext context, int playersNumber) {
     print("grid.generateWidgets(" + playersNumber.toString() + ")");
-    List<List<Layout>> rows = generateLayout(playersNumber);
+    List<List<Layout>> rows = generateLayout(context, playersNumber);
 
     PlayerBoxSize trackerSize = PlayerBoxSize.medium;
     if (playersNumber > 6) {
@@ -168,7 +195,8 @@ class Grid extends StatelessWidget {
     if (selectedPlayer != null) {
       for (var row in rows) {
         for (var layout in row) {
-          if (layout.player.id == selectedPlayer?.id) {
+          if (layout.direction != null &&
+              layout.player!.id == selectedPlayer?.id) {
             selectedPlayerLayout = layout;
           }
         }
@@ -182,24 +210,26 @@ class Grid extends StatelessWidget {
     for (var row in rows) {
       List<Widget> rowChildren = [];
       for (var layout in row) {
-        layout.player.reset(setting.startingLives);
+        layout.player!.reset(setting.startingLives);
         rowChildren.add(
           ChangeNotifierProvider.value(
             value: layout.player,
-            key: ValueKey(layout.player.id),
-            child: PlayerBox(
-              view: selectedPlayer == null
-                  ? PlayerBoxView.normal
-                  : PlayerBoxView.commander,
-              rotation: selectedPlayer == null
-                  ? layout.getRotation()
-                  : selectedPlayer != layout.player
-                      ? selectedPlayerLayout!.getRotation()
-                      : layout.getRotation(),
-              selectedPlayer: selectedPlayer,
-              size: trackerSize,
-              onToggleCommanderView: onToggleCommanderView,
-            ),
+            key: ValueKey(layout.player!.id),
+            child: layout.direction == null
+                ? const EmptyBox()
+                : PlayerBox(
+                    view: selectedPlayer == null
+                        ? PlayerBoxView.normal
+                        : PlayerBoxView.commander,
+                    rotation: selectedPlayer == null
+                        ? layout.getRotation()
+                        : selectedPlayer != layout.player
+                            ? selectedPlayerLayout!.getRotation()
+                            : layout.getRotation(),
+                    selectedPlayer: selectedPlayer,
+                    size: trackerSize,
+                    onToggleCommanderView: onToggleCommanderView,
+                  ),
           ),
         );
       }

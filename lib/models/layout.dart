@@ -8,8 +8,8 @@ enum LayoutDirection {
 }
 
 class Layout {
-  final Player player;
-  final LayoutDirection direction;
+  final Player? player;
+  final LayoutDirection? direction;
 
   Layout({
     required this.player,
@@ -17,7 +17,7 @@ class Layout {
   });
 
   int getRotation() {
-    switch (direction) {
+    switch (direction!) {
       case LayoutDirection.top:
         return 2;
       case LayoutDirection.left:

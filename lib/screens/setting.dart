@@ -7,11 +7,13 @@ class SettingScreen extends StatefulWidget {
   static const routeName = '/settings';
   final int playersNumber;
   final int startingLives;
+  final int tableLayout;
 
   const SettingScreen({
     Key? key,
     required this.playersNumber,
     required this.startingLives,
+    required this.tableLayout,
   }) : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   int _selectedPlayersNumber = 0;
   int _selectedStartingLives = 0;
+  int _selectedTableLayout = 0;
 
   @override
   void initState() {
@@ -28,26 +31,27 @@ class _SettingScreenState extends State<SettingScreen> {
 
     _selectedPlayersNumber = widget.playersNumber;
     _selectedStartingLives = widget.startingLives;
+    _selectedTableLayout = widget.tableLayout;
   }
 
   List<Widget> generateToggleWidgets({
-    required List<int> values,
+    required List<Map<String, String>> values,
     required int selectedValue,
     required Function onPress,
   }) {
     List<Widget> widgets = [];
 
-    for (int element in values) {
+    for (Map<String, String> element in values) {
       widgets.add(
         TextButton(
           onPressed: () {
             //togglePlayersNumber(element);
-            onPress(element);
+            onPress(int.parse(element['value'].toString()));
           },
           child: Text(
-            element.toString(),
+            element['label'].toString(),
           ),
-          style: selectedValue == element
+          style: selectedValue == int.parse(element['value'].toString())
               ? CustomTheme.toggleOnButtonStyle
               : CustomTheme.toggleOffButtonStyle,
         ),
@@ -79,11 +83,39 @@ class _SettingScreenState extends State<SettingScreen> {
             Wrap(
               spacing: 10,
               children: generateToggleWidgets(
-                values: [2, 3, 4, 5, 6, 7, 8],
+                values: [
+                  {"value": "2", "label": "2"},
+                  {"value": "3", "label": "3"},
+                  {"value": "4", "label": "4"},
+                  // {"value": "5", "label": "5"},
+                  // {"value": "6", "label": "6"},
+                  // {"value": "7", "label": "7"},
+                  // {"value": "8", "label": "8"},
+                ],
                 selectedValue: _selectedPlayersNumber,
                 onPress: (playersNumber) {
                   setState(() {
                     _selectedPlayersNumber = playersNumber;
+                  });
+                },
+              ),
+            ),
+            Text(
+              "Table Layouts",
+              textAlign: TextAlign.start,
+              style: CustomTheme.settingTitle,
+            ),
+            Wrap(
+              spacing: 10,
+              children: generateToggleWidgets(
+                values: [
+                  {"value": "1", "label": "Main"},
+                  {"value": "2", "label": "Alternative"},
+                ],
+                selectedValue: _selectedTableLayout,
+                onPress: (tableLayout) {
+                  setState(() {
+                    _selectedTableLayout = tableLayout;
                   });
                 },
               ),
@@ -96,7 +128,12 @@ class _SettingScreenState extends State<SettingScreen> {
             Wrap(
               spacing: 10,
               children: generateToggleWidgets(
-                values: [10, 20, 30, 40],
+                values: [
+                  {"value": "10", "label": "10"},
+                  {"value": "20", "label": "20"},
+                  {"value": "30", "label": "30"},
+                  {"value": "40", "label": "40"}
+                ],
                 selectedValue: _selectedStartingLives,
                 onPress: (startingLives) {
                   setState(() {
@@ -111,6 +148,8 @@ class _SettingScreenState extends State<SettingScreen> {
                   onPressed: () {
                     setting.changePlayersNumber(_selectedPlayersNumber);
                     setting.changeStartingLives(_selectedStartingLives);
+                    setting.changeTableLayout(_selectedTableLayout);
+
                     Navigator.pop(context);
                   },
                   child: const Text("New Game"),

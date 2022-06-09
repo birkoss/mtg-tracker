@@ -30,9 +30,9 @@ class CustomTheme {
   );
 
   static ButtonStyle toggleOffButtonStyle = OutlinedButton.styleFrom(
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.white70,
     primary: CustomTheme.accent,
-    side: BorderSide(color: CustomTheme.accent, width: 1),
+    side: BorderSide(color: CustomTheme.accent.withOpacity(0.2), width: 1),
     padding: const EdgeInsets.all(10),
     textStyle: GoogleFonts.urbanist(
       fontSize: 16,
