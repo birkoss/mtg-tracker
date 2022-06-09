@@ -40,14 +40,12 @@ class AmountBox extends StatefulWidget {
   final Player? selectedPlayer;
 
   final Function onSwitchCommander;
-  final Function onChangeType;
 
   const AmountBox({
     Key? key,
     required this.boxView,
     required this.selectedPlayer,
     required this.onSwitchCommander,
-    required this.onChangeType,
   }) : super(key: key);
 
   @override
@@ -185,19 +183,13 @@ class _AmountBox extends State<AmountBox> {
                                 semanticsLabel: 'Commander',
                               ),
                               onPressed: () {
-                                print("@TODO : CHANGING TYPE...");
                                 setState(() {
-                                  print("Current: " +
-                                      _types.indexOf(_type).toString());
                                   int index = _types.indexOf(_type) + 1;
                                   if (index >= _types.length) {
                                     index = 0;
                                   }
-                                  print("Next: " + index.toString());
                                   _type = _types.elementAt(index);
-                                  print("Next: " + _type.dataIndex);
                                 });
-                                widget.onChangeType();
                               },
                             ),
                           ),

@@ -58,9 +58,6 @@ class _PlayerBox extends State<PlayerBox> {
                 selectedPlayer: widget.selectedPlayer,
                 boxView: widget.view,
                 onSwitchCommander: widget.onToggleCommanderView,
-                onChangeType: () {
-                  print("CHANGE TYPE of " + player.id);
-                },
               ),
       ),
     );
