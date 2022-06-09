@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/themes/custom.dart';
 
 class SettingScreen extends StatefulWidget {
   static const routeName = '/settings';
@@ -19,31 +20,41 @@ class _SettingScreenState extends State<SettingScreen> {
       appBar: AppBar(
         title: const Text("Settings"),
       ),
-      body: Center(
+      body: Container(
+        padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text("Reset"),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text("Pick a player"),
-                ),
-              ],
+            Text(
+              "Number of players.",
+              textAlign: TextAlign.start,
+              style: CustomTheme.settingTitle,
             ),
-            const Text("Number of players"),
             Row(
               children: [
                 TextButton(
                   onPressed: () {},
                   child: Text("3"),
+                  style: CustomTheme.toggleOffButtonStyle,
                 ),
                 TextButton(
                   onPressed: () {},
                   child: Text("4"),
+                  style: CustomTheme.toggleOnButtonStyle,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                OutlinedButton(
+                  onPressed: () {},
+                  child: const Text("Reset"),
+                  style: CustomTheme.outlinedButtonStyle,
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Text("Pick a player"),
+                  style: CustomTheme.outlinedButtonStyle,
                 ),
               ],
             )

@@ -45,10 +45,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
       Player(id: "2", color: colors[1], poison: 0, health: 20),
       Player(id: "3", color: colors[2], poison: 0, health: 30),
       Player(id: "4", color: colors[3], poison: 0, health: 40),
-      // Player(id: "5", color: colors[4], poison: 0, health: 50),
-      // Player(id: "6", color: colors[5], poison: 0, health: 60),
-      // Player(id: "7", color: colors[6], poison: 0, health: 70),
-      // Player(id: "8", color: colors[7], poison: 0, health: 80),
+      Player(id: "5", color: colors[4], poison: 0, health: 50),
+      Player(id: "6", color: colors[5], poison: 0, health: 60),
+      Player(id: "7", color: colors[6], poison: 0, health: 70),
+      Player(id: "8", color: colors[7], poison: 0, health: 80),
     ];
   }
 
@@ -57,7 +57,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
     //print(players[0].health);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tracker..."),
+        title: const Text("MTG Tracker"),
       ),
       body: Center(
         child: Stack(
@@ -87,11 +87,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 ),
                 child: const Icon(
                   Icons.menu,
-                  color: Colors.blue,
+                  color: Colors.black87,
                   size: 30,
                 ),
                 onPressed: () {
-                  print("MENU SETTINGS...");
                   Navigator.push(
                     context,
                     MaterialPageRoute(

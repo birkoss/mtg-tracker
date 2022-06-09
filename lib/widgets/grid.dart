@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/boxes/player.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +19,10 @@ class Grid extends StatelessWidget {
     required this.onToggleCommanderView,
   }) : super(key: key);
 
-  List<List<Layout>> generateLayout(int playersLength) {
+  List<List<Layout>> generateLayout(int playersNumber) {
     List<List<Layout>> rows = [];
 
-    switch (players.length) {
+    switch (playersNumber) {
       case 2:
         rows.add([
           Layout(player: players[0], direction: LayoutDirection.left),
@@ -152,8 +153,9 @@ class Grid extends StatelessWidget {
     return rows;
   }
 
-  List<Widget> generateWidgets() {
-    List<List<Layout>> rows = generateLayout(players.length);
+  List<Widget> generateWidgets(int playersNumber) {
+    print("NB Players: " + playersNumber.toString());
+    List<List<Layout>> rows = generateLayout(playersNumber);
 
     PlayerBoxSize trackerSize = PlayerBoxSize.medium;
     if (players.length > 6) {
@@ -215,9 +217,13 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: generateWidgets(),
+    return Consumer<SettingNotifier>(
+      builder: (context, setting, child) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: generateWidgets(setting.playersNumber),
+        );
+      },
     );
   }
 }

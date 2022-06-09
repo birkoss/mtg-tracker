@@ -1,5 +1,9 @@
 // @TODO: Allow to change the direction of the commander view, instead of entering OUR cmd damage, changing the cmd damage dealt
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/screens/loading.dart';
+import 'package:mtgtracker/themes/custom.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/tracker.dart';
 
@@ -12,16 +16,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (ctx) => SettingNotifier(),
+      child: Consumer<SettingNotifier>(
+        builder: (context, SettingNotifier notifier, child) {
+          return MaterialApp(
+            title: 'MTG Tracker',
+            debugShowCheckedModeBanner: false,
+            theme: CustomTheme.lightTheme,
+            home: notifier.isReady
+                ? const TrackerScreen()
+                : const LoadingScreen(),
+          );
+        },
       ),
-      home: const TrackerScreen(),
-      routes: {
-        TrackerScreen.routeName: (ctx) => const TrackerScreen(),
-      },
     );
   }
 }
