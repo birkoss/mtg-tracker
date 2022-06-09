@@ -110,6 +110,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 OutlinedButton(
                   onPressed: () {
                     setting.changePlayersNumber(_selectedPlayersNumber);
+                    setting.changeStartingLives(_selectedStartingLives);
                     Navigator.pop(context);
                   },
                   child: const Text("New Game"),

@@ -23,6 +23,12 @@ class SettingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeStartingLives(startingLives) {
+    _startingLives = startingLives;
+    _save();
+    notifyListeners();
+  }
+
   Future _init() async {
     _pref ??= await SharedPreferences.getInstance();
   }

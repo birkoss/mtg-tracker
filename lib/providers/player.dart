@@ -8,20 +8,28 @@ class Player with ChangeNotifier {
   int health;
   int poison;
 
-  List<int> commander = [0, 0, 0, 0, 0, 0, 0, 0];
-  Map<String, int> data = {
-    'health': 40,
-    'poison': 0,
-    'energy': 0,
-    'experience': 0,
-  };
+  List<int> commander = [];
+  Map<String, int> data = {};
 
   Player({
     required this.id,
     required this.health,
     required this.color,
     required this.poison,
-  });
+  }) {
+    reset(40);
+  }
+
+  void reset(int startingLives) {
+    commander = [0, 0, 0, 0, 0, 0, 0, 0];
+
+    data = {
+      'health': startingLives,
+      'poison': 0,
+      'energy': 0,
+      'experience': 0,
+    };
+  }
 
   Future<void> refresh(String userToken) async {
     notifyListeners();

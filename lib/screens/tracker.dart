@@ -56,6 +56,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("tracker.build()");
     //print(players[0].health);
     return Scaffold(
       body: Center(

@@ -153,14 +153,14 @@ class Grid extends StatelessWidget {
     return rows;
   }
 
-  List<Widget> generateWidgets(int playersNumber) {
-    print("NB Players: " + playersNumber.toString());
+  List<Widget> generateWidgets(BuildContext context, int playersNumber) {
+    print("grid.generateWidgets(" + playersNumber.toString() + ")");
     List<List<Layout>> rows = generateLayout(playersNumber);
 
     PlayerBoxSize trackerSize = PlayerBoxSize.medium;
-    if (players.length > 6) {
+    if (playersNumber > 6) {
       trackerSize = PlayerBoxSize.small;
-    } else if (players.length < 4) {
+    } else if (playersNumber < 4) {
       trackerSize = PlayerBoxSize.large;
     }
 
@@ -175,11 +175,14 @@ class Grid extends StatelessWidget {
       }
     }
 
+    SettingNotifier setting =
+        Provider.of<SettingNotifier>(context, listen: false);
+
     List<Widget> children = [];
     for (var row in rows) {
       List<Widget> rowChildren = [];
       for (var layout in row) {
-        print(layout.player.id);
+        layout.player.reset(setting.startingLives);
         rowChildren.add(
           ChangeNotifierProvider.value(
             value: layout.player,
@@ -217,11 +220,13 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Provider.of<SettingNotifier>(context);
+    print("grid.build()");
     return Consumer<SettingNotifier>(
       builder: (context, setting, child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: generateWidgets(setting.playersNumber),
+          children: generateWidgets(context, setting.playersNumber),
         );
       },
     );

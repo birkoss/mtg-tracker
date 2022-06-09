@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       create: (ctx) => SettingNotifier(),
       child: Consumer<SettingNotifier>(
         builder: (context, SettingNotifier notifier, child) {
+          print("main.build()");
           return MaterialApp(
             title: 'MTG Tracker',
             debugShowCheckedModeBanner: false,
