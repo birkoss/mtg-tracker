@@ -12,6 +12,7 @@ enum PlayerBoxSize {
   large,
 }
 
+// What type of box should be visible
 enum PlayerBoxView {
   normal,
   commander,
@@ -20,10 +21,13 @@ enum PlayerBoxView {
 class PlayerBox extends StatefulWidget {
   // Rotation of this widget within the Grid
   final int rotation;
-
+  // Size of the box depending on the grid layout and players number
   final PlayerBoxSize size;
+  // normal or commander view
   final PlayerBoxView view;
+  // Called when toggling commander/normal view
   final Function onToggleCommanderView;
+  // The player currently in commander view
   final Player? selectedPlayer;
 
   const PlayerBox({

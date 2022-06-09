@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -167,9 +168,10 @@ class _AmountBox extends State<AmountBox> {
                           child: IconButton(
                             iconSize:
                                 22, //widget.size == TrackerSize.small ? 22 : 32,
-                            icon: const Icon(
-                              Icons.filter_alt,
-                              color: Colors.white70,
+                            icon: SvgPicture.asset(
+                              "assets/icons/commander.svg",
+                              color: Colors.white,
+                              semanticsLabel: 'Commander',
                             ),
                             onPressed: () {
                               widget.onSwitchCommander(player);
@@ -181,9 +183,10 @@ class _AmountBox extends State<AmountBox> {
                           child: IconButton(
                             iconSize:
                                 22, //widget.size == TrackerSize.small ? 22 : 32,
-                            icon: const Icon(
-                              Icons.heart_broken,
-                              color: Colors.white70,
+                            icon: SvgPicture.asset(
+                              "assets/icons/" + _type.dataIndex + ".svg",
+                              color: Colors.white,
+                              semanticsLabel: 'Commander',
                             ),
                             onPressed: () {
                               print("@TODO : CHANGING TYPE...");
