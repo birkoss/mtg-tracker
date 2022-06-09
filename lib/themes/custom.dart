@@ -115,7 +115,7 @@ class CustomTheme {
         },
       ),
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         titleTextStyle: GoogleFonts.urbanist(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/screens/setting.dart';
+import 'package:provider/provider.dart';
 
 import '../providers/player.dart';
 
@@ -56,9 +58,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
   Widget build(BuildContext context) {
     //print(players[0].health);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("MTG Tracker"),
-      ),
       body: Center(
         child: Stack(
           children: [
@@ -91,10 +90,14 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   size: 30,
                 ),
                 onPressed: () {
+                  SettingNotifier setting =
+                      Provider.of<SettingNotifier>(context, listen: false);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SettingScreen(),
+                      builder: (context) => SettingScreen(
+                        playersNumber: setting.playersNumber,
+                      ),
                     ),
                   );
                 },
