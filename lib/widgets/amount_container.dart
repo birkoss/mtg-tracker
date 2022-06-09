@@ -1,40 +1,42 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/player.dart';
 
 import '../widgets/amount_changes.dart';
 import '../widgets/button_updater.dart';
 
-enum SelectedPlayerSize { small, medium, large }
+enum TrackerSize { small, medium, large }
 
-class SelectedPlayer extends StatefulWidget {
-  final int rotationQuarterTurns;
-  final Color backgroundColor;
-  final SelectedPlayerSize size;
+enum TrackerType { normal, poison, commander }
+
+class AmountContainer extends StatefulWidget {
+  final int rotation;
+  final TrackerSize size;
+  final TrackerType type;
   final Function onPressOptions;
 
-  const SelectedPlayer({
+  const AmountContainer({
     Key? key,
-    required this.rotationQuarterTurns,
-    required this.backgroundColor,
+    required this.rotation,
     required this.size,
+    required this.type,
     required this.onPressOptions,
   }) : super(key: key);
 
   @override
-  _SelectedPlayerState createState() => _SelectedPlayerState();
+  _AmountContainer createState() => _AmountContainer();
 }
 
-class _SelectedPlayerState extends State<SelectedPlayer> {
-  int health = 0;
+class _AmountContainer extends State<AmountContainer> {
+  int _amountChanges = 0;
+  late RestartableTimer _timerAmountChanges;
 
-  int healthChanges = 0;
-  late RestartableTimer _timerHealthChanges;
-
-  void updateHealth(int value) {
-    _timerHealthChanges.reset();
+  void updateAmount(int value) {
+    _timerAmountChanges.reset();
     setState(() {
-      health += value;
-      healthChanges += value;
+      _amountChanges += value;
     });
   }
 
@@ -42,13 +44,13 @@ class _SelectedPlayerState extends State<SelectedPlayer> {
     double fontSize = 80;
 
     switch (widget.size) {
-      case SelectedPlayerSize.small:
-        fontSize = 40;
+      case TrackerSize.small:
+        fontSize = 30;
         break;
-      case SelectedPlayerSize.medium:
+      case TrackerSize.medium:
         fontSize = 50;
         break;
-      case SelectedPlayerSize.large:
+      case TrackerSize.large:
         fontSize = 80;
         break;
     }
@@ -60,23 +62,30 @@ class _SelectedPlayerState extends State<SelectedPlayer> {
   void initState() {
     super.initState();
 
-    _timerHealthChanges = RestartableTimer(
+    _timerAmountChanges = RestartableTimer(
       const Duration(seconds: 2),
       () {
         setState(() {
-          healthChanges = 0;
+          _amountChanges = 0;
         });
       },
     );
   }
 
   @override
+  void dispose() {
+    _timerAmountChanges.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var player = Provider.of<Player>(context, listen: false);
     return Expanded(
       child: RotatedBox(
-        quarterTurns: widget.rotationQuarterTurns,
+        quarterTurns: widget.rotation,
         child: Container(
-          color: widget.backgroundColor,
+          color: player.color,
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +95,12 @@ class _SelectedPlayerState extends State<SelectedPlayer> {
                 child: ButtonUpdater(
                   label: "-",
                   onPress: () {
-                    updateHealth(-1);
+                    if (widget.type == TrackerType.normal) {
+                      player.health--;
+                    } else {
+                      player.poison--;
+                    }
+                    updateAmount(-1);
                   },
                 ),
               ),
@@ -98,10 +112,12 @@ class _SelectedPlayerState extends State<SelectedPlayer> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       AmountChanges(
-                        amount: healthChanges,
+                        amount: _amountChanges,
                       ),
                       Text(
-                        health.toString(),
+                        widget.type == TrackerType.normal
+                            ? player.health.toString()
+                            : player.poison.toString(),
                         style: TextStyle(
                           fontSize: getAmountFontSize(),
                           color: Colors.white,
@@ -110,12 +126,15 @@ class _SelectedPlayerState extends State<SelectedPlayer> {
                       Material(
                         color: Colors.transparent,
                         child: IconButton(
-                          icon: const Icon(
-                            Icons.close,
+                          iconSize: widget.size == TrackerSize.small ? 22 : 32,
+                          icon: Icon(
+                            widget.type == TrackerType.normal
+                                ? Icons.filter_alt
+                                : Icons.close,
                             color: Colors.white70,
                           ),
                           onPressed: () {
-                            print("abc...");
+                            widget.onPressOptions(player);
                           },
                         ),
                       ),
@@ -128,7 +147,12 @@ class _SelectedPlayerState extends State<SelectedPlayer> {
                 child: ButtonUpdater(
                   label: "+",
                   onPress: () {
-                    updateHealth(1);
+                    if (widget.type == TrackerType.normal) {
+                      player.health++;
+                    } else {
+                      player.poison++;
+                    }
+                    updateAmount(1);
                   },
                 ),
               ),

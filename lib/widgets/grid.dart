@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/widgets/commander.dart';
+import 'package:mtgtracker/widgets/boxes/player.dart';
 import 'package:provider/provider.dart';
 
 import '../models/layout.dart';
 
 import '../providers/player.dart';
-
-import '../widgets/tracker.dart';
 
 class Grid extends StatelessWidget {
   final List<Player> players;
@@ -150,11 +148,11 @@ class Grid extends StatelessWidget {
         ]);
     }
 
-    TrackerSize trackerSize = TrackerSize.medium;
+    PlayerBoxSize trackerSize = PlayerBoxSize.medium;
     if (players.length > 6) {
-      trackerSize = TrackerSize.small;
+      trackerSize = PlayerBoxSize.small;
     } else if (players.length < 4) {
-      trackerSize = TrackerSize.large;
+      trackerSize = PlayerBoxSize.large;
     }
 
     Layout? selectedPlayerLayout;
@@ -177,7 +175,13 @@ class Grid extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: layout.player,
             key: ValueKey(layout.player.id),
-            child: selectedPlayer == null
+            child: PlayerBox(
+              rotation: layout.getRotation(),
+              size: trackerSize,
+              type: PlayerBoxType.normal,
+              onPressOptions: onPress,
+            ),
+            /* selectedPlayer == null
                 ? Tracker(
                     rotation: layout.getRotation(),
                     size: trackerSize,
@@ -197,6 +201,7 @@ class Grid extends StatelessWidget {
                         type: TrackerType.poison,
                         onPressOptions: onPress,
                       ),
+                      */
           ),
         );
       }

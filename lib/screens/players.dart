@@ -56,6 +56,9 @@ class _PlayersScreenState extends State<PlayersScreen> {
   Widget build(BuildContext context) {
     //print(players[0].health);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Tracker..."),
+      ),
       body: Center(
         child: Stack(
           children: [
