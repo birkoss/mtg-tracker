@@ -186,9 +186,6 @@ class Grid extends StatelessWidget {
               view: selectedPlayer == null
                   ? PlayerBoxView.normal
                   : PlayerBoxView.commander,
-              type: selectedPlayer == null
-                  ? PlayerBoxType.normal
-                  : PlayerBoxType.commander,
               rotation: selectedPlayer == null
                   ? layout.getRotation()
                   : selectedPlayer != layout.player

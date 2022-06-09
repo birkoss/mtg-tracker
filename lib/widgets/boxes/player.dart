@@ -12,15 +12,6 @@ enum PlayerBoxSize {
   large,
 }
 
-// What are we modifying in the Amount Box
-enum PlayerBoxType {
-  normal,
-  commander,
-  poison,
-  energy,
-  experience,
-}
-
 enum PlayerBoxView {
   normal,
   commander,
@@ -31,7 +22,6 @@ class PlayerBox extends StatefulWidget {
   final int rotation;
 
   final PlayerBoxSize size;
-  final PlayerBoxType type;
   final PlayerBoxView view;
   final Function onToggleCommanderView;
   final Player? selectedPlayer;
@@ -40,7 +30,6 @@ class PlayerBox extends StatefulWidget {
     Key? key,
     required this.rotation,
     required this.size,
-    required this.type,
     required this.view,
     required this.onToggleCommanderView,
     required this.selectedPlayer,
