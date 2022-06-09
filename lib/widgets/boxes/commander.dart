@@ -23,9 +23,17 @@ class _CommanderBox extends State<CommanderBox> {
       color: player.color,
       alignment: Alignment.center,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Text("Please assign your Commander Damage"),
+          const SizedBox(height: 10),
+          const Text(
+            "Please assign your Commander Damage",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
           Material(
             color: Colors.transparent,
             child: IconButton(
@@ -39,6 +47,7 @@ class _CommanderBox extends State<CommanderBox> {
               },
             ),
           ),
+          const SizedBox(height: 5),
         ],
       ),
     );
