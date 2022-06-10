@@ -186,13 +186,6 @@ class Grid extends StatelessWidget {
     print("Grid.generateWidgets(" + playersNumber.toString() + ")");
     List<List<Layout>> rows = generateLayout(context, playersNumber);
 
-    PlayerBoxSize trackerSize = PlayerBoxSize.medium;
-    if (playersNumber > 6) {
-      trackerSize = PlayerBoxSize.small;
-    } else if (playersNumber < 4) {
-      trackerSize = PlayerBoxSize.large;
-    }
-
     Layout? selectedPlayerLayout;
     if (selectedPlayer != null) {
       for (var row in rows) {
@@ -212,7 +205,8 @@ class Grid extends StatelessWidget {
     for (var row in rows) {
       List<Widget> rowChildren = [];
       for (var layout in row) {
-        layout.player!.reset(setting.startingLives);
+        //@TODO: Reset
+        //layout.player!.reset(setting.startingLives);
         rowChildren.add(
           ChangeNotifierProvider.value(
             value: layout.player,
@@ -233,7 +227,6 @@ class Grid extends StatelessWidget {
                             ? selectedPlayerLayout!.getRotation()
                             : layout.getRotation(),
                     selectedPlayer: selectedPlayer,
-                    size: trackerSize,
                     onToggleCommanderView: onToggleCommanderView,
                   ),
           ),

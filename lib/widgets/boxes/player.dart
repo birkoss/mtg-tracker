@@ -6,12 +6,6 @@ import '../../providers/player.dart';
 
 import '../../widgets/boxes/amount.dart';
 
-enum PlayerBoxSize {
-  small,
-  medium,
-  large,
-}
-
 // What type of box should be visible
 enum PlayerBoxView {
   normal,
@@ -21,8 +15,6 @@ enum PlayerBoxView {
 class PlayerBox extends StatefulWidget {
   // Rotation of this widget within the Grid
   final int rotation;
-  // Size of the box depending on the grid layout and players number
-  final PlayerBoxSize size;
   // normal or commander view
   final PlayerBoxView view;
   // Called when toggling commander/normal view
@@ -35,7 +27,6 @@ class PlayerBox extends StatefulWidget {
   const PlayerBox({
     Key? key,
     required this.rotation,
-    required this.size,
     required this.view,
     required this.onToggleCommanderView,
     required this.selectedPlayer,
@@ -47,15 +38,33 @@ class PlayerBox extends StatefulWidget {
 }
 
 class _PlayerBox extends State<PlayerBox> {
-  double opacity = 0;
+  Widget _getContent(Player player) {
+    if (widget.diceRollWinner) {
+      return const Text(
+        "You Win the Dice Roll",
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    if (widget.selectedPlayer == player) {
+      return CommanderBox(
+        onToggleCommanderView: widget.onToggleCommanderView,
+      );
+    }
+
+    return AmountBox(
+      selectedPlayer: widget.selectedPlayer,
+      boxView: widget.view,
+      onSwitchCommander: widget.onToggleCommanderView,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     var player = Provider.of<Player>(context, listen: false);
-
-    if (widget.selectedPlayer == player) {
-      opacity = 0;
-    }
 
     print("PlayerBox.build() - Player ID:" + player.id);
 
@@ -75,17 +84,8 @@ class _PlayerBox extends State<PlayerBox> {
               child: child,
               scale: animation,
             ),
-            child: widget.selectedPlayer == player
-                ? CommanderBox(
-                    onToggleCommanderView: widget.onToggleCommanderView,
-                  )
-                : AmountBox(
-                    selectedPlayer: widget.selectedPlayer,
-                    boxView: widget.view,
-                    onSwitchCommander: widget.onToggleCommanderView,
-                  ),
+            child: _getContent(player),
           ),
-          // if (widget.selectedPlayer == player)
         ),
       ),
     );

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         builder: (context, SettingNotifier notifier, child) {
           print("main.build()");
           return MaterialApp(
-            title: 'MTG Tracker',
+            title: 'MTG Life Tracker',
             debugShowCheckedModeBanner: false,
             theme: CustomTheme.lightTheme,
             home: notifier.isReady

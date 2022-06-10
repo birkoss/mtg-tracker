@@ -10,6 +10,7 @@ class SettingScreen extends StatefulWidget {
   final int tableLayout;
 
   final Function onPickNewPlayer;
+  final Function onNewGame;
 
   const SettingScreen({
     Key? key,
@@ -17,6 +18,7 @@ class SettingScreen extends StatefulWidget {
     required this.startingLives,
     required this.tableLayout,
     required this.onPickNewPlayer,
+    required this.onNewGame,
   }) : super(key: key);
 
   @override
@@ -159,7 +161,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
                     Navigator.pop(context);
 
-                    widget.onPickNewPlayer();
+                    widget.onNewGame();
                   },
                   child: const Text("New Game"),
                   style: CustomTheme.outlinedButtonStyle,

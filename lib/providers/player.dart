@@ -5,17 +5,12 @@ class Player with ChangeNotifier {
 
   Color color;
 
-  int health;
-  int poison;
-
   List<int> commander = [];
   Map<String, int> data = {};
 
   Player({
     required this.id,
-    required this.health,
     required this.color,
-    required this.poison,
   }) {
     reset(40);
   }

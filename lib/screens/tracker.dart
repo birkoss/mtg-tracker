@@ -22,11 +22,9 @@ class TrackerScreen extends StatefulWidget {
 }
 
 class _TrackerScreenState extends State<TrackerScreen> {
-  Player? selectedPlayer;
+  Player? _selectedPlayer;
 
-  List<Player> players = [];
-
-  void updateValue(player, newValue) {}
+  List<Player> _players = [];
 
   int _pickedPlayer = 0;
 
@@ -47,89 +45,103 @@ class _TrackerScreenState extends State<TrackerScreen> {
       const Color.fromRGBO(233, 91, 55, 1)
     ];
 
-    players = [
-      Player(id: "1", color: colors[0], poison: 0, health: 10),
-      Player(id: "2", color: colors[1], poison: 0, health: 20),
-      Player(id: "3", color: colors[2], poison: 0, health: 30),
-      Player(id: "4", color: colors[3], poison: 0, health: 40),
-      Player(id: "5", color: colors[4], poison: 0, health: 50),
-      Player(id: "6", color: colors[5], poison: 0, health: 60),
-      Player(id: "7", color: colors[6], poison: 0, health: 70),
-      Player(id: "8", color: colors[7], poison: 0, health: 80),
+    _players = [
+      Player(id: "1", color: colors[0]),
+      Player(id: "2", color: colors[1]),
+      Player(id: "3", color: colors[2]),
+      Player(id: "4", color: colors[3]),
+      Player(id: "5", color: colors[4]),
+      Player(id: "6", color: colors[5]),
+      Player(id: "7", color: colors[6]),
+      Player(id: "8", color: colors[7]),
     ];
+  }
+
+  void _newGame() {
+    SettingNotifier setting =
+        Provider.of<SettingNotifier>(context, listen: false);
+
+    for (Player player in _players) {
+      player.reset(setting.startingLives);
+    }
+
+    _pickNewPlayer();
+  }
+
+  void _pickNewPlayer() {
+    SettingNotifier setting =
+        Provider.of<SettingNotifier>(context, listen: false);
+    setState(() {
+      if (_pickedPlayer == 0) {
+        _pickedPlayer = Random().nextInt(setting.playersNumber) + 1;
+
+        Timer(
+          const Duration(seconds: 2),
+          () {
+            setState(() {
+              _pickedPlayer = 0;
+            });
+          },
+        );
+      }
+    });
+  }
+
+  void _toggleCommanderView(Player player) {
+    setState(() {
+      if (_selectedPlayer == player) {
+        _selectedPlayer = null;
+      } else {
+        _selectedPlayer = player;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     print("TrackerScreen.build() PickedPlayer: " + _pickedPlayer.toString());
-    //print(players[0].health);
+
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: [
-            Grid(
-              players: players,
-              selectedPlayer: selectedPlayer,
-              diceRollWinner: _pickedPlayer,
-              onToggleCommanderView: (Player player) {
-                setState(
-                  () {
-                    if (selectedPlayer == player) {
-                      selectedPlayer = null;
-                    } else {
-                      selectedPlayer = player;
-                    }
-                  },
+      body: Stack(
+        children: [
+          Grid(
+            players: _players,
+            selectedPlayer: _selectedPlayer,
+            diceRollWinner: _pickedPlayer,
+            onToggleCommanderView: _toggleCommanderView,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(10),
+              ),
+              child: const Icon(
+                Icons.menu,
+                color: Colors.black87,
+                size: 30,
+              ),
+              onPressed: () {
+                SettingNotifier setting =
+                    Provider.of<SettingNotifier>(context, listen: false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingScreen(
+                      tableLayout: setting.tableLayout,
+                      startingLives: setting.startingLives,
+                      playersNumber: setting.playersNumber,
+                      onPickNewPlayer: _pickNewPlayer,
+                      onNewGame: _newGame,
+                    ),
+                  ),
                 );
               },
             ),
-            Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(10),
-                ),
-                child: const Icon(
-                  Icons.menu,
-                  color: Colors.black87,
-                  size: 30,
-                ),
-                onPressed: () {
-                  SettingNotifier setting =
-                      Provider.of<SettingNotifier>(context, listen: false);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SettingScreen(
-                          tableLayout: setting.tableLayout,
-                          startingLives: setting.startingLives,
-                          playersNumber: setting.playersNumber,
-                          onPickNewPlayer: () {
-                            setState(() {
-                              if (_pickedPlayer == 0) {
-                                _pickedPlayer =
-                                    Random().nextInt(setting.playersNumber) + 1;
-
-                                Timer(
-                                  const Duration(seconds: 2),
-                                  () {
-                                    setState(() {
-                                      _pickedPlayer = 0;
-                                    });
-                                  },
-                                );
-                              }
-                            });
-                          }),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
