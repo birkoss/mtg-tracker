@@ -93,10 +93,8 @@ class _AmountBox extends State<AmountBox> {
                   children: [
                     Text(
                       widget.getValue(),
-                      style: const TextStyle(
-                        fontSize: 50,
-                        color: Colors.white,
-                      ),
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                   ],
                 ),

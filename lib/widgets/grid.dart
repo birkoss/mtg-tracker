@@ -96,38 +96,72 @@ class Grid extends StatelessWidget {
 
         break;
       case 5:
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.left),
-          Layout(player: players[1], direction: LayoutDirection.right),
-        ]);
+        if (setting.tableLayout == 2) {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
 
-        rows.add([
-          Layout(player: players[2], direction: LayoutDirection.left),
-          Layout(player: players[3], direction: LayoutDirection.right),
-        ]);
+          rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
 
-        rows.add([
-          Layout(player: players[4], direction: LayoutDirection.bottom),
-        ]);
+          rows.add([
+            Layout(player: players[4], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
+
+          rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
+
+          rows.add([
+            Layout(player: players[4], direction: LayoutDirection.left),
+            Layout(player: players[5], direction: null),
+          ]);
+        }
         break;
       case 6:
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.top),
-        ]);
+        if (setting.tableLayout == 2) {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.top),
+          ]);
 
-        rows.add([
-          Layout(player: players[1], direction: LayoutDirection.left),
-          Layout(player: players[2], direction: LayoutDirection.right),
-        ]);
+          rows.add([
+            Layout(player: players[1], direction: LayoutDirection.left),
+            Layout(player: players[2], direction: LayoutDirection.right),
+          ]);
 
-        rows.add([
-          Layout(player: players[3], direction: LayoutDirection.left),
-          Layout(player: players[4], direction: LayoutDirection.right),
-        ]);
+          rows.add([
+            Layout(player: players[3], direction: LayoutDirection.left),
+            Layout(player: players[4], direction: LayoutDirection.right),
+          ]);
 
-        rows.add([
-          Layout(player: players[5], direction: LayoutDirection.bottom),
-        ]);
+          rows.add([
+            Layout(player: players[5], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
+
+          rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
+
+          rows.add([
+            Layout(player: players[4], direction: LayoutDirection.left),
+            Layout(player: players[5], direction: LayoutDirection.right),
+          ]);
+        }
         break;
       case 7:
         rows.add([
