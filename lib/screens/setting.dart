@@ -164,12 +164,42 @@ class _SettingScreenState extends State<SettingScreen> {
               style: CustomTheme.outlinedButtonStyle,
             ),
             ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pop(context);
-                  widget.onPickNewPlayer();
+              onPressed: () {
+                Navigator.pop(context);
+                widget.onPickNewPlayer();
+              },
+              icon: const Icon(Icons.casino),
+              label: const Text("Pick a Player at Random"),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                setting.toggleDarkTheme();
+              },
+              icon: const Icon(Icons.casino),
+              label: const Text("Toggle Theme"),
+            ),
+            Text(
+              "Theme",
+              textAlign: TextAlign.start,
+              style: CustomTheme.settingTitle,
+            ),
+            Wrap(
+              spacing: 10,
+              children: generateToggleWidgets(
+                values: [
+                  {"value": "1", "label": "Light"},
+                  {"value": "2", "label": "Dark"}
+                ],
+                selectedValue: setting.isDarkTheme ? 2 : 1,
+                onPress: (theme) {
+                  // console.log(them)
+                  if (setting.isDarkTheme && theme == 1 ||
+                      !setting.isDarkTheme && theme == 2) {
+                    setting.toggleDarkTheme();
+                  }
                 },
-                icon: const Icon(Icons.casino),
-                label: const Text("Pick a Player at Random")),
+              ),
+            )
           ],
         ),
       ),

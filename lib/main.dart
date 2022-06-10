@@ -26,15 +26,16 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (ctx) => SettingNotifier(),
       child: Consumer<SettingNotifier>(
-        builder: (context, SettingNotifier notifier, child) {
+        builder: (context, SettingNotifier setting, child) {
           print("main.build()");
           return MaterialApp(
             title: 'MTG Life Tracker',
             debugShowCheckedModeBanner: false,
-            theme: CustomTheme.lightTheme,
-            home: notifier.isReady
-                ? const TrackerScreen()
-                : const LoadingScreen(),
+            theme: setting.isDarkTheme
+                ? CustomTheme.darkTheme
+                : CustomTheme.lightTheme,
+            home:
+                setting.isReady ? const TrackerScreen() : const LoadingScreen(),
           );
         },
       ),

@@ -7,6 +7,9 @@ class SettingNotifier extends ChangeNotifier {
   bool _isReady = false;
   bool get isReady => _isReady;
 
+  bool _isDarkTheme = false;
+  bool get isDarkTheme => _isDarkTheme;
+
   int _playersNumber = 0;
   int get playersNumber => _playersNumber;
 
@@ -22,6 +25,12 @@ class SettingNotifier extends ChangeNotifier {
 
   void changePlayersNumber(playersNumber) {
     _playersNumber = playersNumber;
+    _save();
+    notifyListeners();
+  }
+
+  void toggleDarkTheme() {
+    _isDarkTheme = !_isDarkTheme;
     _save();
     notifyListeners();
   }
@@ -47,6 +56,7 @@ class SettingNotifier extends ChangeNotifier {
     _playersNumber = _pref!.getInt("PLAYERS_NUMBER") ?? 4;
     _startingLives = _pref!.getInt("STARTING_LIVES") ?? 40;
     _tableLayout = _pref!.getInt("TABLE_LAYOUT") ?? 1;
+    _isDarkTheme = _pref!.getBool("IS_DARK_THEME") ?? false;
     notifyListeners();
 
     _isReady = true;
@@ -57,5 +67,6 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setInt("PLAYERS_NUMBER", _playersNumber);
     _pref!.setInt("STARTING_LIVES", _startingLives);
     _pref!.setInt("TABLE_LAYOUT", _tableLayout);
+    _pref!.setBool("IS_DARK_THEME", _isDarkTheme);
   }
 }
