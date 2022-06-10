@@ -83,8 +83,8 @@ class _SettingScreenState extends State<SettingScreen> {
             Toggles(
               defaultValue: _selectedTableLayout.toString(),
               values: const [
-                {"value": "1", "label": "Main"},
-                {"value": "2", "label": "Alternative"},
+                {"value": "1", "label": "Same Side"},
+                {"value": "2", "label": "All Around"},
               ],
               onChanged: (String value) {
                 _selectedTableLayout = int.parse(value);
