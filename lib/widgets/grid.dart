@@ -218,9 +218,6 @@ class Grid extends StatelessWidget {
                         diceRollWinner.toString() == layout.player!.id
                             ? true
                             : false,
-                    view: selectedPlayer == null
-                        ? PlayerBoxView.normal
-                        : PlayerBoxView.commander,
                     rotation: selectedPlayer == null
                         ? layout.getRotation()
                         : selectedPlayer != layout.player

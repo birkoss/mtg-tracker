@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/widgets/boxes/amount_commander.dart';
-import 'package:mtgtracker/widgets/boxes/amount_data.dart';
-import 'package:mtgtracker/widgets/boxes/commander.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/player.dart';
-
-import '../../widgets/boxes/amount.dart';
-
-// What type of box should be visible
-enum PlayerBoxView {
-  normal,
-  commander,
-}
+import '../../widgets/boxes/amount_commander.dart';
+import '../../widgets/boxes/amount_data.dart';
+import '../../widgets/boxes/commander.dart';
 
 class PlayerBox extends StatefulWidget {
   // Rotation of this widget within the Grid
   final int rotation;
-  // normal or commander view
-  final PlayerBoxView view;
   // Called when toggling commander/normal view
   final Function onToggleCommanderView;
   // The player currently in commander view
@@ -29,7 +19,6 @@ class PlayerBox extends StatefulWidget {
   const PlayerBox({
     Key? key,
     required this.rotation,
-    required this.view,
     required this.onToggleCommanderView,
     required this.selectedPlayer,
     required this.diceRollWinner,
@@ -41,10 +30,7 @@ class PlayerBox extends StatefulWidget {
 
 class _PlayerBox extends State<PlayerBox> {
   Widget _getContent(Player player) {
-    print("PlayerBox._getContent() : Player ID:" +
-        player.id +
-        " " +
-        widget.view.toString());
+    // Show the dice roll winner
     if (widget.diceRollWinner) {
       return const Text(
         "You Win the Dice Roll",
@@ -55,6 +41,7 @@ class _PlayerBox extends State<PlayerBox> {
       );
     }
 
+    // Show the commander panel and commander values
     if (widget.selectedPlayer == player) {
       return CommanderBox(
         onToggleCommanderView: widget.onToggleCommanderView,
@@ -63,6 +50,7 @@ class _PlayerBox extends State<PlayerBox> {
       return AmountCommanderBox(selectedPlayer: widget.selectedPlayer!);
     }
 
+    // Show the normal values (and toggling between types)
     return AmountDataBox(
       onToggleCommanderView: widget.onToggleCommanderView,
     );
