@@ -32,11 +32,17 @@ class _PlayerBox extends State<PlayerBox> {
   Widget _getContent(Player player) {
     // Show the dice roll winner
     if (widget.diceRollWinner) {
-      return const Text(
-        "You Win the Dice Roll",
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+      return const Padding(
+        padding: EdgeInsets.all(8),
+        child: Flexible(
+          child: Text(
+            "You Win the Dice Roll",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
         ),
       );
     }

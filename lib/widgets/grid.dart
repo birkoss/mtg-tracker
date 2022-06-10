@@ -264,7 +264,7 @@ class Grid extends StatelessWidget {
 
       children.add(
         Expanded(
-          flex: (row.length == 2 ? 5 : 3),
+          flex: (row.length == 2 ? 6 : 4),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: rowChildren,

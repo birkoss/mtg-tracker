@@ -75,38 +75,19 @@ class _AmountBox extends State<AmountBox> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AmountText(
-                      amount: _amountChanges,
+              AmountText(
+                amount: _amountChanges,
+              ),
+              Text(
+                widget.getValue(),
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              widget.child != null
+                  ? widget.child!
+                  : const SizedBox(
+                      height: 2,
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.getValue(),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: widget.child != null
-                    ? widget.child!
-                    : const SizedBox(
-                        height: 2,
-                      ),
-              ),
             ],
           ),
         ),
