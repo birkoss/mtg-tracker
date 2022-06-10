@@ -150,32 +150,26 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Wrap(
-              spacing: 10,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    setting.changePlayersNumber(_selectedPlayersNumber);
-                    setting.changeStartingLives(_selectedStartingLives);
-                    setting.changeTableLayout(_selectedTableLayout);
+            OutlinedButton(
+              onPressed: () {
+                setting.changePlayersNumber(_selectedPlayersNumber);
+                setting.changeStartingLives(_selectedStartingLives);
+                setting.changeTableLayout(_selectedTableLayout);
 
-                    Navigator.pop(context);
+                Navigator.pop(context);
 
-                    widget.onNewGame();
-                  },
-                  child: const Text("New Game"),
-                  style: CustomTheme.outlinedButtonStyle,
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    widget.onPickNewPlayer();
-                  },
-                  child: const Text("Pick a player at random"),
-                  style: CustomTheme.outlinedButtonStyle,
-                ),
-              ],
-            )
+                widget.onNewGame();
+              },
+              child: const Text("New Game"),
+              style: CustomTheme.outlinedButtonStyle,
+            ),
+            ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                  widget.onPickNewPlayer();
+                },
+                icon: const Icon(Icons.casino),
+                label: const Text("Pick a Player at Random")),
           ],
         ),
       ),
