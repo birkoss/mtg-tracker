@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/themes/custom.dart';
+import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -39,33 +40,6 @@ class _SettingScreenState extends State<SettingScreen> {
     _selectedTableLayout = widget.tableLayout;
   }
 
-  List<Widget> generateToggleWidgets({
-    required List<Map<String, String>> values,
-    required int selectedValue,
-    required Function onPress,
-  }) {
-    List<Widget> widgets = [];
-
-    for (Map<String, String> element in values) {
-      widgets.add(
-        TextButton(
-          onPressed: () {
-            //togglePlayersNumber(element);
-            onPress(int.parse(element['value'].toString()));
-          },
-          child: Text(
-            element['label'].toString(),
-          ),
-          style: selectedValue == int.parse(element['value'].toString())
-              ? CustomTheme.toggleOnButtonStyle
-              : CustomTheme.toggleOffButtonStyle,
-        ),
-      );
-    }
-
-    return widgets;
-  }
-
   @override
   Widget build(BuildContext context) {
     SettingNotifier setting =
@@ -83,74 +57,59 @@ class _SettingScreenState extends State<SettingScreen> {
             Text(
               "Number of players",
               textAlign: TextAlign.start,
-              style: CustomTheme.settingTitle,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
-            Wrap(
-              spacing: 10,
-              children: generateToggleWidgets(
-                values: [
-                  {"value": "2", "label": "2"},
-                  {"value": "3", "label": "3"},
-                  {"value": "4", "label": "4"},
-                  // {"value": "5", "label": "5"},
-                  // {"value": "6", "label": "6"},
-                  // {"value": "7", "label": "7"},
-                  // {"value": "8", "label": "8"},
-                ],
-                selectedValue: _selectedPlayersNumber,
-                onPress: (playersNumber) {
-                  setState(() {
-                    _selectedPlayersNumber = playersNumber;
-                  });
-                },
-              ),
+            Toggles(
+              defaultValue: _selectedPlayersNumber.toString(),
+              values: const [
+                {"value": "2", "label": "2"},
+                {"value": "3", "label": "3"},
+                {"value": "4", "label": "4"},
+                // {"value": "5", "label": "5"},
+                // {"value": "6", "label": "6"},
+                // {"value": "7", "label": "7"},
+                // {"value": "8", "label": "8"},
+              ],
+              onChanged: (String value) {
+                _selectedPlayersNumber = int.parse(value);
+              },
             ),
             const SizedBox(height: 20),
             Text(
               "Table Layouts",
               textAlign: TextAlign.start,
-              style: CustomTheme.settingTitle,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
-            Wrap(
-              spacing: 10,
-              children: generateToggleWidgets(
-                values: [
-                  {"value": "1", "label": "Main"},
-                  {"value": "2", "label": "Alternative"},
-                ],
-                selectedValue: _selectedTableLayout,
-                onPress: (tableLayout) {
-                  setState(() {
-                    _selectedTableLayout = tableLayout;
-                  });
-                },
-              ),
+            Toggles(
+              defaultValue: _selectedTableLayout.toString(),
+              values: const [
+                {"value": "1", "label": "Main"},
+                {"value": "2", "label": "Alternative"},
+              ],
+              onChanged: (String value) {
+                _selectedTableLayout = int.parse(value);
+              },
             ),
             const SizedBox(height: 20),
             Text(
               "Starting lives",
               textAlign: TextAlign.start,
-              style: CustomTheme.settingTitle,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
-            Wrap(
-              spacing: 10,
-              children: generateToggleWidgets(
-                values: [
-                  {"value": "10", "label": "10"},
-                  {"value": "20", "label": "20"},
-                  {"value": "30", "label": "30"},
-                  {"value": "40", "label": "40"}
-                ],
-                selectedValue: _selectedStartingLives,
-                onPress: (startingLives) {
-                  setState(() {
-                    _selectedStartingLives = startingLives;
-                  });
-                },
-              ),
+            Toggles(
+              defaultValue: _selectedStartingLives.toString(),
+              values: const [
+                {"value": "10", "label": "10"},
+                {"value": "20", "label": "20"},
+                {"value": "30", "label": "30"},
+                {"value": "40", "label": "40"}
+              ],
+              onChanged: (String value) {
+                _selectedStartingLives = int.parse(value);
+              },
             ),
             const SizedBox(height: 20),
-            OutlinedButton(
+            ElevatedButton(
               onPressed: () {
                 setting.changePlayersNumber(_selectedPlayersNumber);
                 setting.changeStartingLives(_selectedStartingLives);
@@ -161,7 +120,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 widget.onNewGame();
               },
               child: const Text("New Game"),
-              style: CustomTheme.outlinedButtonStyle,
+            ),
+            const Divider(
+              height: 30,
+              thickness: 2,
             ),
             ElevatedButton.icon(
               onPressed: () {
@@ -171,35 +133,28 @@ class _SettingScreenState extends State<SettingScreen> {
               icon: const Icon(Icons.casino),
               label: const Text("Pick a Player at Random"),
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                setting.toggleDarkTheme();
-              },
-              icon: const Icon(Icons.casino),
-              label: const Text("Toggle Theme"),
+            const Divider(
+              height: 30,
+              thickness: 2,
             ),
             Text(
               "Theme",
               textAlign: TextAlign.start,
-              style: CustomTheme.settingTitle,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
-            Wrap(
-              spacing: 10,
-              children: generateToggleWidgets(
-                values: [
-                  {"value": "1", "label": "Light"},
-                  {"value": "2", "label": "Dark"}
-                ],
-                selectedValue: setting.isDarkTheme ? 2 : 1,
-                onPress: (theme) {
-                  // console.log(them)
-                  if (setting.isDarkTheme && theme == 1 ||
-                      !setting.isDarkTheme && theme == 2) {
-                    setting.toggleDarkTheme();
-                  }
-                },
-              ),
-            )
+            Toggles(
+              defaultValue: setting.isDarkTheme ? "2" : "1",
+              values: const [
+                {"value": "1", "label": "Light"},
+                {"value": "2", "label": "Dark"}
+              ],
+              onChanged: (String value) {
+                if (setting.isDarkTheme && value == "1" ||
+                    !setting.isDarkTheme && value == "2") {
+                  setting.toggleDarkTheme();
+                }
+              },
+            ),
           ],
         ),
       ),

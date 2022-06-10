@@ -114,13 +114,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
             alignment: Alignment.center,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
+                primary: Theme.of(context).appBarTheme.backgroundColor,
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(10),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.menu,
-                color: Colors.black87,
+                color: Theme.of(context).appBarTheme.foregroundColor,
                 size: 30,
               ),
               onPressed: () {
