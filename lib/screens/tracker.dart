@@ -102,48 +102,46 @@ class _TrackerScreenState extends State<TrackerScreen> {
     print("TrackerScreen.build() PickedPlayer: " + _pickedPlayer.toString());
 
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Grid(
-              players: _players,
-              selectedPlayer: _selectedPlayer,
-              diceRollWinner: _pickedPlayer,
-              onToggleCommanderView: _toggleCommanderView,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).appBarTheme.backgroundColor,
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(10),
-                ),
-                child: Icon(
-                  Icons.menu,
-                  color: Theme.of(context).appBarTheme.foregroundColor,
-                  size: 30,
-                ),
-                onPressed: () {
-                  SettingNotifier setting =
-                      Provider.of<SettingNotifier>(context, listen: false);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SettingScreen(
-                        tableLayout: setting.tableLayout,
-                        startingLives: setting.startingLives,
-                        playersNumber: setting.playersNumber,
-                        onPickNewPlayer: _pickNewPlayer,
-                        onNewGame: _newGame,
-                      ),
-                    ),
-                  );
-                },
+      body: Stack(
+        children: [
+          Grid(
+            players: _players,
+            selectedPlayer: _selectedPlayer,
+            diceRollWinner: _pickedPlayer,
+            onToggleCommanderView: _toggleCommanderView,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).appBarTheme.backgroundColor,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(10),
               ),
+              child: Icon(
+                Icons.menu,
+                color: Theme.of(context).appBarTheme.foregroundColor,
+                size: 30,
+              ),
+              onPressed: () {
+                SettingNotifier setting =
+                    Provider.of<SettingNotifier>(context, listen: false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingScreen(
+                      tableLayout: setting.tableLayout,
+                      startingLives: setting.startingLives,
+                      playersNumber: setting.playersNumber,
+                      onPickNewPlayer: _pickNewPlayer,
+                      onNewGame: _newGame,
+                    ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
