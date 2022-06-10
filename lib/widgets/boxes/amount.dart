@@ -8,12 +8,14 @@ class AmountBox extends StatefulWidget {
   final Widget? child;
   final Function setValue;
   final Function getValue;
+  final Function()? onPress;
 
   const AmountBox({
     Key? key,
     this.child,
     required this.setValue,
     required this.getValue,
+    this.onPress,
   }) : super(key: key);
 
   @override
@@ -72,23 +74,29 @@ class _AmountBox extends State<AmountBox> {
         ),
         Expanded(
           flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AmountText(
-                amount: _amountChanges,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: widget.onPress,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AmountText(
+                    amount: _amountChanges,
+                  ),
+                  Text(
+                    widget.getValue(),
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  widget.child != null
+                      ? widget.child!
+                      : const SizedBox(
+                          height: 2,
+                        ),
+                ],
               ),
-              Text(
-                widget.getValue(),
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              widget.child != null
-                  ? widget.child!
-                  : const SizedBox(
-                      height: 2,
-                    ),
-            ],
+            ),
           ),
         ),
         Expanded(

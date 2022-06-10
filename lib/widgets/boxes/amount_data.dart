@@ -55,58 +55,56 @@ class _AmountDataBoxState extends State<AmountDataBox> {
   Widget build(BuildContext context) {
     Player player = Provider.of<Player>(context, listen: false);
 
-    return AmountBox(
-      getValue: () {
-        return player.data[_type.dataIndex].toString();
-      },
-      setValue: (int modifier) {
-        player.data[_type.dataIndex] = player.data[_type.dataIndex]! + modifier;
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: Material(
-              color: Colors.transparent,
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/commander.svg",
-                  color: Colors.white70,
-                  semanticsLabel: 'Commander',
-                ),
-                onPressed: () {
-                  widget.onToggleCommanderView(player);
-                },
-              ),
-            ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SvgPicture.asset(
+            "assets/icons/" + _type.dataIndex + ".svg",
+            fit: BoxFit.scaleDown,
+            color: Colors.white10,
+            semanticsLabel: 'Commander',
           ),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: Material(
-              color: Colors.transparent,
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/" + _type.dataIndex + ".svg",
-                  color: Colors.white70,
-                  semanticsLabel: 'Commander',
+        ),
+        AmountBox(
+          getValue: () {
+            return player.data[_type.dataIndex].toString();
+          },
+          setValue: (int modifier) {
+            player.data[_type.dataIndex] =
+                player.data[_type.dataIndex]! + modifier;
+          },
+          onPress: () {
+            setState(() {
+              int index = _types.indexOf(_type) + 1;
+              if (index >= _types.length) {
+                index = 0;
+              }
+              _type = _types.elementAt(index);
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/icons/commander.svg",
+                    height: 30,
+                    fit: BoxFit.scaleDown,
+                    color: Colors.white70,
+                    semanticsLabel: 'Commander',
+                  ),
+                  onPressed: () {
+                    widget.onToggleCommanderView(player);
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    int index = _types.indexOf(_type) + 1;
-                    if (index >= _types.length) {
-                      index = 0;
-                    }
-                    _type = _types.elementAt(index);
-                  });
-                },
               ),
-            ),
-          )
-        ],
-      ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

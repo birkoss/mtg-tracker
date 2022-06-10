@@ -17,7 +17,7 @@ class CustomTheme {
       textTheme: TextTheme(
         /* Amount number */
         headline1: GoogleFonts.urbanist(
-          fontSize: 50,
+          fontSize: 45,
           letterSpacing: 1,
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class CustomTheme {
       ),
       textTheme: TextTheme(
         headline1: GoogleFonts.urbanist(
-          fontSize: 50,
+          fontSize: 45,
           letterSpacing: 1,
           color: Colors.white,
           fontWeight: FontWeight.bold,
