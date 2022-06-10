@@ -22,10 +22,10 @@ class AmountButton extends StatelessWidget {
           height: double.infinity,
           child: Text(
             label,
-            style: const TextStyle(
-              color: Colors.white30,
-              fontSize: 40,
-            ),
+            style: Theme.of(context).textTheme.headline1!.copyWith(
+                  color: Colors.white30,
+                  fontSize: 40,
+                ),
           ),
         ),
       ),

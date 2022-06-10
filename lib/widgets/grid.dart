@@ -239,8 +239,6 @@ class Grid extends StatelessWidget {
     for (var row in rows) {
       List<Widget> rowChildren = [];
       for (var layout in row) {
-        //@TODO: Reset
-        //layout.player!.reset(setting.startingLives);
         rowChildren.add(
           ChangeNotifierProvider.value(
             value: layout.player,
@@ -266,7 +264,7 @@ class Grid extends StatelessWidget {
 
       children.add(
         Expanded(
-          flex: row.length,
+          flex: (row.length == 2 ? 5 : 3),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: rowChildren,

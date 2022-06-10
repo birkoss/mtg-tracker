@@ -22,11 +22,11 @@ class CustomTheme {
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
+        /* Amount Changes (+1, -2) */
         headline2: GoogleFonts.urbanist(
-          fontSize: 14,
-          letterSpacing: 1,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+          fontSize: 20,
+          letterSpacing: 2,
+          color: Colors.white70,
         ),
         headline3: GoogleFonts.urbanist(
           fontSize: 43,
@@ -99,10 +99,9 @@ class CustomTheme {
           fontWeight: FontWeight.bold,
         ),
         headline2: GoogleFonts.urbanist(
-          fontSize: 14,
-          letterSpacing: 1,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+          fontSize: 20,
+          letterSpacing: 2,
+          color: Colors.white70,
         ),
         headline3: GoogleFonts.urbanist(
           fontSize: 43,

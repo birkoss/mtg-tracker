@@ -19,10 +19,7 @@ class AmountText extends StatelessWidget {
           )
         : Text(
             (amount > 0 ? "+" : "") + amount.toString(),
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.white70,
-            ),
+            style: Theme.of(context).textTheme.headline2,
           );
   }
 }
