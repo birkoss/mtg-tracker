@@ -217,7 +217,6 @@ class Grid extends StatelessWidget {
   }
 
   List<Widget> generateWidgets(BuildContext context, int playersNumber) {
-    print("Grid.generateWidgets(" + playersNumber.toString() + ")");
     List<List<Layout>> rows = generateLayout(context, playersNumber);
 
     Layout? selectedPlayerLayout;
@@ -231,9 +230,6 @@ class Grid extends StatelessWidget {
         }
       }
     }
-
-    SettingNotifier setting =
-        Provider.of<SettingNotifier>(context, listen: false);
 
     List<Widget> children = [];
     for (var row in rows) {
@@ -278,7 +274,6 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Grid.build()");
     return Consumer<SettingNotifier>(
       builder: (context, setting, child) {
         return Column(

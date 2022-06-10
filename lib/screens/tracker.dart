@@ -99,8 +99,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("TrackerScreen.build() PickedPlayer: " + _pickedPlayer.toString());
-
     return Scaffold(
       body: Stack(
         children: [

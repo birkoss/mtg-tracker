@@ -66,8 +66,6 @@ class _PlayerBox extends State<PlayerBox> {
   Widget build(BuildContext context) {
     var player = Provider.of<Player>(context, listen: false);
 
-    print("PlayerBox.build() - Player ID:" + player.id);
-
     return Expanded(
       child: RotatedBox(
         quarterTurns: widget.rotation,

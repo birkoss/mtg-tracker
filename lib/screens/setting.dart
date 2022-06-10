@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/themes/custom.dart';
 import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/widgets/boxes/empty.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/player.dart';
@@ -19,7 +18,6 @@ class CommanderBox extends StatefulWidget {
 class _CommanderBox extends State<CommanderBox> {
   @override
   Widget build(BuildContext context) {
-    print("CommanderBox.build()");
     var player = Provider.of<Player>(context, listen: false);
     return Container(
       color: player.color,
