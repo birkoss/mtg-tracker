@@ -47,10 +47,17 @@ class PlayerBox extends StatefulWidget {
 }
 
 class _PlayerBox extends State<PlayerBox> {
+  double opacity = 0;
+
   @override
   Widget build(BuildContext context) {
-    print("playerbox.build()");
     var player = Provider.of<Player>(context, listen: false);
+
+    if (widget.selectedPlayer == player) {
+      opacity = 0;
+    }
+
+    print("PlayerBox.build() - Player ID:" + player.id);
 
     return Expanded(
       child: RotatedBox(
@@ -58,21 +65,27 @@ class _PlayerBox extends State<PlayerBox> {
         child: Container(
           color: player.color,
           alignment: Alignment.center,
-          child: widget.diceRollWinner
-              ? const Text("You Win the Dice Roll",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ))
-              : widget.selectedPlayer == player
-                  ? CommanderBox(
-                      onToggleCommanderView: widget.onToggleCommanderView,
-                    )
-                  : AmountBox(
-                      selectedPlayer: widget.selectedPlayer,
-                      boxView: widget.view,
-                      onSwitchCommander: widget.onToggleCommanderView,
-                    ),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 160),
+            transitionBuilder: (
+              Widget child,
+              Animation<double> animation,
+            ) =>
+                ScaleTransition(
+              child: child,
+              scale: animation,
+            ),
+            child: widget.selectedPlayer == player
+                ? CommanderBox(
+                    onToggleCommanderView: widget.onToggleCommanderView,
+                  )
+                : AmountBox(
+                    selectedPlayer: widget.selectedPlayer,
+                    boxView: widget.view,
+                    onSwitchCommander: widget.onToggleCommanderView,
+                  ),
+          ),
+          // if (widget.selectedPlayer == player)
         ),
       ),
     );

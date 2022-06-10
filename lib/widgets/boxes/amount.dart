@@ -93,6 +93,7 @@ class _AmountBox extends State<AmountBox> {
 
   @override
   Widget build(BuildContext context) {
+    // print("AmountBox.build()");
     var player = Provider.of<Player>(context, listen: false);
 
     String _getValue() {

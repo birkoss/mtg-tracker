@@ -183,7 +183,7 @@ class Grid extends StatelessWidget {
   }
 
   List<Widget> generateWidgets(BuildContext context, int playersNumber) {
-    print("grid.generateWidgets(" + playersNumber.toString() + ")");
+    print("Grid.generateWidgets(" + playersNumber.toString() + ")");
     List<List<Layout>> rows = generateLayout(context, playersNumber);
 
     PlayerBoxSize trackerSize = PlayerBoxSize.medium;
@@ -256,8 +256,7 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Provider.of<SettingNotifier>(context);
-    print("grid.build()");
+    print("Grid.build()");
     return Consumer<SettingNotifier>(
       builder: (context, setting, child) {
         return Column(
