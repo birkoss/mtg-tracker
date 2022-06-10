@@ -2,7 +2,7 @@
     package="com.birkoss.mtgtracker">
    <application
         android:label="mtgtracker"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
