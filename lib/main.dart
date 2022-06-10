@@ -1,5 +1,6 @@
 // @TODO: Allow to change the direction of the commander view, instead of entering OUR cmd damage, changing the cmd damage dealt
 import 'package:flutter/services.dart';
+import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/screens/loading.dart';
@@ -10,6 +11,8 @@ import 'screens/tracker.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Wakelock.enable();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
