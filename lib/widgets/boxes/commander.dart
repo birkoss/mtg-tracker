@@ -41,7 +41,7 @@ class _CommanderBox extends State<CommanderBox> {
           Material(
             color: Colors.transparent,
             child: IconButton(
-              iconSize: 22, //widget.size == TrackerSize.small ? 22 : 32,
+              iconSize: 22,
               icon: const Icon(
                 Icons.close,
                 color: Colors.white70,
