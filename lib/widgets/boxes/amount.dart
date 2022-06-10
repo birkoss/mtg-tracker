@@ -152,7 +152,7 @@ class _AmountBox extends State<AmountBox> {
                   ),
                 if (widget.boxView == PlayerBoxView.normal)
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
                         width: 40,
