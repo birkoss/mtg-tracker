@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/widgets/boxes/amount_commander.dart';
+import 'package:mtgtracker/widgets/boxes/amount_data.dart';
 import 'package:mtgtracker/widgets/boxes/commander.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +41,10 @@ class PlayerBox extends StatefulWidget {
 
 class _PlayerBox extends State<PlayerBox> {
   Widget _getContent(Player player) {
+    print("PlayerBox._getContent() : Player ID:" +
+        player.id +
+        " " +
+        widget.view.toString());
     if (widget.diceRollWinner) {
       return const Text(
         "You Win the Dice Roll",
@@ -53,12 +59,12 @@ class _PlayerBox extends State<PlayerBox> {
       return CommanderBox(
         onToggleCommanderView: widget.onToggleCommanderView,
       );
+    } else if (widget.selectedPlayer != null) {
+      return AmountCommanderBox(selectedPlayer: widget.selectedPlayer!);
     }
 
-    return AmountBox(
-      selectedPlayer: widget.selectedPlayer,
-      boxView: widget.view,
-      onSwitchCommander: widget.onToggleCommanderView,
+    return AmountDataBox(
+      onToggleCommanderView: widget.onToggleCommanderView,
     );
   }
 

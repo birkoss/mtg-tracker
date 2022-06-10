@@ -1,51 +1,19 @@
 import 'package:async/async.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../providers/player.dart';
 
 import '../../widgets/ui/amount/button.dart';
 import '../../widgets/ui/amount/text.dart';
-import '../../widgets/boxes/player.dart';
-
-// What are we modifying in the Amount Box
-enum AmountBoxType {
-  normal,
-  poison,
-  energy,
-  experience,
-}
-
-extension AmountBoxTypeExtension on AmountBoxType {
-  String get dataIndex {
-    switch (this) {
-      case AmountBoxType.normal:
-        return 'health';
-      case AmountBoxType.poison:
-        return 'poison';
-      case AmountBoxType.energy:
-        return 'energy';
-      case AmountBoxType.experience:
-        return 'experience';
-      default:
-        return 'health';
-    }
-  }
-}
 
 class AmountBox extends StatefulWidget {
-  final PlayerBoxView boxView;
-
-  final Player? selectedPlayer;
-
-  final Function onSwitchCommander;
+  final Widget? child;
+  final Function setValue;
+  final Function getValue;
 
   const AmountBox({
     Key? key,
-    required this.boxView,
-    required this.selectedPlayer,
-    required this.onSwitchCommander,
+    this.child,
+    required this.setValue,
+    required this.getValue,
   }) : super(key: key);
 
   @override
@@ -53,14 +21,6 @@ class AmountBox extends StatefulWidget {
 }
 
 class _AmountBox extends State<AmountBox> {
-  AmountBoxType _type = AmountBoxType.normal;
-  final List<AmountBoxType> _types = [
-    AmountBoxType.normal,
-    AmountBoxType.poison,
-    AmountBoxType.energy,
-    AmountBoxType.experience,
-  ];
-
   int _amountChanges = 0;
   late RestartableTimer _timerAmountChanges;
 
@@ -93,26 +53,9 @@ class _AmountBox extends State<AmountBox> {
 
   @override
   Widget build(BuildContext context) {
-    // print("AmountBox.build()");
-    var player = Provider.of<Player>(context, listen: false);
-
-    String _getValue() {
-      if (widget.boxView == PlayerBoxView.commander) {
-        return player.commander[int.parse(widget.selectedPlayer!.id)]
-            .toString();
-      }
-      return player.data[_type.dataIndex].toString();
-    }
-
     void _changeValue(int modifier) {
       updateAmount(modifier);
-
-      if (widget.boxView == PlayerBoxView.commander) {
-        player.commander[int.parse(widget.selectedPlayer!.id)] =
-            player.commander[int.parse(widget.selectedPlayer!.id)] + modifier;
-      } else {
-        player.data[_type.dataIndex] = player.data[_type.dataIndex]! + modifier;
-      }
+      widget.setValue(modifier);
     }
 
     return Row(
@@ -129,77 +72,44 @@ class _AmountBox extends State<AmountBox> {
         ),
         Expanded(
           flex: 1,
-          child: Container(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(
-                  height: 20,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AmountText(
+                      amount: _amountChanges,
+                    ),
+                  ],
                 ),
-                AmountText(
-                  amount: _amountChanges,
-                ),
-                Text(
-                  _getValue(),
-                  style: const TextStyle(
-                    fontSize: 50,
-                    color: Colors.white,
-                  ),
-                ),
-                if (widget.boxView == PlayerBoxView.commander)
-                  const SizedBox(
-                    height: 20,
-                  ),
-                if (widget.boxView == PlayerBoxView.normal)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            icon: SvgPicture.asset(
-                              "assets/icons/commander.svg",
-                              color: Colors.white70,
-                              semanticsLabel: 'Commander',
-                            ),
-                            onPressed: () {
-                              widget.onSwitchCommander(player);
-                            },
-                          ),
-                        ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.getValue(),
+                      style: const TextStyle(
+                        fontSize: 50,
+                        color: Colors.white,
                       ),
-                      SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            icon: SvgPicture.asset(
-                              "assets/icons/" + _type.dataIndex + ".svg",
-                              color: Colors.white70,
-                              semanticsLabel: 'Commander',
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                int index = _types.indexOf(_type) + 1;
-                                if (index >= _types.length) {
-                                  index = 0;
-                                }
-                                _type = _types.elementAt(index);
-                              });
-                            },
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                const SizedBox(height: 10),
-              ],
-            ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: widget.child != null
+                    ? widget.child!
+                    : const SizedBox(
+                        height: 2,
+                      ),
+              ),
+            ],
           ),
         ),
         Expanded(
