@@ -23,13 +23,16 @@ class _CommanderBox extends State<CommanderBox> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const SizedBox(height: 10),
-        const Text(
-          "Please assign your Commander Damage",
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          child: Text(
+            "Please assign your Commander Damage",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
         Material(
           color: Colors.transparent,
