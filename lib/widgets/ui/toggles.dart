@@ -17,7 +17,7 @@ class Toggles extends StatefulWidget {
 }
 
 class _TogglesState extends State<Toggles> {
-  List<bool> _isSelected = [];
+  final List<bool> _isSelected = [];
 
   @override
   void initState() {
