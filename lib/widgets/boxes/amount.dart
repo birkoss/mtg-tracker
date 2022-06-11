@@ -41,7 +41,6 @@ class _AmountBox extends State<AmountBox> {
       const Duration(seconds: 2),
       () {
         setState(() {
-          print("set state to 0...");
           _amountChanges = 0;
         });
       },
