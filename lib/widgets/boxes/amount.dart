@@ -25,10 +25,12 @@ class AmountBox extends StatefulWidget {
 class _AmountBox extends State<AmountBox> {
   int _amountChanges = 0;
   late RestartableTimer _timerAmountChanges;
+  bool _isTooltipVisible = false;
 
   void updateAmount(int value) {
     _timerAmountChanges.reset();
     setState(() {
+      _isTooltipVisible = true;
       _amountChanges += value;
     });
   }
@@ -41,7 +43,7 @@ class _AmountBox extends State<AmountBox> {
       const Duration(seconds: 2),
       () {
         setState(() {
-          _amountChanges = 0;
+          _isTooltipVisible = false;
         });
       },
     );
@@ -82,6 +84,12 @@ class _AmountBox extends State<AmountBox> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AmountText(
+                    isVisible: _isTooltipVisible,
+                    onHidden: () {
+                      setState(() {
+                        _amountChanges = 0;
+                      });
+                    },
                     amount: _amountChanges,
                   ),
                   Text(
