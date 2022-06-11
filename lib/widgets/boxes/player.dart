@@ -34,14 +34,12 @@ class _PlayerBox extends State<PlayerBox> {
     if (widget.diceRollWinner) {
       return const Padding(
         padding: EdgeInsets.all(8),
-        child: Flexible(
-          child: Text(
-            "You Win the Dice Roll",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-            ),
+        child: Text(
+          "You Win the Dice Roll",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
           ),
         ),
       );
