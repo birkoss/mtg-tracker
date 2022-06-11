@@ -59,7 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Toggles(
-              defaultValue: _selectedPlayersNumber.toString(),
+              defaultValue: setting.playersNumber.toString(),
               values: const [
                 {"value": "2", "label": "2"},
                 {"value": "3", "label": "3"},
@@ -70,7 +70,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 // {"value": "8", "label": "8"},
               ],
               onChanged: (String value) {
-                _selectedPlayersNumber = int.parse(value);
+                setting.changePlayersNumber(int.parse(value));
+                widget.onNewGame();
               },
             ),
             const SizedBox(height: 20),
@@ -80,13 +81,14 @@ class _SettingScreenState extends State<SettingScreen> {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Toggles(
-              defaultValue: _selectedTableLayout.toString(),
+              defaultValue: setting.tableLayout.toString(),
               values: const [
                 {"value": "1", "label": "Same Side"},
                 {"value": "2", "label": "All Around"},
               ],
               onChanged: (String value) {
-                _selectedTableLayout = int.parse(value);
+                setting.changeTableLayout(int.parse(value));
+                widget.onNewGame();
               },
             ),
             const SizedBox(height: 20),
@@ -96,7 +98,7 @@ class _SettingScreenState extends State<SettingScreen> {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Toggles(
-              defaultValue: _selectedStartingLives.toString(),
+              defaultValue: setting.startingLives.toString(),
               values: const [
                 {"value": "10", "label": "10"},
                 {"value": "20", "label": "20"},
@@ -104,7 +106,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 {"value": "40", "label": "40"}
               ],
               onChanged: (String value) {
-                _selectedStartingLives = int.parse(value);
+                setting.changeStartingLives(int.parse(value));
+                widget.onNewGame();
               },
             ),
             const SizedBox(height: 20),
