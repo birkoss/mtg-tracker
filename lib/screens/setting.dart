@@ -58,6 +58,7 @@ class _SettingScreenState extends State<SettingScreen> {
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.bodyText1,
             ),
+            const SizedBox(height: 10),
             Toggles(
               defaultValue: setting.playersNumber.toString(),
               values: const [
@@ -80,6 +81,7 @@ class _SettingScreenState extends State<SettingScreen> {
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.bodyText1,
             ),
+            const SizedBox(height: 10),
             Toggles(
               defaultValue: setting.tableLayout.toString(),
               values: const [
@@ -97,6 +99,7 @@ class _SettingScreenState extends State<SettingScreen> {
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.bodyText1,
             ),
+            const SizedBox(height: 10),
             Toggles(
               defaultValue: setting.startingLives.toString(),
               values: const [
@@ -111,39 +114,12 @@ class _SettingScreenState extends State<SettingScreen> {
               },
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                setting.changePlayersNumber(_selectedPlayersNumber);
-                setting.changeStartingLives(_selectedStartingLives);
-                setting.changeTableLayout(_selectedTableLayout);
-
-                Navigator.pop(context);
-
-                widget.onNewGame();
-              },
-              child: const Text("New Game"),
-            ),
-            const Divider(
-              height: 30,
-              thickness: 2,
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pop(context);
-                widget.onPickNewPlayer();
-              },
-              icon: const Icon(Icons.casino),
-              label: const Text("Pick a Player at Random"),
-            ),
-            const Divider(
-              height: 30,
-              thickness: 2,
-            ),
             Text(
               "Theme",
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.bodyText1,
             ),
+            const SizedBox(height: 10),
             Toggles(
               defaultValue: setting.isDarkTheme ? "2" : "1",
               values: const [
@@ -156,6 +132,35 @@ class _SettingScreenState extends State<SettingScreen> {
                   setting.toggleDarkTheme();
                 }
               },
+            ),
+            const Divider(
+              height: 30,
+              thickness: 2,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                setting.changePlayersNumber(_selectedPlayersNumber);
+                setting.changeStartingLives(_selectedStartingLives);
+                setting.changeTableLayout(_selectedTableLayout);
+
+                Navigator.pop(context);
+
+                widget.onNewGame();
+              },
+              icon: const Icon(Icons.restart_alt),
+              label: const Text("Reset Game"),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pop(context);
+                widget.onPickNewPlayer();
+              },
+              icon: const Icon(Icons.casino),
+              label: const Text("Pick a Player at Random"),
+            ),
+            const Divider(
+              height: 30,
+              thickness: 2,
             ),
           ],
         ),
