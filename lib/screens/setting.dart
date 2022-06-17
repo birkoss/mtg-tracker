@@ -226,6 +226,23 @@ class _SettingScreenState extends State<SettingScreen> {
                         }
                       },
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Auto Apply Commander Damage?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(height: 10),
+                    Toggles(
+                      defaultValue: setting.autoApplyCommanderDamage ? 1 : 0,
+                      values: const [
+                        {"value": "0", "label": "No"},
+                        {"value": "1", "label": "Yes"}
+                      ],
+                      onChanged: (int value) {
+                        setting.changeAutoApplyCommanderDamage(value == 1);
+                      },
+                    ),
                   ],
                 ),
               ),

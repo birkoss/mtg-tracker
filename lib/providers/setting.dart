@@ -19,8 +19,17 @@ class SettingNotifier extends ChangeNotifier {
   int _startingLives = 0;
   int get startingLives => _startingLives;
 
+  bool _autoApplyCommanderDamage = false;
+  bool get autoApplyCommanderDamage => _autoApplyCommanderDamage;
+
   SettingNotifier() {
     _load();
+  }
+
+  void changeAutoApplyCommanderDamage(autoApplyCommanderDamage) {
+    _autoApplyCommanderDamage = autoApplyCommanderDamage;
+    _save();
+    notifyListeners();
   }
 
   void changePlayersNumber(playersNumber) {
@@ -57,6 +66,8 @@ class SettingNotifier extends ChangeNotifier {
     _startingLives = _pref!.getInt("STARTING_LIVES") ?? 40;
     _tableLayout = _pref!.getInt("TABLE_LAYOUT") ?? 1;
     _isDarkTheme = _pref!.getBool("IS_DARK_THEME") ?? false;
+    _autoApplyCommanderDamage =
+        _pref!.getBool("AUTO_APPLY_COMMANDER_DAMAGE") ?? false;
     notifyListeners();
 
     _isReady = true;
@@ -68,5 +79,6 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setInt("STARTING_LIVES", _startingLives);
     _pref!.setInt("TABLE_LAYOUT", _tableLayout);
     _pref!.setBool("IS_DARK_THEME", _isDarkTheme);
+    _pref!.setBool("AUTO_APPLY_COMMANDER_DAMAGE", _autoApplyCommanderDamage);
   }
 }
