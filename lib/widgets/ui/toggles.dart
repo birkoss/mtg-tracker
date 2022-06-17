@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Toggles extends StatefulWidget {
   final List<Map<String, String>> values;
-  final String defaultValue;
+  final int defaultValue;
   final Function onChanged;
 
   const Toggles({
@@ -24,7 +24,9 @@ class _TogglesState extends State<Toggles> {
     super.initState();
 
     for (Map<String, String> element in widget.values) {
-      _isSelected.add(widget.defaultValue == element["value"].toString());
+      _isSelected.add(
+        widget.defaultValue == int.parse(element["value"].toString()),
+      );
     }
   }
 
@@ -54,7 +56,7 @@ class _TogglesState extends State<Toggles> {
           }
         });
 
-        widget.onChanged(widget.values[index]["value"]);
+        widget.onChanged(int.parse(widget.values[index]["value"].toString()));
       },
       isSelected: _isSelected,
     );

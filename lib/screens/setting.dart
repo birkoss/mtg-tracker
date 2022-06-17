@@ -117,7 +117,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Toggles(
-                      defaultValue: setting.playersNumber.toString(),
+                      defaultValue: setting.playersNumber,
                       values: const [
                         {"value": "2", "label": "2"},
                         {"value": "3", "label": "3"},
@@ -127,9 +127,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         // {"value": "7", "label": "7"},
                         // {"value": "8", "label": "8"},
                       ],
-                      onChanged: (String value) {
+                      onChanged: (int value) {
                         setState(() {
-                          _selectedPlayersNumber = int.parse(value);
+                          _selectedPlayersNumber = value;
                         });
                       },
                     ),
@@ -141,14 +141,14 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Toggles(
-                      defaultValue: setting.tableLayout.toString(),
+                      defaultValue: setting.tableLayout,
                       values: const [
                         {"value": "1", "label": "Same Side"},
                         {"value": "2", "label": "All Around"},
                       ],
-                      onChanged: (String value) {
+                      onChanged: (int value) {
                         setState(() {
-                          _selectedTableLayout = int.parse(value);
+                          _selectedTableLayout = value;
                         });
                       },
                     ),
@@ -160,16 +160,16 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Toggles(
-                      defaultValue: setting.startingLives.toString(),
+                      defaultValue: setting.startingLives,
                       values: const [
                         {"value": "10", "label": "10"},
                         {"value": "20", "label": "20"},
                         {"value": "30", "label": "30"},
                         {"value": "40", "label": "40"}
                       ],
-                      onChanged: (String value) {
+                      onChanged: (int value) {
                         setState(() {
-                          _selectedStartingLives = int.parse(value);
+                          _selectedStartingLives = value;
                         });
                       },
                     ),
@@ -206,14 +206,14 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Toggles(
-                      defaultValue: setting.isDarkTheme ? "2" : "1",
+                      defaultValue: setting.isDarkTheme ? 2 : 1,
                       values: const [
                         {"value": "1", "label": "Light"},
                         {"value": "2", "label": "Dark"}
                       ],
-                      onChanged: (String value) {
-                        if (setting.isDarkTheme && value == "1" ||
-                            !setting.isDarkTheme && value == "2") {
+                      onChanged: (int value) {
+                        if (setting.isDarkTheme && value == 1 ||
+                            !setting.isDarkTheme && value == 2) {
                           setting.toggleDarkTheme();
                         }
                       },
