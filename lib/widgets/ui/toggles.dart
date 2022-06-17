@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Toggles extends StatefulWidget {
   final List<Map<String, String>> values;
@@ -30,15 +31,29 @@ class _TogglesState extends State<Toggles> {
     }
   }
 
-  List<Widget> _getToggles() {
+  List<Widget> _getToggles(BuildContext context) {
     List<Widget> toggles = [];
     for (Map<String, String> element in widget.values) {
       toggles.add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Text(
-            element['label'].toString(),
-          ),
+          child: element['icon'] != null
+              ? Row(
+                  children: [
+                    SvgPicture.asset(
+                      "assets/icons/" + element['icon'].toString(),
+                      height: 30,
+                      fit: BoxFit.scaleDown,
+                      color: Theme.of(context).textTheme.bodySmall!.color,
+                    ),
+                    Text(
+                      element['label'].toString(),
+                    ),
+                  ],
+                )
+              : Text(
+                  element['label'].toString(),
+                ),
         ),
       );
     }
@@ -48,7 +63,7 @@ class _TogglesState extends State<Toggles> {
   @override
   Widget build(BuildContext context) {
     return ToggleButtons(
-      children: _getToggles(),
+      children: _getToggles(context),
       onPressed: (int index) {
         setState(() {
           for (int i = 0; i < _isSelected.length; i++) {

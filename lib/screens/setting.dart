@@ -133,8 +133,16 @@ class _SettingScreenState extends State<SettingScreen> {
                     Toggles(
                       defaultValue: setting.tableLayout,
                       values: const [
-                        {"value": "1", "label": "Same Side"},
-                        {"value": "2", "label": "All Around"},
+                        {
+                          "value": "1",
+                          "label": "Same Side",
+                          "icon": "tableLayoutSameSide.svg"
+                        },
+                        {
+                          "value": "2",
+                          "label": "All Around",
+                          "icon": "tableLayoutAllAround.svg"
+                        },
                       ],
                       onChanged: (int value) {
                         setState(() {

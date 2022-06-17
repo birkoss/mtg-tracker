@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="none" height="24" width="24"/>
+  <g>
+    <path d="M 14.67 5 L 14.67 11.5 L 9.33 11.5 L 9.33 5 L 14.67 5 Z"/>
+    <path d="M 8.35 8.728 L 3.02 8.728 L 3.02 15.228 L 8.35 15.228 L 8.35 8.728 Z"/>
+    <path d="M 14.67 19 L 14.67 12.5 L 9.33 12.5 L 9.33 19 L 14.67 19 Z"/>
+    <path d="M 15.597 15.191 L 20.927 15.191 L 20.927 8.691 L 15.597 8.691 L 15.597 15.191 Z"/>
+  </g>
+</svg>
