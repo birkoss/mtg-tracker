@@ -44,137 +44,232 @@ class _SettingScreenState extends State<SettingScreen> {
     SettingNotifier setting =
         Provider.of<SettingNotifier>(context, listen: false);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings"),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Settings"),
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(Icons.handyman),
+                text: "Tools",
+              ),
+              Tab(
+                icon: Icon(Icons.refresh),
+                text: "New Game",
+              ),
+              Tab(
+                icon: Icon(Icons.settings),
+                text: "Settings",
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
-              child: Text(
-                "Any changes in this section will reset the game!",
-                style: TextStyle(
-                  color: Colors.redAccent,
-                  fontStyle: FontStyle.italic,
-                ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Any changes in this section will reset the game!",
+                      style: TextStyle(
+                        color: Colors.redAccent,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Number of players",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const SizedBox(height: 10),
+                  Toggles(
+                    defaultValue: setting.playersNumber.toString(),
+                    values: const [
+                      {"value": "2", "label": "2"},
+                      {"value": "3", "label": "3"},
+                      {"value": "4", "label": "4"},
+                      {"value": "5", "label": "5"},
+                      {"value": "6", "label": "6"},
+                      // {"value": "7", "label": "7"},
+                      // {"value": "8", "label": "8"},
+                    ],
+                    onChanged: (String value) {
+                      setting.changePlayersNumber(int.parse(value));
+                      widget.onNewGame();
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    "Table Layouts",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const SizedBox(height: 10),
+                  Toggles(
+                    defaultValue: setting.tableLayout.toString(),
+                    values: const [
+                      {"value": "1", "label": "Same Side"},
+                      {"value": "2", "label": "All Around"},
+                    ],
+                    onChanged: (String value) {
+                      setting.changeTableLayout(int.parse(value));
+                      widget.onNewGame();
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const SizedBox(height: 10),
+                  Toggles(
+                    defaultValue: setting.startingLives.toString(),
+                    values: const [
+                      {"value": "10", "label": "10"},
+                      {"value": "20", "label": "20"},
+                      {"value": "30", "label": "30"},
+                      {"value": "40", "label": "40"}
+                    ],
+                    onChanged: (String value) {
+                      setting.changeStartingLives(int.parse(value));
+                      widget.onNewGame();
+                    },
+                  ),
+                  const Divider(
+                    height: 30,
+                    thickness: 2,
+                  ),
+                  Text(
+                    "Theme",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const SizedBox(height: 10),
+                  Toggles(
+                    defaultValue: setting.isDarkTheme ? "2" : "1",
+                    values: const [
+                      {"value": "1", "label": "Light"},
+                      {"value": "2", "label": "Dark"}
+                    ],
+                    onChanged: (String value) {
+                      if (setting.isDarkTheme && value == "1" ||
+                          !setting.isDarkTheme && value == "2") {
+                        setting.toggleDarkTheme();
+                      }
+                    },
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    "Starting lives",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const Divider(
+                    height: 30,
+                    thickness: 2,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      setting.changePlayersNumber(_selectedPlayersNumber);
+                      setting.changeStartingLives(_selectedStartingLives);
+                      setting.changeTableLayout(_selectedTableLayout);
+
+                      Navigator.pop(context);
+
+                      widget.onNewGame();
+                    },
+                    icon: const Icon(Icons.restart_alt),
+                    label: const Text("Reset Game"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      widget.onPickNewPlayer();
+                    },
+                    icon: const Icon(Icons.casino),
+                    label: const Text("Pick a Player at Random"),
+                  ),
+                  const Divider(
+                    height: 30,
+                    thickness: 2,
+                  ),
+                ],
               ),
             ),
-            Text(
-              "Number of players",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            const SizedBox(height: 10),
-            Toggles(
-              defaultValue: setting.playersNumber.toString(),
-              values: const [
-                {"value": "2", "label": "2"},
-                {"value": "3", "label": "3"},
-                {"value": "4", "label": "4"},
-                {"value": "5", "label": "5"},
-                {"value": "6", "label": "6"},
-                // {"value": "7", "label": "7"},
-                // {"value": "8", "label": "8"},
-              ],
-              onChanged: (String value) {
-                setting.changePlayersNumber(int.parse(value));
-                widget.onNewGame();
-              },
-            ),
-            const SizedBox(height: 20),
-            Text(
-              "Table Layouts",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            const SizedBox(height: 10),
-            Toggles(
-              defaultValue: setting.tableLayout.toString(),
-              values: const [
-                {"value": "1", "label": "Same Side"},
-                {"value": "2", "label": "All Around"},
-              ],
-              onChanged: (String value) {
-                setting.changeTableLayout(int.parse(value));
-                widget.onNewGame();
-              },
-            ),
-            const SizedBox(height: 20),
-            Text(
-              "Starting lives",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            const SizedBox(height: 10),
-            Toggles(
-              defaultValue: setting.startingLives.toString(),
-              values: const [
-                {"value": "10", "label": "10"},
-                {"value": "20", "label": "20"},
-                {"value": "30", "label": "30"},
-                {"value": "40", "label": "40"}
-              ],
-              onChanged: (String value) {
-                setting.changeStartingLives(int.parse(value));
-                widget.onNewGame();
-              },
-            ),
-            const Divider(
-              height: 30,
-              thickness: 2,
-            ),
-            Text(
-              "Theme",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            const SizedBox(height: 10),
-            Toggles(
-              defaultValue: setting.isDarkTheme ? "2" : "1",
-              values: const [
-                {"value": "1", "label": "Light"},
-                {"value": "2", "label": "Dark"}
-              ],
-              onChanged: (String value) {
-                if (setting.isDarkTheme && value == "1" ||
-                    !setting.isDarkTheme && value == "2") {
-                  setting.toggleDarkTheme();
-                }
-              },
-            ),
-            const Divider(
-              height: 30,
-              thickness: 2,
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                setting.changePlayersNumber(_selectedPlayersNumber);
-                setting.changeStartingLives(_selectedStartingLives);
-                setting.changeTableLayout(_selectedTableLayout);
-
-                Navigator.pop(context);
-
-                widget.onNewGame();
-              },
-              icon: const Icon(Icons.restart_alt),
-              label: const Text("Reset Game"),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pop(context);
-                widget.onPickNewPlayer();
-              },
-              icon: const Icon(Icons.casino),
-              label: const Text("Pick a Player at Random"),
-            ),
-            const Divider(
-              height: 30,
-              thickness: 2,
-            ),
+            Text("AA"),
+            Text("BB"),
           ],
         ),
       ),
