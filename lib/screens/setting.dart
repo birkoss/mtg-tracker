@@ -53,6 +53,16 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Text(
+                "Any changes in this section will reset the game!",
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
             Text(
               "Number of players",
               textAlign: TextAlign.start,
@@ -113,7 +123,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 widget.onNewGame();
               },
             ),
-            const SizedBox(height: 20),
+            const Divider(
+              height: 30,
+              thickness: 2,
+            ),
             Text(
               "Theme",
               textAlign: TextAlign.start,
