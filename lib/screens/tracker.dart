@@ -24,38 +24,18 @@ class TrackerScreen extends StatefulWidget {
 class _TrackerScreenState extends State<TrackerScreen> {
   Player? _selectedPlayer;
 
-  List<Player> _players = [];
+  final List<Player> _players = [
+    Player(id: "1"),
+    Player(id: "2"),
+    Player(id: "3"),
+    Player(id: "4"),
+    Player(id: "5"),
+    Player(id: "6"),
+    Player(id: "7"),
+    Player(id: "8"),
+  ];
 
   int _pickedPlayer = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    final List<Color> colors = [
-      const Color.fromRGBO(228, 82, 95, 1),
-      const Color.fromRGBO(156, 186, 96, 1),
-      const Color.fromRGBO(147, 187, 222, 1),
-      const Color.fromRGBO(63, 116, 166, 1),
-      const Color.fromRGBO(107, 95, 145, 1),
-      const Color.fromRGBO(91, 162, 224, 1),
-      const Color.fromRGBO(255, 120, 124, 1),
-      const Color.fromRGBO(77, 205, 204, 1),
-      const Color.fromRGBO(253, 197, 86, 1),
-      const Color.fromRGBO(233, 91, 55, 1)
-    ];
-
-    _players = [
-      Player(id: "1", color: colors[0]),
-      Player(id: "2", color: colors[1]),
-      Player(id: "3", color: colors[2]),
-      Player(id: "4", color: colors[3]),
-      Player(id: "5", color: colors[4]),
-      Player(id: "6", color: colors[5]),
-      Player(id: "7", color: colors[6]),
-      Player(id: "8", color: colors[7]),
-    ];
-  }
 
   void _newGame() {
     SettingNotifier setting =

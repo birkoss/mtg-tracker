@@ -20,7 +20,7 @@ class _CommanderBox extends State<CommanderBox> {
   Widget build(BuildContext context) {
     var player = Provider.of<Player>(context, listen: false);
     return Container(
-      color: player.color,
+      color: player.getColor(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

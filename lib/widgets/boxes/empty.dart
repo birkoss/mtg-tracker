@@ -11,7 +11,7 @@ class EmptyBox extends StatelessWidget {
     var player = Provider.of<Player>(context, listen: false);
     return Expanded(
       child: Container(
-        color: player.color,
+        color: player.getColor(context),
       ),
     );
   }

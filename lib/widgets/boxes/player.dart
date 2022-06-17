@@ -68,7 +68,7 @@ class _PlayerBox extends State<PlayerBox> {
       child: RotatedBox(
         quarterTurns: widget.rotation,
         child: Container(
-          color: player.color,
+          color: player.getColor(context),
           alignment: Alignment.center,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 160),
