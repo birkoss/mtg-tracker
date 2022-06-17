@@ -100,16 +100,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Text(
-                        "Any changes in this section will reset the game!",
-                        style: TextStyle(
-                          color: Colors.redAccent,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ),
                     Text(
                       "Number of players",
                       textAlign: TextAlign.start,
@@ -176,6 +166,16 @@ class _SettingScreenState extends State<SettingScreen> {
                     const Divider(
                       height: 30,
                       thickness: 2,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        "This will reset the current game!",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
