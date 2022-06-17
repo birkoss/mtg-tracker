@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
 
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,11 @@ class _AmountCommanderBoxState extends State<AmountCommanderBox> {
         return player.commander[int.parse(widget.selectedPlayer.id)].toString();
       },
       setValue: (int modifier) {
+        if (Provider.of<SettingNotifier>(context, listen: false)
+            .autoApplyCommanderDamage) {
+          player.data['health'] = player.data['health']! + (modifier * -1);
+        }
+
         player.commander[int.parse(widget.selectedPlayer.id)] =
             player.commander[int.parse(widget.selectedPlayer.id)] + modifier;
       },
