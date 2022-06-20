@@ -6,11 +6,10 @@ class CustomTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       brightness: Brightness.light,
-      primarySwatch: Colors.amber,
+      primarySwatch: Colors.blueGrey,
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         titleTextStyle: GoogleFonts.urbanist(
-          color: Colors.black,
           fontSize: 18,
           letterSpacing: 1,
           fontWeight: FontWeight.bold,

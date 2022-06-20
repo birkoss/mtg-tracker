@@ -115,7 +115,7 @@ class _AmountBox extends State<AmountBox> {
               widget.child != null
                   ? widget.child!
                   : const SizedBox(
-                      height: 2,
+                      height: 20,
                     ),
             ],
           ),
