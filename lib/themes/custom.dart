@@ -5,10 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTheme {
   static ThemeData get lightTheme {
     return ThemeData(
-      primarySwatch: Colors.blueGrey,
+      brightness: Brightness.light,
+      primarySwatch: Colors.amber,
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: GoogleFonts.urbanist(
+          color: Colors.black,
           fontSize: 18,
           letterSpacing: 1,
           fontWeight: FontWeight.bold,

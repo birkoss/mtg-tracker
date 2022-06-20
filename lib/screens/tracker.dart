@@ -80,46 +80,51 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Grid(
-            players: _players,
-            selectedPlayer: _selectedPlayer,
-            diceRollWinner: _pickedPlayer,
-            onToggleCommanderView: _toggleCommanderView,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).appBarTheme.backgroundColor,
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(10),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Grid(
+                players: _players,
+                selectedPlayer: _selectedPlayer,
+                diceRollWinner: _pickedPlayer,
+                onToggleCommanderView: _toggleCommanderView,
               ),
-              child: Icon(
-                Icons.menu,
-                color: Theme.of(context).appBarTheme.foregroundColor,
-                size: 30,
-              ),
-              onPressed: () {
-                SettingNotifier setting =
-                    Provider.of<SettingNotifier>(context, listen: false);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SettingScreen(
-                      tableLayout: setting.tableLayout,
-                      startingLives: setting.startingLives,
-                      playersNumber: setting.playersNumber,
-                      onPickNewPlayer: _pickNewPlayer,
-                      onNewGame: _newGame,
-                    ),
-                  ),
-                );
-              },
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).canvasColor,
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(10),
+                ),
+                child: Icon(
+                  Icons.menu,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  size: 30,
+                ),
+                onPressed: () {
+                  SettingNotifier setting =
+                      Provider.of<SettingNotifier>(context, listen: false);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SettingScreen(
+                        tableLayout: setting.tableLayout,
+                        startingLives: setting.startingLives,
+                        playersNumber: setting.playersNumber,
+                        onPickNewPlayer: _pickNewPlayer,
+                        onNewGame: _newGame,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
