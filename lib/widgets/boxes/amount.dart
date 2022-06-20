@@ -1,5 +1,7 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/ui/amount/button.dart';
 import '../../widgets/ui/amount/text.dart';
@@ -57,6 +59,9 @@ class _AmountBox extends State<AmountBox> {
 
   @override
   Widget build(BuildContext context) {
+    SettingNotifier setting =
+        Provider.of<SettingNotifier>(context, listen: false);
+
     void _changeValue(int modifier) {
       updateAmount(modifier);
       widget.setValue(modifier);
@@ -97,7 +102,12 @@ class _AmountBox extends State<AmountBox> {
                     child: Text(
                       widget.getValue(),
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: setting.playersNumber == 6 &&
+                                    setting.tableLayout == 2
+                                ? 30
+                                : 45,
+                          ),
                     ),
                   ),
                 ),
