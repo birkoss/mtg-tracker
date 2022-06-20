@@ -25,6 +25,10 @@ class _AmountButtonState extends State<AmountButton> {
     return Material(
       color: Colors.transparent,
       child: GestureDetector(
+        onPanEnd: (_) {
+          _timer?.cancel();
+          _holdingDelay?.cancel();
+        },
         onPanCancel: () {
           _timer?.cancel();
           _holdingDelay?.cancel();
