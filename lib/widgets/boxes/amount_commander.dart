@@ -28,6 +28,12 @@ class _AmountCommanderBoxState extends State<AmountCommanderBox> {
         return player.commander[int.parse(widget.selectedPlayer.id)].toString();
       },
       setValue: (int modifier) {
+        // Do NOT increase over 21
+        if (modifier == 1 &&
+            player.commander[int.parse(widget.selectedPlayer.id)] >= 21) {
+          return false;
+        }
+
         /* Only change the player health if the settings Auto Apply Commander Damage is selected */
         if (Provider.of<SettingNotifier>(context, listen: false)
             .autoApplyCommanderDamage) {
@@ -36,6 +42,8 @@ class _AmountCommanderBoxState extends State<AmountCommanderBox> {
 
         player.commander[int.parse(widget.selectedPlayer.id)] =
             player.commander[int.parse(widget.selectedPlayer.id)] + modifier;
+
+        return true;
       },
     );
   }

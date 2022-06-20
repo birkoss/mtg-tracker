@@ -67,8 +67,10 @@ class _AmountBox extends State<AmountBox> {
       if (modifier == -1 && int.parse(widget.getValue()) <= 0) {
         return;
       }
-      updateAmount(modifier);
-      widget.setValue(modifier);
+
+      if (widget.setValue(modifier)) {
+        updateAmount(modifier);
+      }
     }
 
     return Row(

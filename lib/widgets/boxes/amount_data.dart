@@ -73,6 +73,8 @@ class _AmountDataBoxState extends State<AmountDataBox> {
           setValue: (int modifier) {
             player.data[_type.dataIndex] =
                 player.data[_type.dataIndex]! + modifier;
+
+            return true;
           },
           onPress: () {
             setState(() {
