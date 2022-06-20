@@ -18,6 +18,7 @@ class AmountButton extends StatefulWidget {
 
 class _AmountButtonState extends State<AmountButton> {
   Timer? _timer;
+  Timer? _holdingDelay;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +27,13 @@ class _AmountButtonState extends State<AmountButton> {
       child: GestureDetector(
         onPanCancel: () {
           _timer?.cancel();
+          _holdingDelay?.cancel();
         },
         onPanDown: (_) {
-          _timer = Timer.periodic(const Duration(milliseconds: 150), (_) {
-            widget.onPress();
+          _holdingDelay = Timer(const Duration(milliseconds: 250), () {
+            _timer = Timer.periodic(const Duration(milliseconds: 150), (_) {
+              widget.onPress();
+            });
           });
         },
         child: InkWell(

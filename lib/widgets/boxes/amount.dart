@@ -63,6 +63,10 @@ class _AmountBox extends State<AmountBox> {
         Provider.of<SettingNotifier>(context, listen: false);
 
     void _changeValue(int modifier) {
+      // Do NOT decrease bellow 0
+      if (modifier == -1 && int.parse(widget.getValue()) <= 0) {
+        return;
+      }
       updateAmount(modifier);
       widget.setValue(modifier);
     }
