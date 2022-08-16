@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/screens/setting.dart';
 import 'package:provider/provider.dart';

@@ -105,15 +105,18 @@ class _AmountBox extends State<AmountBox> {
                   onTap: widget.onPress,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      widget.getValue(),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: setting.playersNumber == 6 &&
-                                    setting.tableLayout == 2
-                                ? 30
-                                : 45,
-                          ),
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        widget.getValue(),
+                        overflow: TextOverflow.visible,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: setting.playersNumber == 6 &&
+                                      setting.tableLayout == 2
+                                  ? 30
+                                  : 45,
+                            ),
+                      ),
                     ),
                   ),
                 ),
