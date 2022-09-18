@@ -121,10 +121,19 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     ),
                     PressableButton(
                       isActive: (_type == AmountBoxType.poison),
-                      inactiveWidget: const Icon(
-                        MtgIcons.poison,
-                        color: Colors.white,
-                      ),
+                      inactiveWidget: player.data['poison']! == 0
+                          ? const Icon(
+                              MtgIcons.poison,
+                              color: Colors.white,
+                            )
+                          : Text(
+                              player.data['poison']!.toString(),
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(fontSize: 20),
+                            ),
                       inactiveColor: Colors.transparent,
                       activeColor: Colors.white,
                       onToggle: () {

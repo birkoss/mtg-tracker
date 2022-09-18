@@ -80,22 +80,38 @@ class _AmountBox extends State<AmountBox> {
       children: [
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: SvgPicture.asset(
-            "assets/icons/" + widget.getIcon() + ".svg",
-            fit: BoxFit.scaleDown,
-            color: Colors.white10,
-            semanticsLabel: 'Health',
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 160),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(scale: animation, child: child);
+            },
+            child: SvgPicture.asset(
+              "assets/icons/" + widget.getIcon() + ".svg",
+              key: ValueKey<String>(widget.getIcon()),
+              fit: BoxFit.scaleDown,
+              color: Colors.white10,
+              semanticsLabel: 'Health',
+            ),
           ),
         ),
         Align(
           alignment: Alignment.center,
           child: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text(
-              widget.getValue(),
-              overflow: TextOverflow.visible,
-              style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 40),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 160),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+              child: Text(
+                widget.getValue(),
+                key: ValueKey<String>(widget.getValue()),
+                overflow: TextOverflow.visible,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 40),
+              ),
             ),
           ),
         ),

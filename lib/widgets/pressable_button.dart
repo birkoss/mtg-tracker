@@ -42,16 +42,24 @@ class _PressableButtonState extends State<PressableButton> {
               onTap: widget.onToggle,
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: widget.isActive
-                    ? Text(
-                        "X",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 20),
-                      )
-                    : widget.inactiveWidget,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 160),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return ScaleTransition(scale: animation, child: child);
+                  },
+                  child: widget.isActive
+                      ? Text(
+                          "X",
+                          textAlign: TextAlign.center,
+                          key: const ValueKey<String>("X"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(fontSize: 20),
+                        )
+                      : widget.inactiveWidget,
+                ),
               ),
             ),
           ),
