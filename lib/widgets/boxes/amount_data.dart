@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/mtgicons.dart';
@@ -190,6 +192,8 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                       .autoApplyCommanderDamage) {
                     player.data['health'] =
                         player.data['health']! + (modifier * -1);
+
+                    player.data['health'] = max(0, player.data['health']!);
                   }
                 });
               } else {
