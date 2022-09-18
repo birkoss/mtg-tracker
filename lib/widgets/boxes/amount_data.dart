@@ -173,6 +173,14 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             },
             setValue: (int modifier) {
               if (selectedOpponentCommander[0] != -1) {
+                // Do NOT increase over 21
+                if (modifier == 1 &&
+                    player.commander[selectedOpponentCommander[0]]
+                            [selectedOpponentCommander[1]] >=
+                        21) {
+                  return false;
+                }
+
                 setState(() {
                   player.commander[selectedOpponentCommander[0]]
                       [selectedOpponentCommander[1]] += modifier;
