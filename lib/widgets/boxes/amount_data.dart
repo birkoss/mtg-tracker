@@ -173,7 +173,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             },
             setValue: (int modifier) {
               if (selectedOpponentCommander[0] != -1) {
-                // Do NOT increase over 21
+                // Do NOT increase Commander Damage over 21
                 if (modifier == 1 &&
                     player.commander[selectedOpponentCommander[0]]
                             [selectedOpponentCommander[1]] >=
@@ -193,6 +193,12 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                   }
                 });
               } else {
+                // Do NOT increate POISON over 10
+                if (modifier == 1 &&
+                    _type.dataIndex == "poison" &&
+                    player.data[_type.dataIndex]! >= 10) {
+                  return false;
+                }
                 player.data[_type.dataIndex] =
                     player.data[_type.dataIndex]! + modifier;
               }
