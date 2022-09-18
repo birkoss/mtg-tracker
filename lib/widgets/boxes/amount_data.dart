@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/mtgicons.dart';
 import 'package:mtgtracker/widgets/pressable_button.dart';
 import 'package:mtgtracker/widgets/ui/commander_damage.dart';
@@ -175,6 +176,13 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                 setState(() {
                   player.commander[selectedOpponentCommander[0]]
                       [selectedOpponentCommander[1]] += modifier;
+
+                  /* Only change the player health if the settings Auto Apply Commander Damage is selected */
+                  if (Provider.of<SettingNotifier>(context, listen: false)
+                      .autoApplyCommanderDamage) {
+                    player.data['health'] =
+                        player.data['health']! + (modifier * -1);
+                  }
                 });
               } else {
                 player.data[_type.dataIndex] =
