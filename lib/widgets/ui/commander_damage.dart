@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/player.dart';
+import 'package:mtgtracker/widgets/pressable_button.dart';
 
 class CommanderDamage extends StatelessWidget {
   final Player opponent;
@@ -19,44 +20,21 @@ class CommanderDamage extends StatelessWidget {
   List<Widget> _getCommanders(BuildContext context) {
     List<Widget> commanders = [];
 
-    for (int i = 0; i < opponent.data['totalCommanders']!; i++) {
+    for (int i = 0; i < 2; i++) {
       commanders.add(
-        Expanded(
-          flex: 1,
-          child: Container(
-            decoration: BoxDecoration(
-              color: opponent.getColor(context),
-              border: Border.all(
-                width: 3,
-                color: isSelected(int.parse(opponent.id), i)
-                    ? Colors.white
-                    : opponent.getColor(context),
-              ),
-            ),
-            child: Material(
-              key: ValueKey(i.toString()),
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  onSelected(int.parse(opponent.id), i);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Text(
-                    isSelected(int.parse(opponent.id), i)
-                        ? "X"
-                        : player.commander[int.parse(opponent.id)][i]
-                            .toString(),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 20),
-                  ),
-                ),
-              ),
-            ),
+        PressableButton(
+          isActive: isSelected(int.parse(opponent.id), i),
+          inactiveWidget: Text(
+            player.commander[int.parse(opponent.id)][i].toString(),
+            textAlign: TextAlign.center,
+            style:
+                Theme.of(context).textTheme.headline1!.copyWith(fontSize: 20),
           ),
+          inactiveColor: opponent.getColor(context),
+          activeColor: Colors.white,
+          onToggle: () {
+            onSelected(int.parse(opponent.id), i);
+          },
         ),
       );
 
@@ -73,7 +51,7 @@ class CommanderDamage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: _getCommanders(context),
     );

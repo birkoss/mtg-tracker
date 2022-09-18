@@ -25,6 +25,8 @@ class PlayerBox extends StatefulWidget {
 }
 
 class _PlayerBox extends State<PlayerBox> {
+  String mode = "normal";
+
   Widget _getContent(Player player) {
     // Show the dice roll winner
     if (widget.diceRollWinner) {

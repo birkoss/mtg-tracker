@@ -44,14 +44,14 @@ class Player with ChangeNotifier {
     // [0] = Main commander
     // [1] = Partner
     commander = [
-      [1, 11],
-      [2, 12],
-      [3, 13],
-      [4, 14],
-      [20, 1],
-      [6, 16],
-      [7, 17],
-      [8, 18],
+      [20, 20],
+      [20, 20],
+      [20, 20],
+      [20, 20],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
     ];
 
     data = {
@@ -59,7 +59,7 @@ class Player with ChangeNotifier {
       'poison': 0,
       'energy': 0,
       'experience': 0,
-      'totalCommanders': 2,
+      'totalCommanders': 1,
     };
   }
 
@@ -72,7 +72,7 @@ class Player with ChangeNotifier {
     return setting.isDarkTheme ? darkColors[index] : lightColors[index];
   }
 
-  Future<void> refresh(String userToken) async {
+  Future<void> refresh() async {
     notifyListeners();
   }
 }

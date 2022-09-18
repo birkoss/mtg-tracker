@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/widgets/mtgicons.dart';
+import 'package:mtgtracker/widgets/pressable_button.dart';
 import 'package:mtgtracker/widgets/ui/commander_damage.dart';
 import 'package:provider/provider.dart';
 
@@ -94,11 +97,47 @@ class _AmountDataBoxState extends State<AmountDataBox> {
         Expanded(
           flex: 1,
           child: Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(4),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: _getOpponents(context, player),
+              children: [
+                ..._getOpponents(context, player),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    PressableButton(
+                      isActive: false,
+                      inactiveWidget: const Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                      ),
+                      inactiveColor: Colors.transparent,
+                      activeColor: Colors.transparent,
+                      onToggle: () {
+                        print("Toggle Settings!");
+                      },
+                    ),
+                    PressableButton(
+                      isActive: (_type == AmountBoxType.poison),
+                      inactiveWidget: const Icon(
+                        MtgIcons.poison,
+                        color: Colors.white,
+                      ),
+                      inactiveColor: Colors.transparent,
+                      activeColor: Colors.white,
+                      onToggle: () {
+                        setState(() {
+                          _type = _type == AmountBoxType.normal
+                              ? AmountBoxType.poison
+                              : AmountBoxType.normal;
+                        });
+                      },
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
@@ -108,7 +147,9 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             getIcon: () {
               return selectedOpponentCommander[0] != -1
                   ? "commander"
-                  : "health";
+                  : _type == AmountBoxType.normal
+                      ? "health"
+                      : "poison";
             },
             getValue: () {
               if (selectedOpponentCommander[0] != -1) {

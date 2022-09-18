@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/player.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
@@ -8,12 +9,14 @@ class SettingScreen extends StatefulWidget {
   final int playersNumber;
   final int startingLives;
   final int tableLayout;
+  final List<Player> players;
 
   final Function onPickNewPlayer;
   final Function onNewGame;
 
   const SettingScreen({
     Key? key,
+    required this.players,
     required this.playersNumber,
     required this.startingLives,
     required this.tableLayout,
