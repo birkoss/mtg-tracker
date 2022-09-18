@@ -22,8 +22,6 @@ class TrackerScreen extends StatefulWidget {
 }
 
 class _TrackerScreenState extends State<TrackerScreen> {
-  Player? _selectedPlayer;
-
   final List<Player> _players = [
     Player(id: "1"),
     Player(id: "2"),
@@ -67,16 +65,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
     });
   }
 
-  void _toggleCommanderView(Player player) {
-    setState(() {
-      if (_selectedPlayer == player) {
-        _selectedPlayer = null;
-      } else {
-        _selectedPlayer = player;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,9 +79,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   padding: const EdgeInsets.all(2.0),
                   child: Grid(
                     players: _players,
-                    selectedPlayer: _selectedPlayer,
                     diceRollWinner: _pickedPlayer,
-                    onToggleCommanderView: _toggleCommanderView,
                   ),
                 ),
                 Align(

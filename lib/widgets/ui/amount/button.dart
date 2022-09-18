@@ -44,13 +44,11 @@ class _AmountButtonState extends State<AmountButton> {
           onTap: widget.onPress,
           child: Container(
             alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width * 0.25,
-            height: double.infinity,
             child: Text(
               widget.label,
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     color: Colors.white30,
-                    fontSize: 40,
+                    fontSize: 30,
                   ),
             ),
           ),

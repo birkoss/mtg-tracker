@@ -10,17 +10,29 @@ import '../providers/player.dart';
 
 class Grid extends StatelessWidget {
   final List<Player> players;
-  final Player? selectedPlayer;
-  final Function onToggleCommanderView;
   final int diceRollWinner;
 
   const Grid({
     Key? key,
     required this.players,
-    required this.selectedPlayer,
-    required this.onToggleCommanderView,
     required this.diceRollWinner,
   }) : super(key: key);
+
+  List<Player> getOpponents(Player player, List<List<Layout>> rows) {
+    List<Player> opponents = [];
+
+    for (var row in rows) {
+      for (var layout in row) {
+        if (layout.player != null && layout.player != player) {
+          opponents.add(layout.player!);
+        }
+      }
+    }
+
+    print(opponents);
+
+    return opponents;
+  }
 
   List<List<Layout>> generateLayout(BuildContext context, int playersNumber) {
     SettingNotifier setting =
@@ -219,18 +231,6 @@ class Grid extends StatelessWidget {
   List<Widget> generateWidgets(BuildContext context, int playersNumber) {
     List<List<Layout>> rows = generateLayout(context, playersNumber);
 
-    Layout? selectedPlayerLayout;
-    if (selectedPlayer != null) {
-      for (var row in rows) {
-        for (var layout in row) {
-          if (layout.direction != null &&
-              layout.player!.id == selectedPlayer?.id) {
-            selectedPlayerLayout = layout;
-          }
-        }
-      }
-    }
-
     List<Widget> children = [];
     for (var row in rows) {
       List<Widget> rowChildren = [];
@@ -242,17 +242,12 @@ class Grid extends StatelessWidget {
             child: layout.direction == null
                 ? const EmptyBox()
                 : PlayerBox(
+                    opponents: getOpponents(layout.player!, rows),
                     diceRollWinner:
                         diceRollWinner.toString() == layout.player!.id
                             ? true
                             : false,
-                    rotation: selectedPlayer == null
-                        ? layout.getRotation()
-                        : selectedPlayer != layout.player
-                            ? selectedPlayerLayout!.getRotation()
-                            : layout.getRotation(),
-                    selectedPlayer: selectedPlayer,
-                    onToggleCommanderView: onToggleCommanderView,
+                    rotation: layout.getRotation(),
                   ),
           ),
         );

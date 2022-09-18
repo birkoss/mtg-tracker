@@ -30,7 +30,7 @@ class Player with ChangeNotifier {
 
   final String id;
 
-  List<int> commander = [];
+  List<List<int>> commander = [];
   Map<String, int> data = {};
 
   Player({
@@ -40,13 +40,26 @@ class Player with ChangeNotifier {
   }
 
   void reset(int startingLives) {
-    commander = [0, 0, 0, 0, 0, 0, 0, 0];
+    // Support for Partners
+    // [0] = Main commander
+    // [1] = Partner
+    commander = [
+      [1, 11],
+      [2, 12],
+      [3, 13],
+      [4, 14],
+      [20, 15],
+      [6, 16],
+      [7, 17],
+      [8, 18],
+    ];
 
     data = {
       'health': startingLives,
       'poison': 0,
       'energy': 0,
       'experience': 0,
+      'totalCommanders': 1,
     };
   }
 

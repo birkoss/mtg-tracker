@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:provider/provider.dart';
 
@@ -73,70 +74,66 @@ class _AmountBox extends State<AmountBox> {
       }
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
       children: [
-        Expanded(
-          flex: 1,
-          child: AmountButton(
-            label: "-",
-            onPress: () {
-              _changeValue(-1);
-            },
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SvgPicture.asset(
+            "assets/icons/health.svg",
+            fit: BoxFit.scaleDown,
+            color: Colors.white10,
+            semanticsLabel: 'Health',
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AmountText(
-                isVisible: _isTooltipVisible,
-                onHidden: () {
-                  setState(() {
-                    _amountChanges = 0;
-                  });
+        Align(
+          alignment: Alignment.center,
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              widget.getValue(),
+              overflow: TextOverflow.visible,
+              style:
+                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 40),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 100),
+            child: AmountText(
+              isVisible: _isTooltipVisible,
+              onHidden: () {
+                setState(() {
+                  _amountChanges = 0;
+                });
+              },
+              amount: _amountChanges,
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: AmountButton(
+                label: "-",
+                onPress: () {
+                  _changeValue(-1);
                 },
-                amount: _amountChanges,
               ),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: widget.onPress,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(
-                        widget.getValue(),
-                        overflow: TextOverflow.visible,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: setting.playersNumber == 6 &&
-                                      setting.tableLayout == 2
-                                  ? 30
-                                  : 45,
-                            ),
-                      ),
-                    ),
-                  ),
-                ),
+            ),
+            Expanded(
+              flex: 1,
+              child: AmountButton(
+                label: "+",
+                onPress: () {
+                  _changeValue(1);
+                },
               ),
-              widget.child != null
-                  ? widget.child!
-                  : const SizedBox(
-                      height: 20,
-                    ),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: AmountButton(
-            label: "+",
-            onPress: () {
-              _changeValue(1);
-            },
-          ),
+            ),
+          ],
         ),
       ],
     );

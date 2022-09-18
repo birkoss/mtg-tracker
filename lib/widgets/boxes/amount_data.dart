@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/widgets/ui/commander_damage.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/player.dart';
@@ -31,11 +32,11 @@ extension AmountBoxTypeExtension on AmountBoxType {
 }
 
 class AmountDataBox extends StatefulWidget {
-  final Function onToggleCommanderView;
+  final List<Player> opponents;
 
   const AmountDataBox({
     Key? key,
-    required this.onToggleCommanderView,
+    required this.opponents,
   }) : super(key: key);
 
   @override
@@ -43,6 +44,9 @@ class AmountDataBox extends StatefulWidget {
 }
 
 class _AmountDataBoxState extends State<AmountDataBox> {
+  // [X, 0] for commander, [X, 1] for the partner
+  List<int> selectedOpponentCommander = [-1, 0];
+
   AmountBoxType _type = AmountBoxType.normal;
   final List<AmountBoxType> _types = [
     AmountBoxType.normal,
@@ -51,59 +55,74 @@ class _AmountDataBoxState extends State<AmountDataBox> {
     AmountBoxType.experience,
   ];
 
+  List<Widget> _getOpponents(BuildContext context, Player player) {
+    List<Widget> widgets = [];
+
+    for (var opponent in widget.opponents) {
+      widgets.add(
+        CommanderDamage(
+            player: player,
+            opponent: opponent,
+            onSelected: (selectedOpponent, selectedCommander) {
+              setState(() {
+                if (selectedOpponentCommander[0] == selectedOpponent) {
+                  selectedOpponentCommander[0] = -1;
+                  selectedOpponentCommander[1] = 0;
+                } else {
+                  selectedOpponentCommander[0] = selectedOpponent;
+                  selectedOpponentCommander[1] = selectedCommander;
+                }
+              });
+            }),
+      );
+    }
+
+    return widgets;
+  }
+
   @override
   Widget build(BuildContext context) {
     Player player = Provider.of<Player>(context, listen: false);
+    SettingNotifier setting =
+        Provider.of<SettingNotifier>(context, listen: false);
 
-    return Stack(
+    return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SvgPicture.asset(
-            "assets/icons/" + _type.dataIndex + ".svg",
-            fit: BoxFit.scaleDown,
-            color: Colors.white10,
-            semanticsLabel: 'Commander',
+        Expanded(
+          flex: 1,
+          child: Container(
+            color: Colors.black,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: _getOpponents(context, player),
+            ),
           ),
         ),
-        AmountBox(
-          getValue: () {
-            return player.data[_type.dataIndex].toString();
-          },
-          setValue: (int modifier) {
-            player.data[_type.dataIndex] =
-                player.data[_type.dataIndex]! + modifier;
-
-            return true;
-          },
-          onPress: () {
-            setState(() {
-              int index = _types.indexOf(_type) + 1;
-              if (index >= _types.length) {
-                index = 0;
+        Expanded(
+          flex: 2,
+          child: AmountBox(
+            getValue: () {
+              if (selectedOpponentCommander[0] != -1) {
+                return player.commander[selectedOpponentCommander[0]]
+                        [selectedOpponentCommander[1]]
+                    .toString();
               }
-              _type = _types.elementAt(index);
-            });
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    "assets/icons/commander.svg",
-                    height: 30,
-                    fit: BoxFit.scaleDown,
-                    color: Colors.white70,
-                    semanticsLabel: 'Commander',
-                  ),
-                  onPressed: () {
-                    widget.onToggleCommanderView(player);
-                  },
-                ),
-              ),
-            ],
+              return player.data[_type.dataIndex].toString();
+            },
+            setValue: (int modifier) {
+              if (selectedOpponentCommander[0] != -1) {
+                setState(() {
+                  player.commander[selectedOpponentCommander[0]]
+                      [selectedOpponentCommander[1]] += modifier;
+                });
+              } else {
+                player.data[_type.dataIndex] =
+                    player.data[_type.dataIndex]! + modifier;
+              }
+
+              return true;
+            },
           ),
         ),
       ],
