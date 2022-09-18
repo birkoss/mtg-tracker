@@ -1,14 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/widgets/mtgicons.dart';
-import 'package:mtgtracker/widgets/pressable_button.dart';
-import 'package:mtgtracker/widgets/ui/commander_damage.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/player.dart';
+import '../../providers/setting.dart';
+
 import '../../widgets/boxes/amount.dart';
+import '../../widgets/mtgicons.dart';
+import '../../widgets/pressable_button.dart';
+import '../../widgets/ui/commander_damage.dart';
 
 // What are we modifying in the Amount Box
 enum AmountBoxType {
@@ -193,6 +194,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     player.data['health'] =
                         player.data['health']! + (modifier * -1);
 
+                    // Never let HEALTH lower than 0
                     player.data['health'] = max(0, player.data['health']!);
                   }
                 });
