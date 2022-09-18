@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class PressableButton extends StatefulWidget {
   final bool isActive;
+  final bool isVisible;
   final Widget inactiveWidget;
   final Color inactiveColor;
   final Color activeColor;
@@ -10,6 +11,7 @@ class PressableButton extends StatefulWidget {
   const PressableButton({
     Key? key,
     required this.isActive,
+    required this.isVisible,
     required this.inactiveWidget,
     required this.inactiveColor,
     required this.activeColor,
@@ -25,46 +27,52 @@ class _PressableButtonState extends State<PressableButton> {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: widget.inactiveColor,
-            border: Border.all(
-              width: 3,
-              color:
-                  widget.isActive ? widget.activeColor : widget.inactiveColor,
-            ),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: widget.onToggle,
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 160),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return ScaleTransition(scale: animation, child: child);
-                  },
-                  child: widget.isActive
-                      ? Text(
-                          "X",
-                          textAlign: TextAlign.center,
-                          key: const ValueKey<String>("X"),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontSize: 20),
-                        )
-                      : widget.inactiveWidget,
+      child: !widget.isVisible
+          ? const SizedBox(
+              width: 2,
+            )
+          : Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: widget.inactiveColor,
+                  border: Border.all(
+                    width: 3,
+                    color: widget.isActive
+                        ? widget.activeColor
+                        : widget.inactiveColor,
+                  ),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: widget.onToggle,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 160),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return ScaleTransition(
+                              scale: animation, child: child);
+                        },
+                        child: widget.isActive
+                            ? Text(
+                                "X",
+                                textAlign: TextAlign.center,
+                                key: const ValueKey<String>("X"),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(fontSize: 20),
+                              )
+                            : widget.inactiveWidget,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

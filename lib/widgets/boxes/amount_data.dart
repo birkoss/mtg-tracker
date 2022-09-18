@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/mtgicons.dart';
 import 'package:mtgtracker/widgets/pressable_button.dart';
 import 'package:mtgtracker/widgets/ui/commander_damage.dart';
@@ -36,9 +34,11 @@ extension AmountBoxTypeExtension on AmountBoxType {
 
 class AmountDataBox extends StatefulWidget {
   final List<Player> opponents;
+  final VoidCallback showSettings;
 
   const AmountDataBox({
     Key? key,
+    required this.showSettings,
     required this.opponents,
   }) : super(key: key);
 
@@ -108,6 +108,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     PressableButton(
+                      isVisible: true,
                       isActive: false,
                       inactiveWidget: const Icon(
                         Icons.settings,
@@ -116,10 +117,11 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                       inactiveColor: Colors.transparent,
                       activeColor: Colors.transparent,
                       onToggle: () {
-                        print("Toggle Settings!");
+                        widget.showSettings();
                       },
                     ),
                     PressableButton(
+                      isVisible: true,
                       isActive: (_type == AmountBoxType.poison),
                       inactiveWidget: player.data['poison']! == 0
                           ? const Icon(

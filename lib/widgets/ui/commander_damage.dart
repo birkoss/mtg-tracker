@@ -23,12 +23,16 @@ class CommanderDamage extends StatelessWidget {
     for (int i = 0; i < 2; i++) {
       commanders.add(
         PressableButton(
+          isVisible: (i + 1 <= opponent.data['totalCommanders']!),
           isActive: isSelected(int.parse(opponent.id), i),
-          inactiveWidget: Text(
-            player.commander[int.parse(opponent.id)][i].toString(),
-            textAlign: TextAlign.center,
-            style:
-                Theme.of(context).textTheme.headline1!.copyWith(fontSize: 20),
+          inactiveWidget: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              player.commander[int.parse(opponent.id)][i].toString(),
+              textAlign: TextAlign.center,
+              style:
+                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 20),
+            ),
           ),
           inactiveColor: opponent.getColor(context),
           activeColor: Colors.white,
@@ -37,12 +41,6 @@ class CommanderDamage extends StatelessWidget {
           },
         ),
       );
-
-      if (i < opponent.data['totalCommanders']! - 1) {
-        commanders.add(
-          const SizedBox(width: 6),
-        );
-      }
     }
 
     return commanders;

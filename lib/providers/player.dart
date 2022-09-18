@@ -44,10 +44,10 @@ class Player with ChangeNotifier {
     // [0] = Main commander
     // [1] = Partner
     commander = [
-      [20, 20],
-      [20, 20],
-      [20, 20],
-      [20, 20],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
       [0, 0],
       [0, 0],
       [0, 0],

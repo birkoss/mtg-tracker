@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/player.dart';
@@ -25,7 +27,7 @@ class PlayerBox extends StatefulWidget {
 }
 
 class _PlayerBox extends State<PlayerBox> {
-  String mode = "normal";
+  bool _showSettings = false;
 
   Widget _getContent(Player player) {
     // Show the dice roll winner
@@ -43,8 +45,110 @@ class _PlayerBox extends State<PlayerBox> {
       );
     }
 
+    if (_showSettings) {
+      // Has Partner ?
+      // - Enable multiple commanders
+      // Is Dead ?
+      // - Show a Skull instead of the stats
+      // - Opacity the opponent Commander Damage (disable click)
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text(
+                "Settings",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text(
+                          "Has a partner",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(height: 10),
+                        Toggles(
+                          defaultValue: player.data['totalCommanders']!,
+                          values: const [
+                            {"value": "1", "label": "No"},
+                            {"value": "2", "label": "Yes"},
+                          ],
+                          onChanged: (int value) {
+                            setState(() {
+                              player.data['totalCommanders'] = value;
+                              SettingNotifier setting =
+                                  Provider.of<SettingNotifier>(context,
+                                      listen: false);
+                              setting.notifyListeners();
+                              //_selectedPlayersNumber = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text(
+                          "Is Dead!",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(height: 10),
+                        Toggles(
+                          defaultValue: 1,
+                          values: const [
+                            {"value": "1", "label": "No"},
+                            {"value": "2", "label": "Yes"},
+                          ],
+                          onChanged: (int value) {
+                            setState(() {
+                              //_selectedPlayersNumber = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    _showSettings = false;
+                  });
+                },
+                icon: const Icon(Icons.close),
+                label: const Text("Close"),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     // Show the normal values (and toggling between types)
-    return AmountDataBox(opponents: widget.opponents);
+    return AmountDataBox(
+        showSettings: () {
+          setState(() {
+            _showSettings = true;
+          });
+        },
+        opponents: widget.opponents);
   }
 
   @override
