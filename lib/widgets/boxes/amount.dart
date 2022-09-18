@@ -9,6 +9,7 @@ import '../../widgets/ui/amount/text.dart';
 
 class AmountBox extends StatefulWidget {
   final Widget? child;
+  final Function getIcon;
   final Function setValue;
   final Function getValue;
   final Function()? onPress;
@@ -17,6 +18,7 @@ class AmountBox extends StatefulWidget {
     Key? key,
     this.child,
     required this.setValue,
+    required this.getIcon,
     required this.getValue,
     this.onPress,
   }) : super(key: key);
@@ -79,7 +81,7 @@ class _AmountBox extends State<AmountBox> {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: SvgPicture.asset(
-            "assets/icons/health.svg",
+            "assets/icons/" + widget.getIcon() + ".svg",
             fit: BoxFit.scaleDown,
             color: Colors.white10,
             semanticsLabel: 'Health',

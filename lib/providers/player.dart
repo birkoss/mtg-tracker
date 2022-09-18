@@ -48,7 +48,7 @@ class Player with ChangeNotifier {
       [2, 12],
       [3, 13],
       [4, 14],
-      [20, 15],
+      [20, 1],
       [6, 16],
       [7, 17],
       [8, 18],
@@ -59,7 +59,7 @@ class Player with ChangeNotifier {
       'poison': 0,
       'energy': 0,
       'experience': 0,
-      'totalCommanders': 1,
+      'totalCommanders': 2,
     };
   }
 

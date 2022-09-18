@@ -61,11 +61,16 @@ class _AmountDataBoxState extends State<AmountDataBox> {
     for (var opponent in widget.opponents) {
       widgets.add(
         CommanderDamage(
+            isSelected: (currentOpponent, currentCommander) {
+              return (selectedOpponentCommander[0] == currentOpponent &&
+                  selectedOpponentCommander[1] == currentCommander);
+            },
             player: player,
             opponent: opponent,
             onSelected: (selectedOpponent, selectedCommander) {
               setState(() {
-                if (selectedOpponentCommander[0] == selectedOpponent) {
+                if (selectedOpponentCommander[0] == selectedOpponent &&
+                    selectedOpponentCommander[1] == selectedCommander) {
                   selectedOpponentCommander[0] = -1;
                   selectedOpponentCommander[1] = 0;
                 } else {
@@ -83,18 +88,16 @@ class _AmountDataBoxState extends State<AmountDataBox> {
   @override
   Widget build(BuildContext context) {
     Player player = Provider.of<Player>(context, listen: false);
-    SettingNotifier setting =
-        Provider.of<SettingNotifier>(context, listen: false);
 
     return Row(
       children: [
         Expanded(
           flex: 1,
           child: Container(
-            color: Colors.black,
+            padding: const EdgeInsets.all(8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: _getOpponents(context, player),
             ),
           ),
@@ -102,6 +105,11 @@ class _AmountDataBoxState extends State<AmountDataBox> {
         Expanded(
           flex: 2,
           child: AmountBox(
+            getIcon: () {
+              return selectedOpponentCommander[0] != -1
+                  ? "commander"
+                  : "health";
+            },
             getValue: () {
               if (selectedOpponentCommander[0] != -1) {
                 return player.commander[selectedOpponentCommander[0]]

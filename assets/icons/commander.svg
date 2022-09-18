@@ -1,1 +1,17 @@
-<svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 1024"><path d="M749.479 731.11V382.049l-169.344-81.125v348.969l169.344 81.217zm-558.107-81.217V300.924L22.026 382.049V731.11l169.346-81.217zm194.347-533.85l-143.365 75.938v432.026l143.365-76.056 143.365 76.056V191.981l-143.365-75.938zM.396 950.623v-136.55l385.323-204.696 385.299 204.696v136.55H.397z"></path></svg>
+<svg
+   focusable="false"
+   aria-hidden="true"
+   viewBox="0 0 768 1024"
+   version="1.1"
+   id="svg44"
+   sodipodi:docname="commander.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+
+  <path
+     d="m 749.479,705.0761 v -349.061 l -169.344,-81.125 v 348.969 z m -558.107,-81.217 v -348.969 l -169.346,81.125 v 349.061 z M 385.719,90.009102 242.354,165.9471 v 432.026 l 143.365,-76.056 143.365,76.056 V 165.9471 Z M 0.396,924.5891 v -136.55 l 385.323,-204.696 385.299,204.696 v 136.55 H 0.397 Z"
+     id="path42" />
+</svg>
