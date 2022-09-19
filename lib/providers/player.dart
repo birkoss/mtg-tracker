@@ -30,6 +30,8 @@ class Player with ChangeNotifier {
 
   final String id;
 
+  late String keyId = "";
+
   List<List<int>> commander = [];
   Map<String, int> data = {};
 

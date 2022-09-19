@@ -37,6 +37,12 @@ class Players extends ChangeNotifier {
   Player? get diceRollWinner => _diceRollWinner;
 
   void addPlayer(Player player) {
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    Random _rnd = Random();
+
+    player.keyId = String.fromCharCodes(Iterable.generate(
+        10, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
     _players.add(player);
 
     notifyListeners();

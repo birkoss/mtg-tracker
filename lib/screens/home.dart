@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/layout.dart';
+import 'package:mtgtracker/providers/setting.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/player.dart';
@@ -23,6 +25,11 @@ class HomeScreen extends StatelessWidget {
                 context.read<Players>().addPlayer(Player(id: "2"));
                 context.read<Players>().addPlayer(Player(id: "3"));
                 context.read<Players>().addPlayer(Player(id: "4"));
+
+                context.read<LayoutNotifier>().generate(
+                      context.read<Players>().players,
+                      context.read<SettingNotifier>(),
+                    );
 
                 Navigator.pushNamed(context, '/play');
               },

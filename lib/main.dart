@@ -1,11 +1,13 @@
-// @TODO: New Game: Reset all showSettings, etc... to NORMAL view
+// @TODO: Clean Colors from player class
 // @TODO: Better pick player, show a random hover on each player until one is picked
+// @TODO: When changing states (commander, normal, poison), reset the amount modifyer
 
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';
 
+import '../providers/layout.dart';
 import '../providers/players.dart';
 import '../providers/setting.dart';
 import '../screens/home.dart';
@@ -31,6 +33,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => SettingNotifier()),
         ChangeNotifierProvider(create: (_) => Players()),
+        ChangeNotifierProvider(create: (_) => LayoutNotifier()),
       ],
       child: const MtgTrackerApp(),
     ),

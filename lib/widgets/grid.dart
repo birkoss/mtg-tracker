@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/providers/layout.dart';
 import 'package:mtgtracker/widgets/boxes/empty.dart';
 import 'package:mtgtracker/widgets/boxes/player.dart';
 import 'package:provider/provider.dart';
@@ -28,205 +27,9 @@ class Grid extends StatelessWidget {
     return opponents;
   }
 
-  List<List<Layout>> generateLayout(BuildContext context) {
-    SettingNotifier setting =
-        Provider.of<SettingNotifier>(context, listen: false);
-
-    List<List<Layout>> rows = [];
-
-    final List<Player> players = context.read<Players>().players;
-
-    switch (players.length) {
-      case 2:
-        if (setting.tableLayout == 2) {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.top),
-          ]);
-          rows.add([
-            Layout(player: players[1], direction: LayoutDirection.bottom),
-          ]);
-        } else {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-        }
-
-        break;
-      case 3:
-        if (setting.tableLayout == 2) {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[2], direction: LayoutDirection.bottom),
-          ]);
-        } else {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[2], direction: LayoutDirection.left),
-            Layout(player: null, direction: null),
-          ]);
-        }
-
-        break;
-      case 4:
-        if (setting.tableLayout == 2) {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.top),
-          ]);
-
-          rows.add([
-            Layout(player: players[1], direction: LayoutDirection.left),
-            Layout(player: players[2], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[3], direction: LayoutDirection.bottom),
-          ]);
-        } else {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[2], direction: LayoutDirection.left),
-            Layout(player: players[3], direction: LayoutDirection.right),
-          ]);
-        }
-
-        break;
-      case 5:
-        if (setting.tableLayout == 2) {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[2], direction: LayoutDirection.left),
-            Layout(player: players[3], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[4], direction: LayoutDirection.bottom),
-          ]);
-        } else {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[2], direction: LayoutDirection.left),
-            Layout(player: players[3], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[4], direction: LayoutDirection.left),
-            Layout(player: null, direction: null),
-          ]);
-        }
-        break;
-      case 6:
-        if (setting.tableLayout == 2) {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.top),
-          ]);
-
-          rows.add([
-            Layout(player: players[1], direction: LayoutDirection.left),
-            Layout(player: players[2], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[3], direction: LayoutDirection.left),
-            Layout(player: players[4], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[5], direction: LayoutDirection.bottom),
-          ]);
-        } else {
-          rows.add([
-            Layout(player: players[0], direction: LayoutDirection.left),
-            Layout(player: players[1], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[2], direction: LayoutDirection.left),
-            Layout(player: players[3], direction: LayoutDirection.right),
-          ]);
-
-          rows.add([
-            Layout(player: players[4], direction: LayoutDirection.left),
-            Layout(player: players[5], direction: LayoutDirection.right),
-          ]);
-        }
-        break;
-      case 7:
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.left),
-          Layout(player: players[1], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[2], direction: LayoutDirection.left),
-          Layout(player: players[3], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[4], direction: LayoutDirection.left),
-          Layout(player: players[5], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[6], direction: LayoutDirection.bottom),
-        ]);
-        break;
-      case 8:
-        rows.add([
-          Layout(player: players[0], direction: LayoutDirection.top),
-        ]);
-
-        rows.add([
-          Layout(player: players[1], direction: LayoutDirection.left),
-          Layout(player: players[2], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[3], direction: LayoutDirection.left),
-          Layout(player: players[4], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[5], direction: LayoutDirection.left),
-          Layout(player: players[6], direction: LayoutDirection.right),
-        ]);
-
-        rows.add([
-          Layout(player: players[7], direction: LayoutDirection.bottom),
-        ]);
-        break;
-      default:
-        rows.add([
-          Layout(player: players[1], direction: LayoutDirection.bottom),
-        ]);
-    }
-
-    return rows;
-  }
-
   List<Widget> generateWidgets(BuildContext context) {
-    List<List<Layout>> rows = generateLayout(context);
-
+    List<List<Layout>> rows = context.watch<LayoutNotifier>().rows;
+    print("grid.generateWidget");
     List<Widget> children = [];
     for (var row in rows) {
       List<Widget> rowChildren = [];
@@ -238,7 +41,7 @@ class Grid extends StatelessWidget {
                 )
               : ChangeNotifierProvider.value(
                   value: layout.player,
-                  key: ValueKey(layout.player!.id),
+                  key: ValueKey(layout.player!.keyId),
                   child: PlayerBox(
                     opponents: getOpponents(layout.player!, rows),
                     rotation: layout.getRotation(),
@@ -263,6 +66,7 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("grid.build()");
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: generateWidgets(context),

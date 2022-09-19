@@ -11,7 +11,6 @@ class PlayerBox extends StatefulWidget {
   final List<Player> opponents;
   // Rotation of this widget within the Grid
   final int rotation;
-  // Called when toggling commander/normal view
 
   const PlayerBox({
     Key? key,
@@ -44,14 +43,22 @@ class _PlayerBox extends State<PlayerBox> {
     // Show the dice roll winner
     if (context.watch<Players>().diceRollWinner == player) {
       widgets.add(
-        const Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            "You Win the Dice Roll",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.white,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "You Win the Dice Roll",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: context.read<Player>().getColor(context),
+                ),
+              ),
             ),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/layout.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/player.dart';
@@ -23,12 +24,16 @@ class TrackerScreen extends StatefulWidget {
 class _TrackerScreenState extends State<TrackerScreen> {
   // @TODO REMOVE FROM HERE
   void _newGame() {
-    SettingNotifier setting =
-        Provider.of<SettingNotifier>(context, listen: false);
+    context.read<Players>().clearPlayers();
+    context.read<Players>().addPlayer(Player(id: "1"));
+    context.read<Players>().addPlayer(Player(id: "2"));
+    context.read<Players>().addPlayer(Player(id: "3"));
+    context.read<Players>().addPlayer(Player(id: "4"));
 
-    for (Player player in context.read<Players>().players) {
-      player.reset(setting.startingLives);
-    }
+    context.read<LayoutNotifier>().generate(
+          context.read<Players>().players,
+          context.read<SettingNotifier>(),
+        );
 
     _pickNewPlayer();
   }
