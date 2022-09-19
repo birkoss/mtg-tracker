@@ -9,14 +9,12 @@ class SettingScreen extends StatefulWidget {
   final int playersNumber;
   final int startingLives;
   final int tableLayout;
-  final List<Player> players;
 
   final Function onPickNewPlayer;
   final Function onNewGame;
 
   const SettingScreen({
     Key? key,
-    required this.players,
     required this.playersNumber,
     required this.startingLives,
     required this.tableLayout,

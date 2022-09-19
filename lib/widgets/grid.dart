@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/players.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/boxes/empty.dart';
 import 'package:mtgtracker/widgets/boxes/player.dart';
@@ -32,13 +33,13 @@ class Grid extends StatelessWidget {
     return opponents;
   }
 
-  List<List<Layout>> generateLayout(BuildContext context, int playersNumber) {
+  List<List<Layout>> generateLayout(BuildContext context) {
     SettingNotifier setting =
         Provider.of<SettingNotifier>(context, listen: false);
 
     List<List<Layout>> rows = [];
 
-    switch (playersNumber) {
+    switch (context.read<Players>().players.length) {
       case 2:
         if (setting.tableLayout == 2) {
           rows.add([
@@ -226,8 +227,8 @@ class Grid extends StatelessWidget {
     return rows;
   }
 
-  List<Widget> generateWidgets(BuildContext context, int playersNumber) {
-    List<List<Layout>> rows = generateLayout(context, playersNumber);
+  List<Widget> generateWidgets(BuildContext context) {
+    List<List<Layout>> rows = generateLayout(context);
 
     List<Widget> children = [];
     for (var row in rows) {
@@ -267,13 +268,9 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SettingNotifier>(
-      builder: (context, setting, child) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: generateWidgets(context, setting.playersNumber),
-        );
-      },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: generateWidgets(context),
     );
   }
 }

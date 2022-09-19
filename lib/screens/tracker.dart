@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/players.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/screens/setting.dart';
 import 'package:provider/provider.dart';
@@ -22,24 +23,14 @@ class TrackerScreen extends StatefulWidget {
 }
 
 class _TrackerScreenState extends State<TrackerScreen> {
-  final List<Player> _players = [
-    Player(id: "1"),
-    Player(id: "2"),
-    Player(id: "3"),
-    Player(id: "4"),
-    Player(id: "5"),
-    Player(id: "6"),
-    Player(id: "7"),
-    Player(id: "8"),
-  ];
-
   int _pickedPlayer = 0;
 
+  // @TODO REMOVE FROM HERE
   void _newGame() {
     SettingNotifier setting =
         Provider.of<SettingNotifier>(context, listen: false);
 
-    for (Player player in _players) {
+    for (Player player in context.read<Players>().players) {
       player.reset(setting.startingLives);
     }
 
@@ -78,7 +69,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Grid(
-                    players: _players,
+                    players: context.read<Players>().players,
                     diceRollWinner: _pickedPlayer,
                   ),
                 ),
@@ -102,7 +93,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => SettingScreen(
-                            players: _players,
                             tableLayout: setting.tableLayout,
                             startingLives: setting.startingLives,
                             playersNumber: setting.playersNumber,
