@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/players.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
@@ -13,13 +14,10 @@ class PlayerBox extends StatefulWidget {
   final int rotation;
   // Called when toggling commander/normal view
 
-  final bool diceRollWinner;
-
   const PlayerBox({
     Key? key,
     required this.opponents,
     required this.rotation,
-    required this.diceRollWinner,
   }) : super(key: key);
 
   @override
@@ -30,8 +28,9 @@ class _PlayerBox extends State<PlayerBox> {
   bool _showSettings = false;
 
   Widget _getContent(Player player) {
+    print("PlayerBox.getContent...");
     // Show the dice roll winner
-    if (widget.diceRollWinner) {
+    if (context.watch<Players>().diceRollWinner == player) {
       return const Padding(
         padding: EdgeInsets.all(8),
         child: Text(

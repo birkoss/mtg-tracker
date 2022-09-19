@@ -2,13 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/screens/setting.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/player.dart';
-
+import '../providers/players.dart';
+import '../providers/setting.dart';
+import '../screens/setting.dart';
 import '../widgets/grid.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -38,22 +37,16 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _pickNewPlayer() {
-    SettingNotifier setting =
-        Provider.of<SettingNotifier>(context, listen: false);
-    setState(() {
-      if (_pickedPlayer == 0) {
-        _pickedPlayer = Random().nextInt(setting.playersNumber) + 1;
+    print("New player pick...");
+    context.read<Players>().pickPlayer();
 
-        Timer(
-          const Duration(seconds: 2),
-          () {
-            setState(() {
-              _pickedPlayer = 0;
-            });
-          },
-        );
-      }
-    });
+    print(context.read<Players>().diceRollWinner);
+    Timer(
+      const Duration(seconds: 2),
+      () {
+        context.read<Players>().pickPlayer(resetPick: true);
+      },
+    );
   }
 
   @override
@@ -66,12 +59,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
             color: Theme.of(context).canvasColor,
             child: Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Grid(
-                    players: context.read<Players>().players,
-                    diceRollWinner: _pickedPlayer,
-                  ),
+                const Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Grid(),
                 ),
                 Align(
                   alignment: Alignment.center,

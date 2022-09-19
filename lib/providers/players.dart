@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../providers/player.dart';
@@ -31,6 +33,9 @@ class Players extends ChangeNotifier {
   List<Player> _players = [];
   List<Player> get players => _players;
 
+  Player? _diceRollWinner;
+  Player? get diceRollWinner => _diceRollWinner;
+
   void addPlayer(Player player) {
     _players.add(player);
 
@@ -39,6 +44,16 @@ class Players extends ChangeNotifier {
 
   void clearPlayers() {
     _players = [];
+
+    notifyListeners();
+  }
+
+  void pickPlayer({bool resetPick = false}) {
+    if (resetPick) {
+      _diceRollWinner = null;
+    } else {
+      _diceRollWinner = _players[Random().nextInt(_players.length)];
+    }
 
     notifyListeners();
   }

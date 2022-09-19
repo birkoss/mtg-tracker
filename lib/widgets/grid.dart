@@ -10,13 +10,8 @@ import '../models/layout.dart';
 import '../providers/player.dart';
 
 class Grid extends StatelessWidget {
-  final List<Player> players;
-  final int diceRollWinner;
-
   const Grid({
     Key? key,
-    required this.players,
-    required this.diceRollWinner,
   }) : super(key: key);
 
   List<Player> getOpponents(Player player, List<List<Layout>> rows) {
@@ -39,7 +34,9 @@ class Grid extends StatelessWidget {
 
     List<List<Layout>> rows = [];
 
-    switch (context.read<Players>().players.length) {
+    final List<Player> players = context.read<Players>().players;
+
+    switch (players.length) {
       case 2:
         if (setting.tableLayout == 2) {
           rows.add([
@@ -244,10 +241,6 @@ class Grid extends StatelessWidget {
                   key: ValueKey(layout.player!.id),
                   child: PlayerBox(
                     opponents: getOpponents(layout.player!, rows),
-                    diceRollWinner:
-                        diceRollWinner.toString() == layout.player!.id
-                            ? true
-                            : false,
                     rotation: layout.getRotation(),
                   ),
                 ),
