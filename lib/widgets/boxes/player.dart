@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/players.dart';
 import '../../providers/player.dart';
 import '../../widgets/boxes/amount_data.dart';
+import '../../widgets/ui/toggles.dart';
 
 class PlayerBox extends StatefulWidget {
   // Opponents of this Player
@@ -101,14 +100,8 @@ class _PlayerBox extends State<PlayerBox> {
                               {"value": "2", "label": "Yes"},
                             ],
                             onChanged: (int value) {
-                              setState(() {
-                                player.data['totalCommanders'] = value;
-                                SettingNotifier setting =
-                                    Provider.of<SettingNotifier>(context,
-                                        listen: false);
-                                // @TODO: Replace this ugly Hack to force a refresh!
-                                setting.notifyListeners();
-                              });
+                              player.updateTotalCommanders(value);
+                              context.read<Players>().hasChanged();
                             },
                           ),
                         ],

@@ -75,4 +75,10 @@ class Player with ChangeNotifier {
   Future<void> refresh() async {
     notifyListeners();
   }
+
+  void updateTotalCommanders(int total) {
+    data['totalCommanders'] = total;
+
+    notifyListeners();
+  }
 }

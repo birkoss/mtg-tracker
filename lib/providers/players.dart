@@ -48,6 +48,10 @@ class Players extends ChangeNotifier {
     notifyListeners();
   }
 
+  void hasChanged() {
+    notifyListeners();
+  }
+
   void pickPlayer({bool resetPick = false}) {
     if (resetPick) {
       _diceRollWinner = null;
