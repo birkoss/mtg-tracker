@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +21,6 @@ class TrackerScreen extends StatefulWidget {
 }
 
 class _TrackerScreenState extends State<TrackerScreen> {
-  int _pickedPlayer = 0;
-
   // @TODO REMOVE FROM HERE
   void _newGame() {
     SettingNotifier setting =
@@ -37,10 +34,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _pickNewPlayer() {
-    print("New player pick...");
     context.read<Players>().pickPlayer();
 
-    print(context.read<Players>().diceRollWinner);
     Timer(
       const Duration(seconds: 2),
       () {

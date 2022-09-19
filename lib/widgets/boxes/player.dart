@@ -27,18 +27,33 @@ class PlayerBox extends StatefulWidget {
 class _PlayerBox extends State<PlayerBox> {
   bool _showSettings = false;
 
-  Widget _getContent(Player player) {
-    print("PlayerBox.getContent...");
+  List<Widget> _getContent(Player player) {
+    List<Widget> widgets = [];
+
+    // Show the normal values (and toggling between types)
+    widgets.add(
+      AmountDataBox(
+        showSettings: () {
+          setState(() {
+            _showSettings = true;
+          });
+        },
+        opponents: widget.opponents,
+      ),
+    );
+
     // Show the dice roll winner
     if (context.watch<Players>().diceRollWinner == player) {
-      return const Padding(
-        padding: EdgeInsets.all(8),
-        child: Text(
-          "You Win the Dice Roll",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
+      widgets.add(
+        const Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            "You Win the Dice Roll",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
           ),
         ),
       );
@@ -50,104 +65,99 @@ class _PlayerBox extends State<PlayerBox> {
       // Is Dead ?
       // - Show a Skull instead of the stats
       // - Opacity the opponent Commander Damage (disable click)
-      return Padding(
-        padding: const EdgeInsets.all(8),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text(
-                "Settings",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Has a partner",
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: 10),
-                        Toggles(
-                          defaultValue: player.data['totalCommanders']!,
-                          values: const [
-                            {"value": "1", "label": "No"},
-                            {"value": "2", "label": "Yes"},
-                          ],
-                          onChanged: (int value) {
-                            setState(() {
-                              player.data['totalCommanders'] = value;
-                              SettingNotifier setting =
-                                  Provider.of<SettingNotifier>(context,
-                                      listen: false);
-                              // @TODO: Replace this ugly Hack to force a refresh!
-                              setting.notifyListeners();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text(
+                  "Settings",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Is Dead!",
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: 10),
-                        Toggles(
-                          defaultValue: 1,
-                          values: const [
-                            {"value": "1", "label": "No"},
-                            {"value": "2", "label": "Yes"},
-                          ],
-                          onChanged: (int value) {
-                            setState(() {
-                              //_selectedPlayersNumber = value;
-                            });
-                          },
-                        ),
-                      ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Has a partner",
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          const SizedBox(height: 10),
+                          Toggles(
+                            defaultValue: player.data['totalCommanders']!,
+                            values: const [
+                              {"value": "1", "label": "No"},
+                              {"value": "2", "label": "Yes"},
+                            ],
+                            onChanged: (int value) {
+                              setState(() {
+                                player.data['totalCommanders'] = value;
+                                SettingNotifier setting =
+                                    Provider.of<SettingNotifier>(context,
+                                        listen: false);
+                                // @TODO: Replace this ugly Hack to force a refresh!
+                                setting.notifyListeners();
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _showSettings = false;
-                  });
-                },
-                icon: const Icon(Icons.close),
-                label: const Text("Close"),
-              ),
-            ],
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Is Dead!",
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          const SizedBox(height: 10),
+                          Toggles(
+                            defaultValue: 1,
+                            values: const [
+                              {"value": "1", "label": "No"},
+                              {"value": "2", "label": "Yes"},
+                            ],
+                            onChanged: (int value) {
+                              setState(() {
+                                //_selectedPlayersNumber = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _showSettings = false;
+                    });
+                  },
+                  icon: const Icon(Icons.close),
+                  label: const Text("Close"),
+                ),
+              ],
+            ),
           ),
         ),
       );
     }
 
-    // Show the normal values (and toggling between types)
-    return AmountDataBox(
-        showSettings: () {
-          setState(() {
-            _showSettings = true;
-          });
-        },
-        opponents: widget.opponents);
+    return widgets;
   }
 
   @override
@@ -171,7 +181,9 @@ class _PlayerBox extends State<PlayerBox> {
               child: child,
               scale: animation,
             ),
-            child: _getContent(player),
+            child: Stack(
+              children: _getContent(player),
+            ),
           ),
         ),
       ),

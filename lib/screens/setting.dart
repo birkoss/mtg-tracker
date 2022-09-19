@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/player.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/widgets/ui/toggles.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/setting.dart';
+import '../widgets/ui/toggles.dart';
 
 class SettingScreen extends StatefulWidget {
   static const routeName = '/settings';

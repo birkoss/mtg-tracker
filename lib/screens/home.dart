@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/player.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/providers/setting.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/player.dart';
+import '../providers/players.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
