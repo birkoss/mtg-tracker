@@ -3,14 +3,15 @@
 // @TODO: Better pick player, show a random hover on each player until one is picked
 
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/screens/loading.dart';
-import 'package:mtgtracker/themes/custom.dart';
-import 'package:provider/provider.dart';
 
-import 'screens/tracker.dart';
+import '../providers/players.dart';
+import '../providers/setting.dart';
+import '../screens/home.dart';
+import '../screens/tracker.dart';
+import '../themes/custom.dart';
 
 /*
   - Prevent screen lock
@@ -29,9 +30,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => SettingNotifier(),
-        ),
+        ChangeNotifierProvider(create: (_) => SettingNotifier()),
+        ChangeNotifierProvider(create: (_) => Players()),
       ],
       child: const MtgTrackerApp(),
     ),
@@ -49,9 +49,12 @@ class MtgTrackerApp extends StatelessWidget {
       theme: context.watch<SettingNotifier>().isDarkTheme
           ? CustomTheme.darkTheme
           : CustomTheme.lightTheme,
-      home: context.watch<SettingNotifier>().isReady
-          ? const TrackerScreen()
-          : const LoadingScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (_) => const HomeScreen(),
+        '/play': (_) => const TrackerScreen(),
+        //'/settings': (_) => const SettingScreen(),
+      },
     );
   }
 }
