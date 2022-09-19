@@ -12,6 +12,11 @@ import 'package:provider/provider.dart';
 
 import 'screens/tracker.dart';
 
+/*
+  - Prevent screen lock
+  - Prevent screen rotation
+  - Enable providers
+*/
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,29 +26,32 @@ void main() {
     DeviceOrientation.portraitUp,
   ]);
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => SettingNotifier(),
+        ),
+      ],
+      child: const MtgTrackerApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MtgTrackerApp extends StatelessWidget {
+  const MtgTrackerApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => SettingNotifier(),
-      child: Consumer<SettingNotifier>(
-        builder: (context, SettingNotifier setting, child) {
-          return MaterialApp(
-            title: 'MTG Life Tracker',
-            debugShowCheckedModeBanner: false,
-            theme: setting.isDarkTheme
-                ? CustomTheme.darkTheme
-                : CustomTheme.lightTheme,
-            home:
-                setting.isReady ? const TrackerScreen() : const LoadingScreen(),
-          );
-        },
-      ),
+    return MaterialApp(
+      title: 'MTG Life Tracker',
+      debugShowCheckedModeBanner: false,
+      theme: context.watch<SettingNotifier>().isDarkTheme
+          ? CustomTheme.darkTheme
+          : CustomTheme.lightTheme,
+      home: context.watch<SettingNotifier>().isReady
+          ? const TrackerScreen()
+          : const LoadingScreen(),
     );
   }
 }
