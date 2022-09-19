@@ -29,8 +29,6 @@ class Grid extends StatelessWidget {
       }
     }
 
-    print(opponents);
-
     return opponents;
   }
 

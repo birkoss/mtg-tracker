@@ -55,12 +55,6 @@ class _AmountDataBoxState extends State<AmountDataBox> {
   List<int> selectedOpponentCommander = [-1, 0];
 
   AmountBoxType _type = AmountBoxType.normal;
-  final List<AmountBoxType> _types = [
-    AmountBoxType.normal,
-    AmountBoxType.poison,
-    AmountBoxType.energy,
-    AmountBoxType.experience,
-  ];
 
   List<Widget> _getOpponents(BuildContext context, Player player) {
     List<Widget> widgets = [];

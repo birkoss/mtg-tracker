@@ -1,8 +1,6 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:provider/provider.dart';
 
 import '../../widgets/ui/amount/button.dart';
 import '../../widgets/ui/amount/text.dart';
@@ -62,9 +60,6 @@ class _AmountBox extends State<AmountBox> {
 
   @override
   Widget build(BuildContext context) {
-    SettingNotifier setting =
-        Provider.of<SettingNotifier>(context, listen: false);
-
     void _changeValue(int modifier) {
       // Do NOT decrease bellow 0
       if (modifier == -1 && int.parse(widget.getValue()) <= 0) {

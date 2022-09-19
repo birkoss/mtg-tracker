@@ -1,4 +1,7 @@
-// @TODO: Allow to change the direction of the commander view, instead of entering OUR cmd damage, changing the cmd damage dealt
+// @TODO: New Game: Reset all showSettings, etc... to NORMAL view
+// @TODO: Pick Player: Do NOT reset the showPoison, etc.
+// @TODO: Better pick player, show a random hover on each player until one is picked
+
 import 'package:flutter/services.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';

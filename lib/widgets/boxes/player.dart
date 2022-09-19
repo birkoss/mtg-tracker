@@ -91,8 +91,8 @@ class _PlayerBox extends State<PlayerBox> {
                               SettingNotifier setting =
                                   Provider.of<SettingNotifier>(context,
                                       listen: false);
+                              // @TODO: Replace this ugly Hack to force a refresh!
                               setting.notifyListeners();
-                              //_selectedPlayersNumber = value;
                             });
                           },
                         ),

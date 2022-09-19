@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/player.dart';
 import 'package:mtgtracker/widgets/pressable_button.dart';
 
