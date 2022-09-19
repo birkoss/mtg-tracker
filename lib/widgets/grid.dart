@@ -74,7 +74,7 @@ class Grid extends StatelessWidget {
 
           rows.add([
             Layout(player: players[2], direction: LayoutDirection.left),
-            Layout(player: players[3], direction: null),
+            Layout(player: null, direction: null),
           ]);
         }
 
@@ -134,7 +134,7 @@ class Grid extends StatelessWidget {
 
           rows.add([
             Layout(player: players[4], direction: LayoutDirection.left),
-            Layout(player: players[5], direction: null),
+            Layout(player: null, direction: null),
           ]);
         }
         break;
@@ -235,12 +235,14 @@ class Grid extends StatelessWidget {
       List<Widget> rowChildren = [];
       for (var layout in row) {
         rowChildren.add(
-          ChangeNotifierProvider.value(
-            value: layout.player,
-            key: ValueKey(layout.player!.id),
-            child: layout.direction == null
-                ? const EmptyBox()
-                : PlayerBox(
+          layout.player == null
+              ? EmptyBox(
+                  color: Theme.of(context).primaryColor,
+                )
+              : ChangeNotifierProvider.value(
+                  value: layout.player,
+                  key: ValueKey(layout.player!.id),
+                  child: PlayerBox(
                     opponents: getOpponents(layout.player!, rows),
                     diceRollWinner:
                         diceRollWinner.toString() == layout.player!.id
@@ -248,7 +250,7 @@ class Grid extends StatelessWidget {
                             : false,
                     rotation: layout.getRotation(),
                   ),
-          ),
+                ),
         );
       }
 
