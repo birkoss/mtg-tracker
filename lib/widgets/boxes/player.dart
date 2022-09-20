@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/providers/setting.dart';
 import 'package:mtgtracker/widgets/pressable_button.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,8 @@ class _PlayerBox extends State<PlayerBox> {
   bool _showSettings = false;
 
   List<Widget> _getContent(Player player) {
+    bool isDarkTheme = context.watch<SettingNotifier>().isDarkTheme;
+
     List<Widget> widgets = [];
 
     // Show the normal values (and toggling between types)
@@ -58,7 +61,7 @@ class _PlayerBox extends State<PlayerBox> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
-                  color: context.read<Player>().getColor(context),
+                  color: context.read<Player>().getColor(isDarkTheme),
                 ),
               ),
             ),
@@ -74,7 +77,7 @@ class _PlayerBox extends State<PlayerBox> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            color: context.read<Player>().getColor(context),
+            color: context.read<Player>().getColor(isDarkTheme),
             child: Stack(
               children: [
                 Align(
@@ -221,7 +224,7 @@ class _PlayerBox extends State<PlayerBox> {
         quarterTurns: widget.rotation,
         child: Container(
           margin: const EdgeInsets.all(4),
-          color: player.getColor(context),
+          color: player.getColor(context.read<SettingNotifier>().isDarkTheme),
           alignment: Alignment.center,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 160),

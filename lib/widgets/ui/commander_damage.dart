@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:provider/provider.dart';
+
 import 'package:mtgtracker/providers/player.dart';
 import 'package:mtgtracker/widgets/pressable_button.dart';
 
@@ -45,7 +48,9 @@ class CommanderDamage extends StatelessWidget {
                         .copyWith(fontSize: 20),
                   ),
           ),
-          inactiveColor: opponent.getColor(context),
+          inactiveColor: opponent.getColor(
+            context.read<SettingNotifier>().isDarkTheme,
+          ),
           activeColor: Colors.white,
           onToggle: () {
             if (!opponent.isDead) {

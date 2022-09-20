@@ -48,6 +48,23 @@ class Players extends ChangeNotifier {
     notifyListeners();
   }
 
+  void generate(int nbrPlayers) {
+    // Generate all Players
+    for (int i = 0; i < nbrPlayers; i++) {
+      Player player = Player(id: (i + 1).toString());
+
+      // Set Colors
+      player.colors.add(lightColors[players.length]);
+      player.colors.add(darkColors[players.length]);
+
+      addPlayer(player);
+    }
+
+    // Link Opponents in each Players
+
+    // Setup Commander Damage Array [0, 0] for each Opponents
+  }
+
   void clearPlayers() {
     _players = [];
 
