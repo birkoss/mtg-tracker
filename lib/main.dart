@@ -1,4 +1,3 @@
-// @TODO: Reset the Current Commander Selected when he is Dead
 // @TODO: Dice Roll with only ALIVE player
 // @TODO: Switching from poison and commander damage should remove the previous
 
