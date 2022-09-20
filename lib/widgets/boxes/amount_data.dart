@@ -88,9 +88,13 @@ class _AmountDataBoxState extends State<AmountDataBox> {
   Widget build(BuildContext context) {
     Player player = Provider.of<Player>(context, listen: false);
 
-    // If a Commander is selected, and is dead, reset it
+    // If a CommanderDamage of a dead player is selected, reset it
     if (selectedOpponentCommander[0] != -1) {
-      // @TODO : Verify if it is dead
+      if (player.opponents[selectedOpponentCommander[0]].isDead) {
+        setState(() {
+          selectedOpponentCommander = [-1, 0];
+        });
+      }
     }
 
     return Row(

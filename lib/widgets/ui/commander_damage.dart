@@ -30,18 +30,17 @@ class CommanderDamage extends StatelessWidget {
         PressableButton(
           isVisible: (i + 1 <= opponent.data['totalCommanders']!),
           isActive: isSelected(opponentIndex, i),
-          inactiveWidget: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: opponent.isDead
-                ? SvgPicture.asset(
-                    "assets/icons/skull.svg",
-                    key: const ValueKey<String>("skull"),
-                    fit: BoxFit.scaleDown,
-                    width: 20,
-                    color: Colors.white70,
-                    semanticsLabel: 'Health',
-                  )
-                : Text(
+          inactiveWidget: opponent.isDead
+              ? SvgPicture.asset(
+                  "assets/icons/skull.svg",
+                  fit: BoxFit.scaleDown,
+                  width: 20,
+                  color: Colors.white70,
+                  semanticsLabel: 'Health',
+                )
+              : FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
                     player.commanderDamages[opponentIndex][i].toString(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
@@ -49,7 +48,7 @@ class CommanderDamage extends StatelessWidget {
                         .headline1!
                         .copyWith(fontSize: 20),
                   ),
-          ),
+                ),
           inactiveColor: opponent.getColor(
             context.read<SettingNotifier>().isDarkTheme,
           ),
