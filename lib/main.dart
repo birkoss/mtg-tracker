@@ -9,6 +9,7 @@
 // - Change default colors
 
 import 'package:flutter/services.dart';
+import 'package:mtgtracker/screens/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ import 'package:flutter/material.dart';
 import '../providers/layout.dart';
 import '../providers/players.dart';
 import '../providers/setting.dart';
-import '../screens/home.dart';
 import '../screens/tracker.dart';
 import '../themes/custom.dart';
 
@@ -59,7 +59,7 @@ class MtgTrackerApp extends StatelessWidget {
           : CustomTheme.lightTheme,
       initialRoute: '/',
       routes: {
-        '/': (_) => const HomeScreen(),
+        '/': (_) => const LoadingScreen(),
         '/play': (_) => const TrackerScreen(),
         //'/settings': (_) => const SettingScreen(),
       },
