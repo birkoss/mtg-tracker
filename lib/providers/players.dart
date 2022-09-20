@@ -44,6 +44,8 @@ class Players extends ChangeNotifier {
 
   /* Generate [nbrPlayers] players */
   void generate(int nbrPlayers) {
+    players.clear();
+
     // Generate all Players
     for (int i = 0; i < nbrPlayers; i++) {
       Player player = Player(
@@ -102,9 +104,7 @@ class Players extends ChangeNotifier {
   }
 
   int pickRandomPlayer() {
-    List<int> activePlayers = getActivePlayers();
-
-    return Random().nextInt(activePlayers.length);
+    return Random().nextInt(getActivePlayers().length);
   }
 
   void pickPlayer(int index) {
