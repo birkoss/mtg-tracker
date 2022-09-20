@@ -92,7 +92,10 @@ class Players extends ChangeNotifier {
     if (resetPick) {
       _diceRollWinner = null;
     } else {
-      _diceRollWinner = _players[Random().nextInt(_players.length)];
+      List<Player> activePlayers =
+          players.where((player) => !player.isDead).toList();
+
+      _diceRollWinner = activePlayers[Random().nextInt(activePlayers.length)];
     }
 
     notifyListeners();
