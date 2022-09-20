@@ -43,7 +43,10 @@ class Players extends ChangeNotifier {
   }
 
   /* Generate [nbrPlayers] players */
-  void generate(int nbrPlayers) {
+  void generate({
+    required int nbrPlayers,
+    int startingLives = 40,
+  }) {
     players.clear();
 
     // Generate all Players
@@ -53,6 +56,7 @@ class Players extends ChangeNotifier {
             "-" +
             DateTime.now().millisecondsSinceEpoch.toString(),
       );
+      player.reset(startingLives);
 
       // Set Colors
       player.colors.add(lightColors[players.length]);

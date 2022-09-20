@@ -23,9 +23,10 @@ class TrackerScreen extends StatefulWidget {
 class _TrackerScreenState extends State<TrackerScreen> {
   // @TODO REMOVE FROM HERE
   void _newGame() {
-    context
-        .read<Players>()
-        .generate(context.read<SettingNotifier>().playersNumber);
+    context.read<Players>().generate(
+          nbrPlayers: context.read<SettingNotifier>().playersNumber,
+          startingLives: context.read<SettingNotifier>().startingLives,
+        );
 
     context.read<LayoutNotifier>().generate(
           context.read<Players>().players,

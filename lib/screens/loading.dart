@@ -12,9 +12,10 @@ class LoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (context.watch<SettingNotifier>().isReady) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        context
-            .read<Players>()
-            .generate(context.read<SettingNotifier>().playersNumber);
+        context.read<Players>().generate(
+              nbrPlayers: context.read<SettingNotifier>().playersNumber,
+              startingLives: context.read<SettingNotifier>().startingLives,
+            );
 
         context.read<LayoutNotifier>().generate(
               context.read<Players>().players,
