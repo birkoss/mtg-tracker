@@ -1,4 +1,5 @@
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
+// @TODO: Animate when a popup is shown (settings, win)
 
 // @TODO: Select color within PlayerBox Settings
 // - Selected colors are inactive

@@ -36,9 +36,6 @@ class Players extends ChangeNotifier {
   Player? _diceRollWinner;
   Player? get diceRollWinner => _diceRollWinner;
 
-  Player? _diceRollPicking;
-  Player? get diceRollPicking => _diceRollPicking;
-
   void addPlayer(Player player) {
     _players.add(player);
 
