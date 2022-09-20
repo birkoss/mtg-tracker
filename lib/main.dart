@@ -1,5 +1,4 @@
 // @TODO: Better pick player, show a random hover on each player until one is picked
-// @TODO: When changing states (commander, normal, poison), reset the amount modifyer overlay
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
 
 // @TODO: Select color within PlayerBox Settings

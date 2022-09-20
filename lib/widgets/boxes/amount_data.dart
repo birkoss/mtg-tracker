@@ -54,7 +54,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
 
   AmountBoxType _type = AmountBoxType.normal;
 
-  List<Widget> _getOpponents(BuildContext context, Player player) {
+  List<Widget> _getOpponentsCommanderDamages(Player player) {
     List<Widget> widgets = [];
 
     for (var opponent in player.opponents) {
@@ -99,8 +99,17 @@ class _AmountDataBoxState extends State<AmountDataBox> {
       }
     }
 
+    String amountBoxKey = _type.toString();
+    if (selectedOpponentCommander[0] != -1) {
+      amountBoxKey = "commander-" +
+          selectedOpponentCommander[0].toString() +
+          "-" +
+          selectedOpponentCommander[1].toString();
+    }
+
     return Row(
       children: [
+        // Commander Damages, Settings and Poison
         Expanded(
           flex: 1,
           child: Container(
@@ -109,7 +118,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ..._getOpponents(context, player),
+                ..._getOpponentsCommanderDamages(player),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -160,61 +169,69 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             ),
           ),
         ),
+        // Amount Boxes
         Expanded(
           flex: 2,
-          child: AmountBox(
-            getIcon: () {
-              return selectedOpponentCommander[0] != -1
-                  ? "commander"
-                  : _type == AmountBoxType.normal
-                      ? "health"
-                      : "poison";
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 160),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(scale: animation, child: child);
             },
-            getValue: () {
-              if (selectedOpponentCommander[0] != -1) {
-                return player.commanderDamages[selectedOpponentCommander[0]]
-                        [selectedOpponentCommander[1]]
-                    .toString();
-              }
-              return player.data[_type.dataIndex].toString();
-            },
-            setValue: (int modifier) {
-              if (selectedOpponentCommander[0] != -1) {
-                // Do NOT increase Commander Damage over 21
-                if (modifier == 1 &&
-                    player.commanderDamages[selectedOpponentCommander[0]]
-                            [selectedOpponentCommander[1]] >=
-                        21) {
-                  return false;
+            child: AmountBox(
+              key: ValueKey<String>(amountBoxKey),
+              getIcon: () {
+                return selectedOpponentCommander[0] != -1
+                    ? "commander"
+                    : _type == AmountBoxType.normal
+                        ? "health"
+                        : "poison";
+              },
+              getValue: () {
+                if (selectedOpponentCommander[0] != -1) {
+                  return player.commanderDamages[selectedOpponentCommander[0]]
+                          [selectedOpponentCommander[1]]
+                      .toString();
                 }
-
-                setState(() {
-                  player.commanderDamages[selectedOpponentCommander[0]]
-                      [selectedOpponentCommander[1]] += modifier;
-
-                  /* Only change the player health if the settings Auto Apply Commander Damage is selected */
-                  if (Provider.of<SettingNotifier>(context, listen: false)
-                      .autoApplyCommanderDamage) {
-                    player.data['health'] =
-                        player.data['health']! + (modifier * -1);
-
-                    // Never let HEALTH lower than 0
-                    player.data['health'] = max(0, player.data['health']!);
+                return player.data[_type.dataIndex].toString();
+              },
+              setValue: (int modifier) {
+                if (selectedOpponentCommander[0] != -1) {
+                  // Do NOT increase Commander Damage over 21
+                  if (modifier == 1 &&
+                      player.commanderDamages[selectedOpponentCommander[0]]
+                              [selectedOpponentCommander[1]] >=
+                          21) {
+                    return false;
                   }
-                });
-              } else {
-                // Do NOT increate POISON over 10
-                if (modifier == 1 &&
-                    _type.dataIndex == "poison" &&
-                    player.data[_type.dataIndex]! >= 10) {
-                  return false;
-                }
-                player.data[_type.dataIndex] =
-                    player.data[_type.dataIndex]! + modifier;
-              }
 
-              return true;
-            },
+                  setState(() {
+                    player.commanderDamages[selectedOpponentCommander[0]]
+                        [selectedOpponentCommander[1]] += modifier;
+
+                    /* Only change the player health if the settings Auto Apply Commander Damage is selected */
+                    if (Provider.of<SettingNotifier>(context, listen: false)
+                        .autoApplyCommanderDamage) {
+                      player.data['health'] =
+                          player.data['health']! + (modifier * -1);
+
+                      // Never let HEALTH lower than 0
+                      player.data['health'] = max(0, player.data['health']!);
+                    }
+                  });
+                } else {
+                  // Do NOT increate POISON over 10
+                  if (modifier == 1 &&
+                      _type.dataIndex == "poison" &&
+                      player.data[_type.dataIndex]! >= 10) {
+                    return false;
+                  }
+                  player.data[_type.dataIndex] =
+                      player.data[_type.dataIndex]! + modifier;
+                }
+
+                return true;
+              },
+            ),
           ),
         ),
       ],
