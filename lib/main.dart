@@ -1,5 +1,4 @@
 // @TODO: Dice Roll with only ALIVE player
-// @TODO: Switching from poison and commander damage should remove the previous
 
 // @TODO: Better pick player, show a random hover on each player until one is picked
 // @TODO: When changing states (commander, normal, poison), reset the amount modifyer overlay

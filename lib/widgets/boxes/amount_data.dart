@@ -68,6 +68,8 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             opponent: opponent,
             onSelected: (selectedOpponent, selectedCommander) {
               setState(() {
+                _type = AmountBoxType.normal;
+
                 if (selectedOpponentCommander[0] == selectedOpponent &&
                     selectedOpponentCommander[1] == selectedCommander) {
                   selectedOpponentCommander[0] = -1;
@@ -145,6 +147,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                       activeColor: Colors.white,
                       onToggle: () {
                         setState(() {
+                          selectedOpponentCommander = [-1, 0];
                           _type = _type == AmountBoxType.normal
                               ? AmountBoxType.poison
                               : AmountBoxType.normal;
