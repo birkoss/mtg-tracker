@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/player.dart';
 import 'package:mtgtracker/widgets/pressable_button.dart';
 
@@ -26,17 +27,30 @@ class CommanderDamage extends StatelessWidget {
           isActive: isSelected(int.parse(opponent.id), i),
           inactiveWidget: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Text(
-              player.commander[int.parse(opponent.id)][i].toString(),
-              textAlign: TextAlign.center,
-              style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 20),
-            ),
+            child: opponent.isDead
+                ? SvgPicture.asset(
+                    "assets/icons/skull.svg",
+                    key: const ValueKey<String>("skull"),
+                    fit: BoxFit.scaleDown,
+                    width: 20,
+                    color: Colors.white70,
+                    semanticsLabel: 'Health',
+                  )
+                : Text(
+                    player.commander[int.parse(opponent.id)][i].toString(),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 20),
+                  ),
           ),
           inactiveColor: opponent.getColor(context),
           activeColor: Colors.white,
           onToggle: () {
-            onSelected(int.parse(opponent.id), i);
+            if (!opponent.isDead) {
+              onSelected(int.parse(opponent.id), i);
+            }
           },
         ),
       );
