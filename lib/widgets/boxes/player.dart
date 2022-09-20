@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/widgets/pressable_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/players.dart';
 import '../../providers/player.dart';
+import '../../providers/setting.dart';
 import '../../widgets/boxes/amount_data.dart';
 import '../../widgets/ui/toggles.dart';
 
@@ -30,34 +29,95 @@ class _PlayerBox extends State<PlayerBox> {
 
     List<Widget> widgets = [];
 
-    // Show the normal values (and toggling between types)
-    widgets.add(
-      AmountDataBox(
-        showSettings: () {
-          setState(() {
-            _showSettings = true;
-          });
-        },
-      ),
-    );
-
-    // Show the dice roll winner
-    if (context.watch<Players>().diceRollWinner == player) {
+    if (player.isDead) {
       widgets.add(
-        Padding(
+        Container(
           padding: const EdgeInsets.all(6),
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.white,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "You Win the Dice Roll",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: context.read<Player>().getColor(isDarkTheme),
+          width: double.infinity,
+          height: double.infinity,
+          color: context.read<Player>().getColor(isDarkTheme),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _showSettings = true;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: SvgPicture.asset(
+                  "assets/icons/skull.svg",
+                  fit: BoxFit.scaleDown,
+                  color: Colors.white24,
+                  semanticsLabel: 'Health',
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      // Show the normal values (and toggling between types)
+      widgets.add(
+        AmountDataBox(
+          showSettings: () {
+            setState(() {
+              _showSettings = true;
+            });
+          },
+        ),
+      );
+
+      // Show the dice roll winner
+      if (context.watch<Players>().diceRollWinner == player) {
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.all(6),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.white,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "You Win the Dice Roll",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: context.read<Player>().getColor(isDarkTheme),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+    if (player.isDead) {
+      widgets.add(
+        Container(
+          padding: const EdgeInsets.all(6),
+          width: double.infinity,
+          height: double.infinity,
+          color: context.read<Player>().getColor(isDarkTheme),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _showSettings = true;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: SvgPicture.asset(
+                  "assets/icons/skull.svg",
+                  key: const ValueKey<String>("skull"),
+                  fit: BoxFit.scaleDown,
+                  color: Colors.white24,
+                  semanticsLabel: 'Health',
                 ),
               ),
             ),
@@ -66,59 +126,8 @@ class _PlayerBox extends State<PlayerBox> {
       );
     }
 
-    if (player.isDead) {
-      widgets.add(
-        Padding(
-          padding: const EdgeInsets.all(6),
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: context.read<Player>().getColor(isDarkTheme),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: PressableButton(
-                    isVisible: true,
-                    isActive: false,
-                    inactiveWidget: const Icon(
-                      Icons.settings,
-                      color: Colors.white24,
-                    ),
-                    inactiveColor: Colors.transparent,
-                    activeColor: Colors.transparent,
-                    onToggle: () {
-                      setState(() {
-                        _showSettings = true;
-                      });
-                    },
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: SvgPicture.asset(
-                      "assets/icons/skull.svg",
-                      key: const ValueKey<String>("skull"),
-                      fit: BoxFit.scaleDown,
-                      color: Colors.white24,
-                      semanticsLabel: 'Health',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
     if (_showSettings) {
-      // Has Partner ?
-      // - Enable multiple commanders
       // Is Dead ?
-      // - Show a Skull instead of the stats
       // - Opacity the opponent Commander Damage (disable click)
       widgets.add(
         Padding(
@@ -184,6 +193,8 @@ class _PlayerBox extends State<PlayerBox> {
                               setState(() {
                                 //_selectedPlayersNumber = value;
                                 player.isDead = (value == 2);
+                                // Must notify all players to refresh the UI
+                                context.read<Players>().hasChanged();
                               });
                             },
                           ),
@@ -222,19 +233,8 @@ class _PlayerBox extends State<PlayerBox> {
           margin: const EdgeInsets.all(4),
           color: player.getColor(context.read<SettingNotifier>().isDarkTheme),
           alignment: Alignment.center,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 160),
-            transitionBuilder: (
-              Widget child,
-              Animation<double> animation,
-            ) =>
-                ScaleTransition(
-              child: child,
-              scale: animation,
-            ),
-            child: Stack(
-              children: _getContent(player),
-            ),
+          child: Stack(
+            children: _getContent(player),
           ),
         ),
       ),

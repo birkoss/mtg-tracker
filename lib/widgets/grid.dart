@@ -25,7 +25,7 @@ class Grid extends StatelessWidget {
                 )
               : ChangeNotifierProvider.value(
                   value: layout.player,
-                  key: ValueKey(layout.player!.keyId),
+                  key: ValueKey(layout.player!.id),
                   child: PlayerBox(
                     rotation: layout.getRotation(),
                   ),

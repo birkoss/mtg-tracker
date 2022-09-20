@@ -4,8 +4,7 @@ class Player with ChangeNotifier {
   // [0] = Light Color, [1] = Dark Color
   List<Color> colors = [];
 
-  // Auto-generated when creating a new Player
-  late String keyId = "";
+  String id = "";
 
   bool isDead = false;
 
@@ -14,7 +13,9 @@ class Player with ChangeNotifier {
   List<List<int>> commanderDamages = [];
   Map<String, int> data = {};
 
-  Player() {
+  Player({
+    required this.id,
+  }) {
     reset(40);
   }
 

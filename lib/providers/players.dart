@@ -37,12 +37,6 @@ class Players extends ChangeNotifier {
   Player? get diceRollWinner => _diceRollWinner;
 
   void addPlayer(Player player) {
-    const _chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    Random _rnd = Random();
-
-    player.keyId = String.fromCharCodes(Iterable.generate(
-        10, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
     _players.add(player);
 
     notifyListeners();
@@ -52,7 +46,11 @@ class Players extends ChangeNotifier {
   void generate(int nbrPlayers) {
     // Generate all Players
     for (int i = 0; i < nbrPlayers; i++) {
-      Player player = Player();
+      Player player = Player(
+        id: i.toString() +
+            "-" +
+            DateTime.now().millisecondsSinceEpoch.toString(),
+      );
 
       // Set Colors
       player.colors.add(lightColors[players.length]);
