@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/widgets/pressable_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/players.dart';
@@ -65,6 +67,54 @@ class _PlayerBox extends State<PlayerBox> {
       );
     }
 
+    if (player.isDead) {
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: context.read<Player>().getColor(context),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: PressableButton(
+                    isVisible: true,
+                    isActive: false,
+                    inactiveWidget: const Icon(
+                      Icons.settings,
+                      color: Colors.white24,
+                    ),
+                    inactiveColor: Colors.transparent,
+                    activeColor: Colors.transparent,
+                    onToggle: () {
+                      setState(() {
+                        _showSettings = true;
+                      });
+                    },
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: SvgPicture.asset(
+                      "assets/icons/skull.svg",
+                      key: const ValueKey<String>("skull"),
+                      fit: BoxFit.scaleDown,
+                      color: Colors.white24,
+                      semanticsLabel: 'Health',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     if (_showSettings) {
       // Has Partner ?
       // - Enable multiple commanders
@@ -108,6 +158,7 @@ class _PlayerBox extends State<PlayerBox> {
                             ],
                             onChanged: (int value) {
                               player.updateTotalCommanders(value);
+                              // Must notify all players to refresh the UI
                               context.read<Players>().hasChanged();
                             },
                           ),
@@ -125,7 +176,7 @@ class _PlayerBox extends State<PlayerBox> {
                           ),
                           const SizedBox(height: 10),
                           Toggles(
-                            defaultValue: 1,
+                            defaultValue: player.isDead ? 2 : 1,
                             values: const [
                               {"value": "1", "label": "No"},
                               {"value": "2", "label": "Yes"},
@@ -133,6 +184,7 @@ class _PlayerBox extends State<PlayerBox> {
                             onChanged: (int value) {
                               setState(() {
                                 //_selectedPlayersNumber = value;
+                                player.isDead = (value == 2);
                               });
                             },
                           ),

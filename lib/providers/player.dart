@@ -30,7 +30,10 @@ class Player with ChangeNotifier {
 
   final String id;
 
+  // Auto-generated when creating a new Player
   late String keyId = "";
+
+  bool isDead = false;
 
   List<List<int>> commander = [];
   Map<String, int> data = {};
