@@ -20,7 +20,9 @@ class HomeScreen extends StatelessWidget {
             const Text("Mtg Life Tracker"),
             ElevatedButton.icon(
               onPressed: () {
-                context.read<Players>().generate(4);
+                context
+                    .read<Players>()
+                    .generate(context.read<SettingNotifier>().playersNumber);
 
                 context.read<LayoutNotifier>().generate(
                       context.read<Players>().players,
