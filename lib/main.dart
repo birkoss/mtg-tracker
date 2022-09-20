@@ -1,4 +1,3 @@
-// @TODO: Better pick player, show a random hover on each player until one is picked
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
 
 // @TODO: Select color within PlayerBox Settings

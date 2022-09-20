@@ -38,7 +38,40 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _pickNewPlayer() {
-    context.read<Players>().pickPlayer();
+    List<int> playersIndex = [];
+
+    List<int> indexes = context.read<Players>().getActivePlayers();
+    for (int j = 0; j < 4; j++) {
+      for (int i = 0; i < indexes.length; i++) {
+        playersIndex.add(indexes[i]);
+      }
+    }
+
+    int winner = context.read<Players>().pickRandomPlayer();
+    for (int i in indexes) {
+      playersIndex.add(i);
+      if (i == winner) {
+        break;
+      }
+    }
+
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      context.read<Players>().pickPlayer(playersIndex.removeAt(0));
+
+      // Stop the timer when it matches a condition
+      if (playersIndex.isEmpty) {
+        timer.cancel();
+
+        Timer(
+          const Duration(seconds: 2),
+          () {
+            context.read<Players>().pickPlayer(-1);
+          },
+        );
+      }
+    });
+
+    /*context.read<Players>().pickPlayer();
 
     Timer(
       const Duration(seconds: 2),
@@ -46,6 +79,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
         context.read<Players>().pickPlayer(resetPick: true);
       },
     );
+
+    */
   }
 
   @override

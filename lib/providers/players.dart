@@ -36,6 +36,9 @@ class Players extends ChangeNotifier {
   Player? _diceRollWinner;
   Player? get diceRollWinner => _diceRollWinner;
 
+  Player? _diceRollPicking;
+  Player? get diceRollPicking => _diceRollPicking;
+
   void addPlayer(Player player) {
     _players.add(player);
 
@@ -88,14 +91,30 @@ class Players extends ChangeNotifier {
     notifyListeners();
   }
 
-  void pickPlayer({bool resetPick = false}) {
-    if (resetPick) {
+  List<int> getActivePlayers() {
+    List<int> indexes = [];
+
+    List<Player> activePlayers =
+        players.where((player) => !player.isDead).toList();
+
+    for (var player in activePlayers) {
+      indexes.add(players.indexOf(player));
+    }
+
+    return indexes;
+  }
+
+  int pickRandomPlayer() {
+    List<int> activePlayers = getActivePlayers();
+
+    return Random().nextInt(activePlayers.length);
+  }
+
+  void pickPlayer(int index) {
+    if (index == -1) {
       _diceRollWinner = null;
     } else {
-      List<Player> activePlayers =
-          players.where((player) => !player.isDead).toList();
-
-      _diceRollWinner = activePlayers[Random().nextInt(activePlayers.length)];
+      _diceRollWinner = _players[index];
     }
 
     notifyListeners();
