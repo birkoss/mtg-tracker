@@ -10,14 +10,11 @@ import '../../widgets/boxes/amount_data.dart';
 import '../../widgets/ui/toggles.dart';
 
 class PlayerBox extends StatefulWidget {
-  // Opponents of this Player
-  final List<Player> opponents;
   // Rotation of this widget within the Grid
   final int rotation;
 
   const PlayerBox({
     Key? key,
-    required this.opponents,
     required this.rotation,
   }) : super(key: key);
 
@@ -41,7 +38,6 @@ class _PlayerBox extends State<PlayerBox> {
             _showSettings = true;
           });
         },
-        opponents: widget.opponents,
       ),
     );
 

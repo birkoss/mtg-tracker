@@ -3,7 +3,6 @@ import 'package:mtgtracker/providers/layout.dart';
 import 'package:mtgtracker/providers/setting.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/player.dart';
 import '../providers/players.dart';
 
 class HomeScreen extends StatelessWidget {

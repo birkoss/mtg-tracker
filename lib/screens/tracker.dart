@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/layout.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/player.dart';
 import '../providers/players.dart';
 import '../providers/setting.dart';
 import '../screens/setting.dart';
@@ -25,10 +24,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
   // @TODO REMOVE FROM HERE
   void _newGame() {
     context.read<Players>().clearPlayers();
-    context.read<Players>().addPlayer(Player(id: "1"));
-    context.read<Players>().addPlayer(Player(id: "2"));
-    context.read<Players>().addPlayer(Player(id: "3"));
-    context.read<Players>().addPlayer(Player(id: "4"));
+    // context.read<Players>().addPlayer(Player(id: "1"));
+    // context.read<Players>().addPlayer(Player(id: "2"));
+    // context.read<Players>().addPlayer(Player(id: "3"));
+    // context.read<Players>().addPlayer(Player(id: "4"));
 
     context.read<LayoutNotifier>().generate(
           context.read<Players>().players,

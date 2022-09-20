@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:provider/provider.dart';
 
 class Player with ChangeNotifier {
-  final String id;
-
   // [0] = Light Color, [1] = Dark Color
   List<Color> colors = [];
 
@@ -15,29 +11,15 @@ class Player with ChangeNotifier {
 
   List<Player> opponents = [];
 
-  List<List<int>> commander = [];
+  List<List<int>> commanderDamages = [];
   Map<String, int> data = {};
 
-  Player({
-    required this.id,
-  }) {
+  Player() {
     reset(40);
   }
 
   void reset(int startingLives) {
-    // Support for Partners
-    // [0] = Main commander
-    // [1] = Partner
-    commander = [
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-    ];
+    commanderDamages = [];
 
     data = {
       'health': startingLives,

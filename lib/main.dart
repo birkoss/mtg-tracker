@@ -1,11 +1,17 @@
 // @TODO: Clean opponents and generate this from Players
 // @TODO: Reset the Current Commander Selected when he is Dead
 // @TODO: Remove the ID from the Player
-// @TODO: Clean Colors from player class
 
 // @TODO: Better pick player, show a random hover on each player until one is picked
 // @TODO: When changing states (commander, normal, poison), reset the amount modifyer overlay
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
+
+// @TODO: Select color within PlayerBox Settings
+// - Selected colors are inactive
+// - Refresh players and CommanderDamage boxes on changes
+
+// @TODO: Main Settings
+// - Change default colors
 
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

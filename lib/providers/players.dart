@@ -48,10 +48,11 @@ class Players extends ChangeNotifier {
     notifyListeners();
   }
 
+  /* Generate [nbrPlayers] players */
   void generate(int nbrPlayers) {
     // Generate all Players
     for (int i = 0; i < nbrPlayers; i++) {
-      Player player = Player(id: (i + 1).toString());
+      Player player = Player();
 
       // Set Colors
       player.colors.add(lightColors[players.length]);
@@ -61,8 +62,22 @@ class Players extends ChangeNotifier {
     }
 
     // Link Opponents in each Players
+    for (int i = 0; i < players.length; i++) {
+      // Add all other players as Opponents
+      for (int j = 0; j < players.length; j++) {
+        if (i != j) {
+          players[i].opponents.add(players[j]);
+        }
+      }
 
-    // Setup Commander Damage Array [0, 0] for each Opponents
+      // Setup Commander Damages array for each Opponents
+      players[i].commanderDamages = [];
+      for (int j = 0; j < players[i].opponents.length; j++) {
+        players[i]
+            .commanderDamages
+            .add([0, 0]); // [0] = Main Commander, [1] = Partner
+      }
+    }
   }
 
   void clearPlayers() {

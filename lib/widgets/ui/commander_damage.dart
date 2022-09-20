@@ -23,11 +23,13 @@ class CommanderDamage extends StatelessWidget {
   List<Widget> _getCommanders(BuildContext context) {
     List<Widget> commanders = [];
 
+    int opponentIndex = player.opponents.indexOf(opponent);
+
     for (int i = 0; i < 2; i++) {
       commanders.add(
         PressableButton(
           isVisible: (i + 1 <= opponent.data['totalCommanders']!),
-          isActive: isSelected(int.parse(opponent.id), i),
+          isActive: isSelected(opponentIndex, i),
           inactiveWidget: FittedBox(
             fit: BoxFit.scaleDown,
             child: opponent.isDead
@@ -40,7 +42,7 @@ class CommanderDamage extends StatelessWidget {
                     semanticsLabel: 'Health',
                   )
                 : Text(
-                    player.commander[int.parse(opponent.id)][i].toString(),
+                    player.commanderDamages[opponentIndex][i].toString(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -54,7 +56,7 @@ class CommanderDamage extends StatelessWidget {
           activeColor: Colors.white,
           onToggle: () {
             if (!opponent.isDead) {
-              onSelected(int.parse(opponent.id), i);
+              onSelected(opponentIndex, i);
             }
           },
         ),

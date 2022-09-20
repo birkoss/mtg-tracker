@@ -37,13 +37,11 @@ extension AmountBoxTypeExtension on AmountBoxType {
 }
 
 class AmountDataBox extends StatefulWidget {
-  final List<Player> opponents;
   final VoidCallback showSettings;
 
   const AmountDataBox({
     Key? key,
     required this.showSettings,
-    required this.opponents,
   }) : super(key: key);
 
   @override
@@ -59,7 +57,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
   List<Widget> _getOpponents(BuildContext context, Player player) {
     List<Widget> widgets = [];
 
-    for (var opponent in widget.opponents) {
+    for (var opponent in player.opponents) {
       widgets.add(
         CommanderDamage(
             isSelected: (currentOpponent, currentCommander) {
@@ -167,7 +165,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             },
             getValue: () {
               if (selectedOpponentCommander[0] != -1) {
-                return player.commander[selectedOpponentCommander[0]]
+                return player.commanderDamages[selectedOpponentCommander[0]]
                         [selectedOpponentCommander[1]]
                     .toString();
               }
@@ -177,14 +175,14 @@ class _AmountDataBoxState extends State<AmountDataBox> {
               if (selectedOpponentCommander[0] != -1) {
                 // Do NOT increase Commander Damage over 21
                 if (modifier == 1 &&
-                    player.commander[selectedOpponentCommander[0]]
+                    player.commanderDamages[selectedOpponentCommander[0]]
                             [selectedOpponentCommander[1]] >=
                         21) {
                   return false;
                 }
 
                 setState(() {
-                  player.commander[selectedOpponentCommander[0]]
+                  player.commanderDamages[selectedOpponentCommander[0]]
                       [selectedOpponentCommander[1]] += modifier;
 
                   /* Only change the player health if the settings Auto Apply Commander Damage is selected */
