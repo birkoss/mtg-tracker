@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/widgets/ui/tile_button.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/setting.dart';
@@ -71,25 +72,26 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
+                    TileButton(
+                      icon: Icons.restart_alt,
+                      label: "Reset Game",
+                      onPress: () {
                         Navigator.pop(context);
                         widget.onNewGame();
                       },
-                      icon: const Icon(Icons.restart_alt),
-                      label: const Text("Reset Game"),
                     ),
-                    ElevatedButton.icon(
-                      onPressed: () {
+                    TileButton(
+                      icon: Icons.casino,
+                      label: "Choose\nRandom Player",
+                      onPress: () {
                         Navigator.pop(context);
                         widget.onPickNewPlayer();
                       },
-                      icon: const Icon(Icons.casino),
-                      label: const Text("Pick a Player at Random"),
                     ),
                   ],
                 ),
