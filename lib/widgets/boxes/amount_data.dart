@@ -227,6 +227,16 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                   }
                   player.data[_type.dataIndex] =
                       player.data[_type.dataIndex]! + modifier;
+
+                  /* Only change the player health if the settings Auto Apply Poison Damage is selected */
+                  if (Provider.of<SettingNotifier>(context, listen: false)
+                      .autoApplyPoisonDamage) {
+                    player.data['health'] =
+                        player.data['health']! + (modifier * -1);
+
+                    // Never let HEALTH lower than 0
+                    player.data['health'] = max(0, player.data['health']!);
+                  }
                 }
 
                 return true;

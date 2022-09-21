@@ -1,6 +1,3 @@
-// @TODO: Toggle smaller
-// @TODO: Toggle isDead = CommanderDamage stay same size
-
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
 // @TODO: Animate when a popup is shown (settings, win)
 

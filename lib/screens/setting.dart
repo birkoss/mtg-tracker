@@ -246,6 +246,23 @@ class _SettingScreenState extends State<SettingScreen> {
                         setting.changeAutoApplyCommanderDamage(value == 1);
                       },
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Auto Apply Poison Damage?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(height: 10),
+                    Toggles(
+                      defaultValue: setting.autoApplyPoisonDamage ? 1 : 0,
+                      values: const [
+                        {"value": "0", "label": "No"},
+                        {"value": "1", "label": "Yes"}
+                      ],
+                      onChanged: (int value) {
+                        setting.changeAutoApplyPoisonDamage(value == 1);
+                      },
+                    ),
                   ],
                 ),
               ),
