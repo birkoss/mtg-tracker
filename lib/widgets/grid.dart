@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/layout.dart';
-import 'package:mtgtracker/widgets/boxes/empty.dart';
-import 'package:mtgtracker/widgets/boxes/player.dart';
 import 'package:provider/provider.dart';
 
 import '../models/layout.dart';
+import '../providers/layout.dart';
+import '../widgets/boxes/empty.dart';
+import 'boxes/player/player_box.dart';
 
 class Grid extends StatelessWidget {
   const Grid({

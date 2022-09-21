@@ -11,9 +11,9 @@ class PressableButton extends StatefulWidget {
   const PressableButton({
     Key? key,
     required this.isActive,
-    required this.isVisible,
+    this.isVisible = true,
     required this.inactiveWidget,
-    required this.inactiveColor,
+    this.inactiveColor = Colors.transparent,
     required this.activeColor,
     required this.onToggle,
   }) : super(key: key);

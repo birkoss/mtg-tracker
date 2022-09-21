@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/player.dart';
-import '../../providers/setting.dart';
+import '../../../providers/player.dart';
+import '../../../providers/setting.dart';
 
-import '../../widgets/boxes/amount.dart';
-import '../../widgets/mtgicons.dart';
-import '../../widgets/pressable_button.dart';
-import '../../widgets/ui/commander_damage.dart';
+import '../amount.dart';
+import '../../mtgicons.dart';
+import '../../pressable_button.dart';
+import '../../ui/commander_damage.dart';
 
-// What are we modifying in the Amount Box
-enum AmountBoxType {
+// What are we modifying in the Panel
+enum PanelBoxType {
   commander,
   normal,
   poison,
@@ -18,23 +18,23 @@ enum AmountBoxType {
   experience,
 }
 
-class AmountDataBox extends StatefulWidget {
+class PanelBoxPanel extends StatefulWidget {
   final VoidCallback showSettings;
 
-  const AmountDataBox({
+  const PanelBoxPanel({
     Key? key,
     required this.showSettings,
   }) : super(key: key);
 
   @override
-  State<AmountDataBox> createState() => _AmountDataBoxState();
+  State<PanelBoxPanel> createState() => _PanelBoxPanelState();
 }
 
-class _AmountDataBoxState extends State<AmountDataBox> {
-  // [X, 0] for commander, [X, 1] for the partner
+class _PanelBoxPanelState extends State<PanelBoxPanel> {
+  // [0] = Opponent, [1] = Commander,Partner (0,1)
   List<int> _selectedCommander = [-1, 0];
 
-  AmountBoxType _selectedBoxType = AmountBoxType.normal;
+  PanelBoxType _selectedBoxType = PanelBoxType.normal;
 
   List<Widget> _getOpponentsCommanderDamages(Player player) {
     List<Widget> widgets = [];
@@ -43,7 +43,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
       widgets.add(
         CommanderDamage(
           isSelected: (opponent, commander) {
-            return (_selectedBoxType == AmountBoxType.commander &&
+            return (_selectedBoxType == PanelBoxType.commander &&
                 _selectedCommander[0] == opponent &&
                 _selectedCommander[1] == commander);
           },
@@ -53,11 +53,11 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             setState(() {
               if (_selectedCommander[0] == opponent &&
                   _selectedCommander[1] == commander) {
-                _selectedBoxType = AmountBoxType.normal;
+                _selectedBoxType = PanelBoxType.normal;
                 _selectedCommander[0] = -1;
                 _selectedCommander[1] = 0;
               } else {
-                _selectedBoxType = AmountBoxType.commander;
+                _selectedBoxType = PanelBoxType.commander;
                 _selectedCommander[0] = opponent;
                 _selectedCommander[1] = commander;
               }
@@ -108,21 +108,17 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     PressableButton(
-                      isVisible: true,
                       isActive: false,
                       inactiveWidget: const Icon(
                         Icons.settings,
                         color: Colors.white,
                       ),
-                      inactiveColor: Colors.transparent,
                       activeColor: Colors.transparent,
-                      onToggle: () {
-                        widget.showSettings();
-                      },
+                      onToggle: widget.showSettings,
                     ),
                     PressableButton(
                       isVisible: true,
-                      isActive: (_selectedBoxType == AmountBoxType.poison),
+                      isActive: (_selectedBoxType == PanelBoxType.poison),
                       inactiveWidget: player.poison == 0
                           ? const Icon(
                               MtgIcons.poison,
@@ -136,15 +132,14 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                                   .headline1!
                                   .copyWith(fontSize: 20),
                             ),
-                      inactiveColor: Colors.transparent,
                       activeColor: Colors.white,
                       onToggle: () {
                         setState(() {
                           _selectedCommander = [-1, 0];
                           _selectedBoxType =
-                              _selectedBoxType == AmountBoxType.poison
-                                  ? AmountBoxType.normal
-                                  : AmountBoxType.poison;
+                              _selectedBoxType == PanelBoxType.poison
+                                  ? PanelBoxType.normal
+                                  : PanelBoxType.poison;
                         });
                       },
                     ),
@@ -167,7 +162,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
               getIcon: () {
                 return _selectedCommander[0] != -1
                     ? "commander"
-                    : _selectedBoxType == AmountBoxType.normal
+                    : _selectedBoxType == PanelBoxType.normal
                         ? "health"
                         : "poison";
               },
@@ -177,9 +172,9 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                           [_selectedCommander[1]]
                       .toString();
                 }
-                if (_selectedBoxType == AmountBoxType.normal) {
+                if (_selectedBoxType == PanelBoxType.normal) {
                   return player.health.toString();
-                } else if (_selectedBoxType == AmountBoxType.poison) {
+                } else if (_selectedBoxType == PanelBoxType.poison) {
                   return player.poison.toString();
                 }
               },
@@ -204,9 +199,9 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     }
                   });
                 } else {
-                  if (_selectedBoxType == AmountBoxType.normal) {
+                  if (_selectedBoxType == PanelBoxType.normal) {
                     player.health += modifier;
-                  } else if (_selectedBoxType == AmountBoxType.poison) {
+                  } else if (_selectedBoxType == PanelBoxType.poison) {
                     // Do NOT increate POISON over 10
                     if (modifier == 1 && player.poison >= 10) {
                       return false;

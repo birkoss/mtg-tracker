@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PlayerSettings extends StatefulWidget {
+class PlayerBoxSettings extends StatefulWidget {
   final Color backgroundColor;
 
   final bool hasPartner;
@@ -11,7 +11,7 @@ class PlayerSettings extends StatefulWidget {
 
   final void Function() onClose;
 
-  const PlayerSettings({
+  const PlayerBoxSettings({
     Key? key,
     required this.backgroundColor,
     required this.hasPartner,
@@ -22,10 +22,10 @@ class PlayerSettings extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PlayerSettings> createState() => _PlayerSettingsState();
+  State<PlayerBoxSettings> createState() => _PlayerBoxSettingsState();
 }
 
-class _PlayerSettingsState extends State<PlayerSettings>
+class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
     with SingleTickerProviderStateMixin {
   late TabController _controller;
 
