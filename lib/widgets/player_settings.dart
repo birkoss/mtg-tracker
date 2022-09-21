@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/widgets/ui/toggles.dart';
 
-class PlayerSettings extends StatelessWidget {
+class PlayerSettings extends StatefulWidget {
   final Color backgroundColor;
 
   final bool hasPartner;
@@ -23,67 +22,97 @@ class PlayerSettings extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    print("PS.build()");
+  State<PlayerSettings> createState() => _PlayerSettingsState();
+}
 
+class _PlayerSettingsState extends State<PlayerSettings>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(6),
       child: Container(
-        color: backgroundColor,
+        color: widget.backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              "Settings",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
+            Container(
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+              child: TabBar(
+                controller: _controller,
+                tabs: const [
+                  Tab(text: 'Settings'),
+                  Tab(text: 'Colors'),
+                ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Has a partner",
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      const SizedBox(height: 10),
-                      Switch(
-                        value: hasPartner,
-                        onChanged: onPartnerChanged,
-                      ),
-                    ],
+            Expanded(
+              flex: 1,
+              child: TabBarView(
+                controller: _controller,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Has a partner",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: widget.hasPartner,
+                                onChanged: widget.onPartnerChanged,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Is Dead!",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: widget.isDead,
+                                onChanged: widget.onDeadChanged,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Is Dead!",
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      const SizedBox(height: 10),
-                      Switch(
-                        value: isDead,
-                        onChanged: onDeadChanged,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text("Coming Soon!"),
+                  )
+                ],
+              ),
             ),
-            ElevatedButton.icon(
-              onPressed: onClose,
-              icon: const Icon(Icons.close),
-              label: const Text("Close"),
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: ElevatedButton.icon(
+                onPressed: widget.onClose,
+                icon: const Icon(Icons.close),
+                label: const Text("Close"),
+              ),
             ),
           ],
         ),
