@@ -133,7 +133,9 @@ class _PlayerBox extends State<PlayerBox> {
         Padding(
           padding: const EdgeInsets.all(6),
           child: Container(
-            color: Colors.white,
+            color: context.read<SettingNotifier>().isDarkTheme
+                ? Colors.black
+                : Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

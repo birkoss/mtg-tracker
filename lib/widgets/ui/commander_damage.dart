@@ -34,7 +34,7 @@ class CommanderDamage extends StatelessWidget {
               ? SvgPicture.asset(
                   "assets/icons/skull.svg",
                   fit: BoxFit.scaleDown,
-                  width: 20,
+                  width: 22,
                   color: Colors.white70,
                   semanticsLabel: 'Health',
                 )
