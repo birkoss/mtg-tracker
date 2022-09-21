@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 class Player with ChangeNotifier {
   String id = "";
 
-  // [0] = Light Color, [1] = Dark Color
-  List<Color> colors = [];
+  List<Color> colors = []; // [0] = Light, [1] = Dark
 
   bool isDead = false;
 

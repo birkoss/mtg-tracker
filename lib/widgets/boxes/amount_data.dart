@@ -11,6 +11,7 @@ import '../../widgets/ui/commander_damage.dart';
 
 // What are we modifying in the Amount Box
 enum AmountBoxType {
+  commander,
   normal,
   poison,
   energy,
@@ -31,9 +32,9 @@ class AmountDataBox extends StatefulWidget {
 
 class _AmountDataBoxState extends State<AmountDataBox> {
   // [X, 0] for commander, [X, 1] for the partner
-  List<int> selectedOpponentCommander = [-1, 0];
+  List<int> _selectedCommander = [-1, 0];
 
-  AmountBoxType _type = AmountBoxType.normal;
+  AmountBoxType _selectedBoxType = AmountBoxType.normal;
 
   List<Widget> _getOpponentsCommanderDamages(Player player) {
     List<Widget> widgets = [];
@@ -41,26 +42,28 @@ class _AmountDataBoxState extends State<AmountDataBox> {
     for (var opponent in player.opponents) {
       widgets.add(
         CommanderDamage(
-            isSelected: (currentOpponent, currentCommander) {
-              return (selectedOpponentCommander[0] == currentOpponent &&
-                  selectedOpponentCommander[1] == currentCommander);
-            },
-            player: player,
-            opponent: opponent,
-            onSelected: (selectedOpponent, selectedCommander) {
-              setState(() {
-                _type = AmountBoxType.normal;
-
-                if (selectedOpponentCommander[0] == selectedOpponent &&
-                    selectedOpponentCommander[1] == selectedCommander) {
-                  selectedOpponentCommander[0] = -1;
-                  selectedOpponentCommander[1] = 0;
-                } else {
-                  selectedOpponentCommander[0] = selectedOpponent;
-                  selectedOpponentCommander[1] = selectedCommander;
-                }
-              });
-            }),
+          isSelected: (opponent, commander) {
+            return (_selectedBoxType == AmountBoxType.commander &&
+                _selectedCommander[0] == opponent &&
+                _selectedCommander[1] == commander);
+          },
+          player: player,
+          opponent: opponent,
+          onSelected: (opponent, commander) {
+            setState(() {
+              if (_selectedCommander[0] == opponent &&
+                  _selectedCommander[1] == commander) {
+                _selectedBoxType = AmountBoxType.normal;
+                _selectedCommander[0] = -1;
+                _selectedCommander[1] = 0;
+              } else {
+                _selectedBoxType = AmountBoxType.commander;
+                _selectedCommander[0] = opponent;
+                _selectedCommander[1] = commander;
+              }
+            });
+          },
+        ),
       );
     }
 
@@ -72,20 +75,20 @@ class _AmountDataBoxState extends State<AmountDataBox> {
     Player player = Provider.of<Player>(context, listen: false);
 
     // If a CommanderDamage of a dead player is selected, reset it
-    if (selectedOpponentCommander[0] != -1) {
-      if (player.opponents[selectedOpponentCommander[0]].isDead) {
+    if (_selectedCommander[0] != -1) {
+      if (player.opponents[_selectedCommander[0]].isDead) {
         setState(() {
-          selectedOpponentCommander = [-1, 0];
+          _selectedCommander = [-1, 0];
         });
       }
     }
 
-    String amountBoxKey = _type.toString();
-    if (selectedOpponentCommander[0] != -1) {
+    String amountBoxKey = _selectedBoxType.toString();
+    if (_selectedCommander[0] != -1) {
       amountBoxKey = "commander-" +
-          selectedOpponentCommander[0].toString() +
+          _selectedCommander[0].toString() +
           "-" +
-          selectedOpponentCommander[1].toString();
+          _selectedCommander[1].toString();
     }
 
     return Row(
@@ -119,7 +122,7 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     ),
                     PressableButton(
                       isVisible: true,
-                      isActive: (_type == AmountBoxType.poison),
+                      isActive: (_selectedBoxType == AmountBoxType.poison),
                       inactiveWidget: player.poison == 0
                           ? const Icon(
                               MtgIcons.poison,
@@ -137,10 +140,11 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                       activeColor: Colors.white,
                       onToggle: () {
                         setState(() {
-                          selectedOpponentCommander = [-1, 0];
-                          _type = _type == AmountBoxType.normal
-                              ? AmountBoxType.poison
-                              : AmountBoxType.normal;
+                          _selectedCommander = [-1, 0];
+                          _selectedBoxType =
+                              _selectedBoxType == AmountBoxType.poison
+                                  ? AmountBoxType.normal
+                                  : AmountBoxType.poison;
                         });
                       },
                     ),
@@ -161,37 +165,37 @@ class _AmountDataBoxState extends State<AmountDataBox> {
             child: AmountBox(
               key: ValueKey<String>(amountBoxKey),
               getIcon: () {
-                return selectedOpponentCommander[0] != -1
+                return _selectedCommander[0] != -1
                     ? "commander"
-                    : _type == AmountBoxType.normal
+                    : _selectedBoxType == AmountBoxType.normal
                         ? "health"
                         : "poison";
               },
               getValue: () {
-                if (selectedOpponentCommander[0] != -1) {
-                  return player.commanderDamages[selectedOpponentCommander[0]]
-                          [selectedOpponentCommander[1]]
+                if (_selectedCommander[0] != -1) {
+                  return player.commanderDamages[_selectedCommander[0]]
+                          [_selectedCommander[1]]
                       .toString();
                 }
-                if (_type == AmountBoxType.normal) {
+                if (_selectedBoxType == AmountBoxType.normal) {
                   return player.health.toString();
-                } else if (_type == AmountBoxType.poison) {
+                } else if (_selectedBoxType == AmountBoxType.poison) {
                   return player.poison.toString();
                 }
               },
               setValue: (int modifier) {
-                if (selectedOpponentCommander[0] != -1) {
+                if (_selectedCommander[0] != -1) {
                   // Do NOT increase Commander Damage over 21
                   if (modifier == 1 &&
-                      player.commanderDamages[selectedOpponentCommander[0]]
-                              [selectedOpponentCommander[1]] >=
+                      player.commanderDamages[_selectedCommander[0]]
+                              [_selectedCommander[1]] >=
                           21) {
                     return false;
                   }
 
                   setState(() {
-                    player.commanderDamages[selectedOpponentCommander[0]]
-                        [selectedOpponentCommander[1]] += modifier;
+                    player.commanderDamages[_selectedCommander[0]]
+                        [_selectedCommander[1]] += modifier;
 
                     /* Only change the player health if the settings Auto Apply Commander Damage is selected */
                     if (Provider.of<SettingNotifier>(context, listen: false)
@@ -200,9 +204,9 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     }
                   });
                 } else {
-                  if (_type == AmountBoxType.normal) {
+                  if (_selectedBoxType == AmountBoxType.normal) {
                     player.health += modifier;
-                  } else if (_type == AmountBoxType.poison) {
+                  } else if (_selectedBoxType == AmountBoxType.poison) {
                     // Do NOT increate POISON over 10
                     if (modifier == 1 && player.poison >= 10) {
                       return false;
