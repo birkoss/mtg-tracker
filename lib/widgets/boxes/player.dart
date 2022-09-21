@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/widgets/player_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/players.dart';
@@ -127,96 +128,28 @@ class _PlayerBox extends State<PlayerBox> {
     }
 
     if (_showSettings) {
-      // Is Dead ?
-      // - Opacity the opponent Commander Damage (disable click)
       widgets.add(
-        Padding(
-          padding: const EdgeInsets.all(6),
-          child: Container(
-            color: context.read<SettingNotifier>().isDarkTheme
-                ? Colors.black
-                : Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text(
-                  "Settings",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Has a partner",
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          const SizedBox(height: 10),
-                          Toggles(
-                            defaultValue: player.data['totalCommanders']!,
-                            values: const [
-                              {"value": "1", "label": "No"},
-                              {"value": "2", "label": "Yes"},
-                            ],
-                            onChanged: (int value) {
-                              player.updateTotalCommanders(value);
-                              // Must notify all players to refresh the UI
-                              context.read<Players>().hasChanged();
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Is Dead!",
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          const SizedBox(height: 10),
-                          Toggles(
-                            defaultValue: player.isDead ? 2 : 1,
-                            values: const [
-                              {"value": "1", "label": "No"},
-                              {"value": "2", "label": "Yes"},
-                            ],
-                            onChanged: (int value) {
-                              setState(() {
-                                //_selectedPlayersNumber = value;
-                                player.isDead = (value == 2);
-                                // Must notify all players to refresh the UI
-                                context.read<Players>().hasChanged();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _showSettings = false;
-                    });
-                  },
-                  icon: const Icon(Icons.close),
-                  label: const Text("Close"),
-                ),
-              ],
-            ),
-          ),
+        PlayerSettings(
+          backgroundColor: context.read<SettingNotifier>().isDarkTheme
+              ? Colors.black
+              : Colors.white,
+          hasPartner: player.data['totalCommanders']! == 2,
+          isDead: player.isDead,
+          onClose: () {
+            setState(() {
+              _showSettings = false;
+            });
+          },
+          onDeadChanged: (int value) {
+            player.isDead = (value == 2);
+            // Must notify all players to refresh the UI
+            context.read<Players>().hasChanged();
+          },
+          onPartnerChanged: (int value) {
+            player.updateTotalCommanders(value);
+            // Must notify all players to refresh the UI
+            context.read<Players>().hasChanged();
+          },
         ),
       );
     }
