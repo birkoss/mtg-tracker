@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/widgets/ui/toggles.dart';
 
@@ -7,10 +5,10 @@ class PlayerSettings extends StatelessWidget {
   final Color backgroundColor;
 
   final bool hasPartner;
-  final void Function(int) onPartnerChanged;
+  final void Function(bool) onPartnerChanged;
 
   final bool isDead;
-  final void Function(int) onDeadChanged;
+  final void Function(bool) onDeadChanged;
 
   final void Function() onClose;
 
@@ -26,6 +24,8 @@ class PlayerSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("PS.build()");
+
     return Padding(
       padding: const EdgeInsets.all(6),
       child: Container(
@@ -54,12 +54,8 @@ class PlayerSettings extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       const SizedBox(height: 10),
-                      Toggles(
-                        defaultValue: hasPartner ? 2 : 1,
-                        values: const [
-                          {"value": "1", "label": "No"},
-                          {"value": "2", "label": "Yes"},
-                        ],
+                      Switch(
+                        value: hasPartner,
                         onChanged: onPartnerChanged,
                       ),
                     ],
@@ -75,12 +71,8 @@ class PlayerSettings extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       const SizedBox(height: 10),
-                      Toggles(
-                        defaultValue: isDead ? 2 : 1,
-                        values: const [
-                          {"value": "1", "label": "No"},
-                          {"value": "2", "label": "Yes"},
-                        ],
+                      Switch(
+                        value: isDead,
                         onChanged: onDeadChanged,
                       ),
                     ],

@@ -140,13 +140,13 @@ class _PlayerBox extends State<PlayerBox> {
               _showSettings = false;
             });
           },
-          onDeadChanged: (int value) {
-            player.isDead = (value == 2);
+          onDeadChanged: (bool value) {
+            player.isDead = value;
             // Must notify all players to refresh the UI
             context.read<Players>().hasChanged();
           },
-          onPartnerChanged: (int value) {
-            player.updateTotalCommanders(value);
+          onPartnerChanged: (bool value) {
+            player.updateTotalCommanders(value ? 2 : 1);
             // Must notify all players to refresh the UI
             context.read<Players>().hasChanged();
           },
