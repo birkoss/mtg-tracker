@@ -7,7 +7,6 @@ import '../../providers/players.dart';
 import '../../providers/player.dart';
 import '../../providers/setting.dart';
 import '../../widgets/boxes/amount_data.dart';
-import '../../widgets/ui/toggles.dart';
 
 class PlayerBox extends StatefulWidget {
   // Rotation of this widget within the Grid
@@ -133,7 +132,7 @@ class _PlayerBox extends State<PlayerBox> {
           backgroundColor: context.read<SettingNotifier>().isDarkTheme
               ? Colors.black
               : Colors.white,
-          hasPartner: player.data['totalCommanders']! == 2,
+          hasPartner: player.totalCommanders == 2,
           isDead: player.isDead,
           onClose: () {
             setState(() {
@@ -146,7 +145,7 @@ class _PlayerBox extends State<PlayerBox> {
             context.read<Players>().hasChanged();
           },
           onPartnerChanged: (bool value) {
-            player.updateTotalCommanders(value ? 2 : 1);
+            player.totalCommanders = value ? 2 : 1;
             // Must notify all players to refresh the UI
             context.read<Players>().hasChanged();
           },

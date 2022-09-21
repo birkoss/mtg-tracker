@@ -28,7 +28,7 @@ class CommanderDamage extends StatelessWidget {
     for (int i = 0; i < 2; i++) {
       commanders.add(
         PressableButton(
-          isVisible: (i + 1 <= opponent.data['totalCommanders']!),
+          isVisible: (i + 1 <= opponent.totalCommanders),
           isActive: isSelected(opponentIndex, i),
           inactiveWidget: opponent.isDead
               ? SvgPicture.asset(

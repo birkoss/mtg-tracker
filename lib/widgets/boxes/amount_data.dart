@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,23 +15,6 @@ enum AmountBoxType {
   poison,
   energy,
   experience,
-}
-
-extension AmountBoxTypeExtension on AmountBoxType {
-  String get dataIndex {
-    switch (this) {
-      case AmountBoxType.normal:
-        return 'health';
-      case AmountBoxType.poison:
-        return 'poison';
-      case AmountBoxType.energy:
-        return 'energy';
-      case AmountBoxType.experience:
-        return 'experience';
-      default:
-        return 'health';
-    }
-  }
 }
 
 class AmountDataBox extends StatefulWidget {
@@ -139,13 +120,13 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     PressableButton(
                       isVisible: true,
                       isActive: (_type == AmountBoxType.poison),
-                      inactiveWidget: player.data['poison']! == 0
+                      inactiveWidget: player.poison == 0
                           ? const Icon(
                               MtgIcons.poison,
                               color: Colors.white,
                             )
                           : Text(
-                              player.data['poison']!.toString(),
+                              player.poison.toString(),
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -192,7 +173,11 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                           [selectedOpponentCommander[1]]
                       .toString();
                 }
-                return player.data[_type.dataIndex].toString();
+                if (_type == AmountBoxType.normal) {
+                  return player.health.toString();
+                } else if (_type == AmountBoxType.poison) {
+                  return player.poison.toString();
+                }
               },
               setValue: (int modifier) {
                 if (selectedOpponentCommander[0] != -1) {
@@ -211,31 +196,25 @@ class _AmountDataBoxState extends State<AmountDataBox> {
                     /* Only change the player health if the settings Auto Apply Commander Damage is selected */
                     if (Provider.of<SettingNotifier>(context, listen: false)
                         .autoApplyCommanderDamage) {
-                      player.data['health'] =
-                          player.data['health']! + (modifier * -1);
-
-                      // Never let HEALTH lower than 0
-                      player.data['health'] = max(0, player.data['health']!);
+                      player.health += (modifier * -1);
                     }
                   });
                 } else {
-                  // Do NOT increate POISON over 10
-                  if (modifier == 1 &&
-                      _type.dataIndex == "poison" &&
-                      player.data[_type.dataIndex]! >= 10) {
-                    return false;
-                  }
-                  player.data[_type.dataIndex] =
-                      player.data[_type.dataIndex]! + modifier;
+                  if (_type == AmountBoxType.normal) {
+                    player.health += modifier;
+                  } else if (_type == AmountBoxType.poison) {
+                    // Do NOT increate POISON over 10
+                    if (modifier == 1 && player.poison >= 10) {
+                      return false;
+                    }
 
-                  /* Only change the player health if the settings Auto Apply Poison Damage is selected */
-                  if (Provider.of<SettingNotifier>(context, listen: false)
-                      .autoApplyPoisonDamage) {
-                    player.data['health'] =
-                        player.data['health']! + (modifier * -1);
+                    player.poison += modifier;
 
-                    // Never let HEALTH lower than 0
-                    player.data['health'] = max(0, player.data['health']!);
+                    /* Only change the player health if the settings Auto Apply Poison Damage is selected */
+                    if (Provider.of<SettingNotifier>(context, listen: false)
+                        .autoApplyPoisonDamage) {
+                      player.health += (modifier * -1);
+                    }
                   }
                 }
 
