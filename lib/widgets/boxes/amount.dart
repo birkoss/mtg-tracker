@@ -8,6 +8,7 @@ import '../../widgets/ui/amount/text.dart';
 class AmountBox extends StatefulWidget {
   final Widget? child;
   final Function getIcon;
+  final Function getLabel;
   final Function setValue;
   final Function getValue;
   final Function()? onPress;
@@ -17,6 +18,7 @@ class AmountBox extends StatefulWidget {
     this.child,
     required this.setValue,
     required this.getIcon,
+    required this.getLabel,
     required this.getValue,
     this.onPress,
   }) : super(key: key);
@@ -73,8 +75,24 @@ class _AmountBox extends State<AmountBox> {
 
     return Stack(
       children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Opacity(
+              opacity: 1,
+              child: Text(
+                widget.getLabel(),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+              ),
+            ),
+          ),
+        ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(widget.getLabel() == "" ? 20 : 40.0),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 160),
             transitionBuilder: (Widget child, Animation<double> animation) {

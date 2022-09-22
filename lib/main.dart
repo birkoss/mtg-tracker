@@ -1,3 +1,13 @@
+// @TODO: Change color when in Commander Damage State
+// - Add title when in commander damage
+// - Expand button when active with label (Apply)
+
+// @TODO: Tools: Coin Toss
+// @TODO: Pick Number
+//  - Choose from 2 to 20
+//  - Button Pick and Close
+//  - Show result
+
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
 // @TODO: Animate when a popup is shown (settings, win)
 

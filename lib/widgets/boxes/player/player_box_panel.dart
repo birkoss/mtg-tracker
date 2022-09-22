@@ -166,6 +166,13 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                         ? "health"
                         : "poison";
               },
+              getLabel: () {
+                return _selectedCommander[0] != -1
+                    ? "Commander Damage"
+                    : _selectedBoxType == PanelBoxType.normal
+                        ? ""
+                        : "Poison Counter";
+              },
               getValue: () {
                 if (_selectedCommander[0] != -1) {
                   return player.commanderDamages[_selectedCommander[0]]
