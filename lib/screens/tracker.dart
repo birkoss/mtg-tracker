@@ -93,7 +93,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
             child: Stack(
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(2.0),
+                  padding: EdgeInsets.symmetric(vertical: 2.0),
                   child: Grid(),
                 ),
                 Align(

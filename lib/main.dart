@@ -1,6 +1,5 @@
-// @TODO: Change color when in Commander Damage State
-// - Add title when in commander damage
-// - Expand button when active with label (Apply)
+// @TODO: Change color when in Commander Damage State ?
+// - Expand button when active with label (Apply) ?
 
 // @TODO: Tools: Coin Toss
 // @TODO: Pick Number
@@ -19,6 +18,7 @@
 // - Change default colors
 
 import 'package:flutter/services.dart';
+import 'package:mtgtracker/screens/coin_toss.dart';
 import 'package:mtgtracker/screens/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
@@ -72,6 +72,7 @@ class MtgTrackerApp extends StatelessWidget {
         '/': (_) => const LoadingScreen(),
         '/play': (_) => const TrackerScreen(),
         //'/settings': (_) => const SettingScreen(),
+        '/coin-toss': (_) => const CoinTossScreen()
       },
     );
   }

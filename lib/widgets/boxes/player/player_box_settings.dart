@@ -32,7 +32,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -50,6 +50,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                 controller: _controller,
                 tabs: const [
                   Tab(text: 'Settings'),
+                  Tab(text: 'Tools'),
                   Tab(text: 'Colors'),
                 ],
               ),
@@ -98,6 +99,10 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                         )
                       ],
                     ),
+                  ),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text("Coming Soon!"),
                   ),
                   const Align(
                     alignment: Alignment.center,

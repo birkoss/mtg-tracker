@@ -123,7 +123,7 @@ class _PlayerBox extends State<PlayerBox> {
       child: RotatedBox(
         quarterTurns: widget.rotation,
         child: Container(
-          margin: const EdgeInsets.all(4),
+          margin: const EdgeInsets.only(top: 4, left: 4, right: 4),
           color: player.getColor(context.read<SettingNotifier>().isDarkTheme),
           alignment: Alignment.center,
           child: Stack(

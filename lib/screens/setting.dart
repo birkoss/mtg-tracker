@@ -74,24 +74,28 @@ class _SettingScreenState extends State<SettingScreen> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    TileButton(
-                      icon: Icons.restart_alt,
-                      label: "Reset Game",
-                      onPress: () {
-                        Navigator.pop(context);
-                        widget.onNewGame();
-                      },
-                    ),
-                    TileButton(
-                      icon: Icons.casino,
-                      label: "Choose\nRandom Player",
-                      onPress: () {
-                        Navigator.pop(context);
-                        widget.onPickNewPlayer();
-                      },
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TileButton(
+                          icon: Icons.restart_alt,
+                          label: "Reset Game",
+                          onPress: () {
+                            Navigator.pop(context);
+                            widget.onNewGame();
+                          },
+                        ),
+                        TileButton(
+                          icon: Icons.people,
+                          label: "Choose\nRandom Player",
+                          onPress: () {
+                            Navigator.pop(context);
+                            widget.onPickNewPlayer();
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
