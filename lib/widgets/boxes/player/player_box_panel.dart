@@ -74,13 +74,26 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
   Widget build(BuildContext context) {
     Player player = Provider.of<Player>(context, listen: false);
 
-    // If a CommanderDamage of a dead player is selected, reset it
-    if (_selectedCommander[0] != -1) {
-      if (player.opponents[_selectedCommander[0]].isDead) {
+    // Disable previously OPEN Poison & Commander Damage in SIMPLE mode
+    if (context.watch<SettingNotifier>().isSimpleMode) {
+      if (_selectedBoxType == PanelBoxType.commander) {
         setState(() {
+          _selectedBoxType = PanelBoxType.normal;
           _selectedCommander = [-1, 0];
         });
+      } else if (_selectedBoxType == PanelBoxType.poison) {
+        setState(() {
+          _selectedBoxType = PanelBoxType.normal;
+        });
       }
+    }
+
+    // If a Commander Damage of a DEAD player is selected, reset it
+    if (_selectedCommander[0] != -1 &&
+        player.opponents[_selectedCommander[0]].isDead) {
+      setState(() {
+        _selectedCommander = [-1, 0];
+      });
     }
 
     String amountBoxKey = _selectedBoxType.toString();
@@ -94,61 +107,62 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     return Row(
       children: [
         // Commander Damages, Settings and Poison
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ..._getOpponentsCommanderDamages(player),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    PressableButton(
-                      isActive: false,
-                      inactiveWidget: const Icon(
-                        Icons.settings,
-                        color: Colors.white,
+        if (!context.read<SettingNotifier>().isSimpleMode)
+          Expanded(
+            flex: 1,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ..._getOpponentsCommanderDamages(player),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      PressableButton(
+                        isActive: false,
+                        inactiveWidget: const Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                        ),
+                        activeColor: Colors.transparent,
+                        onToggle: widget.showSettings,
                       ),
-                      activeColor: Colors.transparent,
-                      onToggle: widget.showSettings,
-                    ),
-                    PressableButton(
-                      isVisible: true,
-                      isActive: (_selectedBoxType == PanelBoxType.poison),
-                      inactiveWidget: player.poison == 0
-                          ? const Icon(
-                              MtgIcons.poison,
-                              color: Colors.white,
-                            )
-                          : Text(
-                              player.poison.toString(),
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(fontSize: 20),
-                            ),
-                      activeColor: Colors.white,
-                      onToggle: () {
-                        setState(() {
-                          _selectedCommander = [-1, 0];
-                          _selectedBoxType =
-                              _selectedBoxType == PanelBoxType.poison
-                                  ? PanelBoxType.normal
-                                  : PanelBoxType.poison;
-                        });
-                      },
-                    ),
-                  ],
-                )
-              ],
+                      PressableButton(
+                        isVisible: true,
+                        isActive: (_selectedBoxType == PanelBoxType.poison),
+                        inactiveWidget: player.poison == 0
+                            ? const Icon(
+                                MtgIcons.poison,
+                                color: Colors.white,
+                              )
+                            : Text(
+                                player.poison.toString(),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(fontSize: 20),
+                              ),
+                        activeColor: Colors.white,
+                        onToggle: () {
+                          setState(() {
+                            _selectedCommander = [-1, 0];
+                            _selectedBoxType =
+                                _selectedBoxType == PanelBoxType.poison
+                                    ? PanelBoxType.normal
+                                    : PanelBoxType.poison;
+                          });
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
         // Amount Boxes
         Expanded(
           flex: 2,

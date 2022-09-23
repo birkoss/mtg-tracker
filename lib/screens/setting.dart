@@ -215,22 +215,35 @@ class _SettingScreenState extends State<SettingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Theme",
+                      "Use Dark Theme?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Switch(
+                      value: setting.isDarkTheme,
+                      onChanged: (bool value) {
+                        setting.toggleDarkTheme();
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Simple Mode?",
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(height: 10),
-                    Toggles(
-                      defaultValue: setting.isDarkTheme ? 2 : 1,
-                      values: const [
-                        {"value": "1", "label": "Light"},
-                        {"value": "2", "label": "Dark"}
-                      ],
-                      onChanged: (int value) {
-                        if (setting.isDarkTheme && value == 1 ||
-                            !setting.isDarkTheme && value == 2) {
-                          setting.toggleDarkTheme();
-                        }
+                    Text(
+                      "Lighter UI, without Commander Damage tracking",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 12,
+                          ),
+                    ),
+                    Switch(
+                      value: setting.isSimpleMode,
+                      onChanged: (bool value) {
+                        setting.toggleSimpleMode();
                       },
                     ),
                     const SizedBox(height: 20),
@@ -239,15 +252,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    const SizedBox(height: 10),
-                    Toggles(
-                      defaultValue: setting.autoApplyCommanderDamage ? 1 : 0,
-                      values: const [
-                        {"value": "0", "label": "No"},
-                        {"value": "1", "label": "Yes"}
-                      ],
-                      onChanged: (int value) {
-                        setting.changeAutoApplyCommanderDamage(value == 1);
+                    Switch(
+                      value: setting.autoApplyCommanderDamage,
+                      onChanged: (bool value) {
+                        setting.changeAutoApplyCommanderDamage(value);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -256,15 +264,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    const SizedBox(height: 10),
-                    Toggles(
-                      defaultValue: setting.autoApplyPoisonDamage ? 1 : 0,
-                      values: const [
-                        {"value": "0", "label": "No"},
-                        {"value": "1", "label": "Yes"}
-                      ],
-                      onChanged: (int value) {
-                        setting.changeAutoApplyPoisonDamage(value == 1);
+                    Switch(
+                      value: setting.autoApplyPoisonDamage,
+                      onChanged: (bool value) {
+                        setting.changeAutoApplyPoisonDamage(value);
                       },
                     ),
                   ],

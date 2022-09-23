@@ -27,6 +27,7 @@ class _PlayerBox extends State<PlayerBox> {
 
   List<Widget> _getContent(Player player) {
     bool isDarkTheme = context.watch<SettingNotifier>().isDarkTheme;
+    bool isSimpleMode = context.watch<SettingNotifier>().isSimpleMode;
 
     List<Widget> widgets = [];
 
@@ -40,29 +41,6 @@ class _PlayerBox extends State<PlayerBox> {
         },
       ),
     );
-
-    // Show the dead player
-    if (player.isDead) {
-      widgets.add(
-        PlayerBoxPopup(
-          backgroundColor: context.read<Player>().getColor(isDarkTheme),
-          onPress: () {
-            setState(() {
-              _showSettings = true;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: SvgPicture.asset(
-              "assets/icons/skull.svg",
-              fit: BoxFit.scaleDown,
-              color: Colors.white24,
-              semanticsLabel: 'Health',
-            ),
-          ),
-        ),
-      );
-    }
 
     // Show the dice roll winner
     if (context.watch<Players>().diceRollWinner == player) {
@@ -84,32 +62,58 @@ class _PlayerBox extends State<PlayerBox> {
       );
     }
 
-    // Show the settings
-    if (_showSettings) {
-      widgets.add(
-        PlayerBoxSettings(
-          backgroundColor: context.read<SettingNotifier>().isDarkTheme
-              ? Colors.black
-              : Colors.white,
-          hasPartner: player.totalCommanders == 2,
-          isDead: player.isDead,
-          onClose: () {
-            setState(() {
-              _showSettings = false;
-            });
-          },
-          onDeadChanged: (bool value) {
-            player.isDead = value;
-            // Must notify all players to refresh the UI
-            context.read<Players>().hasChanged();
-          },
-          onPartnerChanged: (bool value) {
-            player.totalCommanders = value ? 2 : 1;
-            // Must notify all players to refresh the UI
-            context.read<Players>().hasChanged();
-          },
-        ),
-      );
+    // Dead Player and Settings HIDDEN in SIMPLE mode
+    if (!isSimpleMode) {
+      // Show the dead player
+      if (player.isDead) {
+        widgets.add(
+          PlayerBoxPopup(
+            backgroundColor: context.read<Player>().getColor(isDarkTheme),
+            onPress: () {
+              setState(() {
+                _showSettings = true;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: SvgPicture.asset(
+                "assets/icons/skull.svg",
+                fit: BoxFit.scaleDown,
+                color: Colors.white24,
+                semanticsLabel: 'Health',
+              ),
+            ),
+          ),
+        );
+      }
+
+      // Show the settings
+      if (_showSettings) {
+        widgets.add(
+          PlayerBoxSettings(
+            backgroundColor: context.read<SettingNotifier>().isDarkTheme
+                ? Colors.black
+                : Colors.white,
+            hasPartner: player.totalCommanders == 2,
+            isDead: player.isDead,
+            onClose: () {
+              setState(() {
+                _showSettings = false;
+              });
+            },
+            onDeadChanged: (bool value) {
+              player.isDead = value;
+              // Must notify all players to refresh the UI
+              context.read<Players>().hasChanged();
+            },
+            onPartnerChanged: (bool value) {
+              player.totalCommanders = value ? 2 : 1;
+              // Must notify all players to refresh the UI
+              context.read<Players>().hasChanged();
+            },
+          ),
+        );
+      }
     }
 
     return widgets;

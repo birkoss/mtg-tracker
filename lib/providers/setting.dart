@@ -25,6 +25,9 @@ class SettingNotifier extends ChangeNotifier {
   bool _autoApplyPoisonDamage = false;
   bool get autoApplyPoisonDamage => _autoApplyPoisonDamage;
 
+  bool _isSimpleMode = false;
+  bool get isSimpleMode => _isSimpleMode;
+
   SettingNotifier() {
     _load();
   }
@@ -49,6 +52,12 @@ class SettingNotifier extends ChangeNotifier {
 
   void toggleDarkTheme() {
     _isDarkTheme = !_isDarkTheme;
+    _save();
+    notifyListeners();
+  }
+
+  void toggleSimpleMode() {
+    _isSimpleMode = !_isSimpleMode;
     _save();
     notifyListeners();
   }
@@ -80,6 +89,8 @@ class SettingNotifier extends ChangeNotifier {
     _autoApplyPoisonDamage =
         _pref!.getBool("AUTO_APPLY_POISON_DAMAGE") ?? false;
     notifyListeners();
+    _pref!.getBool("IS_SIMPLE_MODE") ?? false;
+    notifyListeners();
 
     _isReady = true;
   }
@@ -92,5 +103,6 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("IS_DARK_THEME", _isDarkTheme);
     _pref!.setBool("AUTO_APPLY_COMMANDER_DAMAGE", _autoApplyCommanderDamage);
     _pref!.setBool("AUTO_APPLY_POISON_DAMAGE", _autoApplyPoisonDamage);
+    _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
   }
 }
