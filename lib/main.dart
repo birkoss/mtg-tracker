@@ -1,3 +1,7 @@
+// @TODO: Anim PlayerBoxSettings
+//  - Fade in background color
+//  - Popup content slide up
+
 // @TODO: Change color when in Commander Damage State ?
 // - Expand button when active with label (Apply) ?
 

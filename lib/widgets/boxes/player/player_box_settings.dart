@@ -29,97 +29,122 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
     with SingleTickerProviderStateMixin {
   late TabController _controller;
 
+  bool _isVisible = false;
+
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: 3, vsync: this);
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setState(() {
+        _isVisible = true;
+      }),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(6),
-      child: Container(
-        color: widget.backgroundColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-              child: TabBar(
-                controller: _controller,
-                tabs: const [
-                  Tab(text: 'Settings'),
-                  Tab(text: 'Tools'),
-                  Tab(text: 'Colors'),
-                ],
+      child: AnimatedSlide(
+        offset: Offset(0, _isVisible ? 0 : 1.1),
+        onEnd: () {
+          if (!_isVisible) {
+            widget.onClose();
+          }
+        },
+        duration: const Duration(milliseconds: 160),
+        curve: Curves.fastOutSlowIn,
+        child: Container(
+          color: widget.backgroundColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                decoration:
+                    BoxDecoration(color: Theme.of(context).primaryColor),
+                child: TabBar(
+                  controller: _controller,
+                  tabs: const [
+                    Tab(text: 'Settings'),
+                    Tab(text: 'Tools'),
+                    Tab(text: 'Colors'),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: TabBarView(
-                controller: _controller,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Has a partner",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: widget.hasPartner,
-                                onChanged: widget.onPartnerChanged,
-                              ),
-                            ],
+              Expanded(
+                flex: 1,
+                child: TabBarView(
+                  controller: _controller,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Has a partner",
+                                  textAlign: TextAlign.start,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                                Switch(
+                                  value: widget.hasPartner,
+                                  onChanged: widget.onPartnerChanged,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Is Dead!",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: widget.isDead,
-                                onChanged: widget.onDeadChanged,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Is Dead!",
+                                  textAlign: TextAlign.start,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                                Switch(
+                                  value: widget.isDead,
+                                  onChanged: widget.onDeadChanged,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("Coming Soon!"),
-                  ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("Coming Soon!"),
-                  )
-                ],
+                    const Align(
+                      alignment: Alignment.center,
+                      child: Text("Coming Soon!"),
+                    ),
+                    const Align(
+                      alignment: Alignment.center,
+                      child: Text("Coming Soon!"),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: ElevatedButton.icon(
-                onPressed: widget.onClose,
-                icon: const Icon(Icons.close),
-                label: const Text("Close"),
+              Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _isVisible = false;
+                    });
+
+                    //widget.onClose,
+                  },
+                  icon: const Icon(Icons.close),
+                  label: const Text("Close"),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
