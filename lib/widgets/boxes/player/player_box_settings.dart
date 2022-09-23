@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/widgets/boxes/player/tools/coin.dart';
+import 'package:mtgtracker/widgets/boxes/player/tools/opponent.dart';
 
 class PlayerBoxSettings extends StatefulWidget {
   final Color backgroundColor;
@@ -199,7 +200,17 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                             const EdgeInsets.all(6), // and this
                                       ),
                                       onPressed: () {
-                                        print("...");
+                                        setState(() {
+                                          _tools.add(
+                                            PlayerBoxSettingsToolsOpponent(
+                                              onBackClicked: () {
+                                                setState(() {
+                                                  _tools.clear();
+                                                });
+                                              },
+                                            ),
+                                          );
+                                        });
                                       },
                                       child: const Icon(Icons.casino),
                                     ),
