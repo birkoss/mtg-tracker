@@ -19,10 +19,10 @@ class SettingNotifier extends ChangeNotifier {
   int _startingLives = 0;
   int get startingLives => _startingLives;
 
-  bool _autoApplyCommanderDamage = false;
+  bool _autoApplyCommanderDamage = true;
   bool get autoApplyCommanderDamage => _autoApplyCommanderDamage;
 
-  bool _autoApplyPoisonDamage = false;
+  bool _autoApplyPoisonDamage = true;
   bool get autoApplyPoisonDamage => _autoApplyPoisonDamage;
 
   bool _isSimpleMode = false;
@@ -85,9 +85,8 @@ class SettingNotifier extends ChangeNotifier {
     _tableLayout = _pref!.getInt("TABLE_LAYOUT") ?? 1;
     _isDarkTheme = _pref!.getBool("IS_DARK_THEME") ?? false;
     _autoApplyCommanderDamage =
-        _pref!.getBool("AUTO_APPLY_COMMANDER_DAMAGE") ?? false;
-    _autoApplyPoisonDamage =
-        _pref!.getBool("AUTO_APPLY_POISON_DAMAGE") ?? false;
+        _pref!.getBool("AUTO_APPLY_COMMANDER_DAMAGE") ?? true;
+    _autoApplyPoisonDamage = _pref!.getBool("AUTO_APPLY_POISON_DAMAGE") ?? true;
     notifyListeners();
     _pref!.getBool("IS_SIMPLE_MODE") ?? false;
     notifyListeners();
