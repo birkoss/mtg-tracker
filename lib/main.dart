@@ -1,3 +1,14 @@
+// Tools : Roll Dice
+//  - d6, d20
+
+// Mana Tracker
+// Hold each mana from each colors @TheFeralFoxx
+
+// Replace light blue with ANOTHER color while picking a better solution to show which opponent
+// - Maybe an arrow?
+
+// Tools: Pick an opponent/toss coin WHEN the Widget loads
+
 // @TODO: Anim PlayerBoxSettings
 //  - Fade in background color
 //  - Popup content slide up

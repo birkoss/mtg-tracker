@@ -36,6 +36,7 @@ class _PressableButtonState extends State<PressableButton> {
               child: Container(
                 decoration: BoxDecoration(
                   color: widget.inactiveColor,
+                  borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     width: 3,
                     color: widget.isActive

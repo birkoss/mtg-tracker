@@ -22,9 +22,6 @@ class SettingNotifier extends ChangeNotifier {
   bool _autoApplyCommanderDamage = true;
   bool get autoApplyCommanderDamage => _autoApplyCommanderDamage;
 
-  bool _autoApplyPoisonDamage = true;
-  bool get autoApplyPoisonDamage => _autoApplyPoisonDamage;
-
   bool _isSimpleMode = false;
   bool get isSimpleMode => _isSimpleMode;
 
@@ -34,12 +31,6 @@ class SettingNotifier extends ChangeNotifier {
 
   void changeAutoApplyCommanderDamage(autoApplyCommanderDamage) {
     _autoApplyCommanderDamage = autoApplyCommanderDamage;
-    _save();
-    notifyListeners();
-  }
-
-  void changeAutoApplyPoisonDamage(autoApplyPoisonDamage) {
-    _autoApplyPoisonDamage = autoApplyPoisonDamage;
     _save();
     notifyListeners();
   }
@@ -86,7 +77,7 @@ class SettingNotifier extends ChangeNotifier {
     _isDarkTheme = _pref!.getBool("IS_DARK_THEME") ?? false;
     _autoApplyCommanderDamage =
         _pref!.getBool("AUTO_APPLY_COMMANDER_DAMAGE") ?? true;
-    _autoApplyPoisonDamage = _pref!.getBool("AUTO_APPLY_POISON_DAMAGE") ?? true;
+
     notifyListeners();
     _pref!.getBool("IS_SIMPLE_MODE") ?? false;
     notifyListeners();
@@ -101,7 +92,7 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setInt("TABLE_LAYOUT", _tableLayout);
     _pref!.setBool("IS_DARK_THEME", _isDarkTheme);
     _pref!.setBool("AUTO_APPLY_COMMANDER_DAMAGE", _autoApplyCommanderDamage);
-    _pref!.setBool("AUTO_APPLY_POISON_DAMAGE", _autoApplyPoisonDamage);
+
     _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
   }
 }

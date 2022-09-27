@@ -229,12 +229,6 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                     }
 
                     player.poison += modifier;
-
-                    /* Only change the player health if the settings Auto Apply Poison Damage is selected */
-                    if (Provider.of<SettingNotifier>(context, listen: false)
-                        .autoApplyPoisonDamage) {
-                      player.health += (modifier * -1);
-                    }
                   }
                 }
 

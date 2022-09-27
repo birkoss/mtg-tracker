@@ -120,10 +120,9 @@ class _AmountBox extends State<AmountBox> {
                 widget.getValue(),
                 key: ValueKey<String>(widget.getValue()),
                 overflow: TextOverflow.visible,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 40),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: 40,
+                    ),
               ),
             ),
           ),

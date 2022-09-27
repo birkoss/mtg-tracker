@@ -103,6 +103,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       primary: Theme.of(context).canvasColor,
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(10),
+                      shadowColor: Colors.transparent,
                     ),
                     child: Icon(
                       Icons.menu,
