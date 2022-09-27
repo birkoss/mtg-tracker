@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/widgets/boxes/player/tools/coin.dart';
+import 'package:mtgtracker/widgets/boxes/player/tools/dice.dart';
 import 'package:mtgtracker/widgets/boxes/player/tools/opponent.dart';
 
 class PlayerBoxSettings extends StatefulWidget {
@@ -144,7 +145,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "Flip Coins",
+                                      "Flip Coin",
                                       textAlign: TextAlign.start,
                                       style:
                                           Theme.of(context).textTheme.bodyText1,
@@ -183,7 +184,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                   children: [
                                     FittedBox(
                                       child: Text(
-                                        "Pick Random Opponent",
+                                        "Pick Opponent",
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
@@ -212,11 +213,93 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                           );
                                         });
                                       },
+                                      child: const Icon(Icons.person),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    FittedBox(
+                                      child: Text(
+                                        "Roll Dice",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: Size.zero, // Set this
+                                        padding:
+                                            const EdgeInsets.all(6), // and this
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _tools.add(
+                                            PlayerBoxSettingsToolsDice(
+                                              onBackClicked: () {
+                                                setState(() {
+                                                  _tools.clear();
+                                                });
+                                              },
+                                            ),
+                                          );
+                                        });
+                                      },
                                       child: const Icon(Icons.casino),
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+                              // Expanded(
+                              //   flex: 1,
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.end,
+                              //     children: [
+                              //       FittedBox(
+                              //         child: Text(
+                              //           "Mana Tracker",
+                              //           textAlign: TextAlign.start,
+                              //           style: Theme.of(context)
+                              //               .textTheme
+                              //               .bodyText1,
+                              //         ),
+                              //       ),
+                              //       const SizedBox(
+                              //         height: 6,
+                              //       ),
+                              //       ElevatedButton(
+                              //         style: ElevatedButton.styleFrom(
+                              //           minimumSize: Size.zero, // Set this
+                              //           padding:
+                              //               const EdgeInsets.all(6), // and this
+                              //         ),
+                              //         onPressed: () {
+                              //           setState(() {
+                              //             _tools.add(
+                              //               PlayerBoxSettingsToolsOpponent(
+                              //                 onBackClicked: () {
+                              //                   setState(() {
+                              //                     _tools.clear();
+                              //                   });
+                              //                 },
+                              //               ),
+                              //             );
+                              //           });
+                              //         },
+                              //         child: const Icon(Icons.calculate),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
