@@ -4,8 +4,6 @@
 // Replace light blue with ANOTHER color while picking a better solution to show which opponent
 // - Maybe an arrow?
 
-// Tools: Pick an opponent/toss coin/dice roll WHEN the Widget loads to see it animate
-
 // @TODO: Anim PlayerBoxSettings
 //  - Fade in background color
 //  - Popup content slide up

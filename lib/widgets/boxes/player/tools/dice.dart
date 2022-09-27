@@ -1,10 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../../../providers/player.dart';
-import '../../../../providers/players.dart';
 
 class PlayerBoxSettingsToolsDice extends StatefulWidget {
   final void Function()? onBackClicked;

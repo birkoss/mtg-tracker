@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 class AmountButton extends StatefulWidget {
   final String label;
   final VoidCallback onPress;
+  final bool isDarkBackground;
 
   const AmountButton({
     Key? key,
     required this.label,
     required this.onPress,
+    this.isDarkBackground = false,
   }) : super(key: key);
 
   @override
@@ -47,7 +49,9 @@ class _AmountButtonState extends State<AmountButton> {
             child: Text(
               widget.label,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                    color: Colors.white30,
+                    color: widget.isDarkBackground
+                        ? Colors.black26
+                        : Colors.white30,
                     fontSize: 30,
                   ),
             ),
