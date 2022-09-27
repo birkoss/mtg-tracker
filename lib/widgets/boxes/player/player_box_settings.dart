@@ -338,8 +338,8 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                             Expanded(
                               flex: 1,
                               child: Row(
-                                children: [
-                                  const Expanded(
+                                children: const [
+                                  Expanded(
                                     flex: 1,
                                     child: ManaBox(
                                       color: Colors.red,
@@ -347,24 +347,13 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                   ),
                                   Expanded(
                                     flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: TextButton.icon(
-                                        onPressed: () {
-                                          setState(() {
-                                            _isVisible = false;
-                                          });
-
-                                          //widget.onClose,
-                                        },
-                                        icon: const Icon(Icons.close),
-                                        label: const Text("Close"),
-                                      ),
-                                    ),
-                                  ),
-                                  const Expanded(
-                                    flex: 1,
                                     child: ManaBox(color: Colors.green),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: ManaBox(
+                                      color: Color.fromRGBO(200, 200, 200, 1),
+                                    ),
                                   ),
                                 ],
                               ),
