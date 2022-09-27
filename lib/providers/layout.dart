@@ -45,8 +45,8 @@ class LayoutNotifier extends ChangeNotifier {
           ]);
 
           _rows.add([
-            Layout(player: players[2], direction: LayoutDirection.left),
             Layout(player: null, direction: null),
+            Layout(player: players[2], direction: LayoutDirection.right),
           ]);
         }
 

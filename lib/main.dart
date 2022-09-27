@@ -1,8 +1,9 @@
-// Mana Tracker
-// Hold each mana from each colors @TheFeralFoxx
+// Track Monarch
 
 // Replace light blue with ANOTHER color while picking a better solution to show which opponent
 // - Maybe an arrow?
+// - Configure for other page layout
+// - Disable pick an opponent for 2 players game
 
 // @TODO: Anim PlayerBoxSettings
 //  - Fade in background color

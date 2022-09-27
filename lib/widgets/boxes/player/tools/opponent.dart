@@ -26,6 +26,8 @@ class _PlayerBoxSettingsToolsOpponentState
 
   bool _isVisible = false;
 
+  IconData _icon = Icons.person;
+
   @override
   void initState() {
     super.initState();
@@ -51,12 +53,107 @@ class _PlayerBoxSettingsToolsOpponentState
   void _pickOpponent() {
     Player currentPlayer = context.read<Player>();
     List<Player> players = context.read<Players>().players;
+    int currentPlayerIndex = players.indexOf(currentPlayer);
 
     List alivePlayers = context.read<Players>().getActivePlayers();
-    alivePlayers.remove(players.indexOf(currentPlayer));
+    alivePlayers.remove(currentPlayerIndex);
 
     setState(() {
       _opponent = alivePlayers[Random().nextInt(alivePlayers.length)];
+
+      if (context.read<SettingNotifier>().tableLayout == 1) {
+        if (players.length == 3 || players.length == 4) {
+          if (currentPlayerIndex == 0) {
+            if (_opponent == 1) {
+              _icon = Icons.north;
+            } else if (_opponent == 2) {
+              _icon = Icons.north_east;
+            } else {
+              _icon = Icons.east;
+            }
+          } else if (currentPlayerIndex == 1) {
+            if (_opponent == 0) {
+              _icon = Icons.north;
+            } else if (_opponent == 2) {
+              _icon = Icons.west;
+            } else {
+              _icon = Icons.north_west;
+            }
+          } else if (currentPlayerIndex == 2) {
+            if (_opponent == 0) {
+              _icon = Icons.north_east;
+            } else if (_opponent == 1) {
+              _icon = Icons.east;
+            } else {
+              _icon = Icons.north;
+            }
+          } else if (currentPlayerIndex == 3) {
+            if (_opponent == 0) {
+              _icon = Icons.west;
+            } else if (_opponent == 1) {
+              _icon = Icons.north_west;
+            } else {
+              _icon = Icons.north;
+            }
+          }
+        }
+      } else {
+        if (players.length == 3) {
+          if (currentPlayerIndex == 0) {
+            if (_opponent == 1) {
+              _icon = Icons.north;
+            } else if (_opponent == 2) {
+              _icon = Icons.east;
+            }
+          } else if (currentPlayerIndex == 1) {
+            if (_opponent == 0) {
+              _icon = Icons.north;
+            } else if (_opponent == 2) {
+              _icon = Icons.west;
+            }
+          } else if (currentPlayerIndex == 2) {
+            if (_opponent == 0) {
+              _icon = Icons.north_west;
+            } else if (_opponent == 1) {
+              _icon = Icons.north_east;
+            }
+          }
+        } else if (players.length == 4) {
+          if (currentPlayerIndex == 0) {
+            if (_opponent == 1) {
+              _icon = Icons.north_east;
+            } else if (_opponent == 2) {
+              _icon = Icons.north_west;
+            } else {
+              _icon = Icons.north;
+            }
+          } else if (currentPlayerIndex == 1) {
+            if (_opponent == 0) {
+              _icon = Icons.west;
+            } else if (_opponent == 2) {
+              _icon = Icons.north;
+            } else {
+              _icon = Icons.east;
+            }
+          } else if (currentPlayerIndex == 2) {
+            if (_opponent == 0) {
+              _icon = Icons.east;
+            } else if (_opponent == 1) {
+              _icon = Icons.north;
+            } else {
+              _icon = Icons.west;
+            }
+          } else {
+            if (_opponent == 0) {
+              _icon = Icons.north;
+            } else if (_opponent == 1) {
+              _icon = Icons.north_west;
+            } else {
+              _icon = Icons.north_east;
+            }
+          }
+        }
+      }
     });
   }
 
@@ -85,7 +182,7 @@ class _PlayerBoxSettingsToolsOpponentState
                   return ScaleTransition(scale: animation, child: child);
                 },
                 child: Icon(
-                  Icons.person,
+                  _icon,
                   key: ValueKey<String>(
                     DateTime.now().millisecondsSinceEpoch.toString(),
                   ),
