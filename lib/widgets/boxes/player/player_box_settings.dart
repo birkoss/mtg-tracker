@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/widgets/boxes/mana.dart';
-import 'package:mtgtracker/widgets/boxes/player/tools/coin.dart';
-import 'package:mtgtracker/widgets/boxes/player/tools/dice.dart';
-import 'package:mtgtracker/widgets/boxes/player/tools/opponent.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:provider/provider.dart';
+
+import '../../../widgets/boxes/mana.dart';
+import '../../../widgets/boxes/player/tools/coin.dart';
+import '../../../widgets/boxes/player/tools/dice.dart';
+import '../../../widgets/boxes/player/tools/opponent.dart';
 
 class PlayerBoxSettings extends StatefulWidget {
   final Color backgroundColor;
@@ -229,19 +232,24 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                             padding: const EdgeInsets.all(
                                                 6), // and this
                                           ),
-                                          onPressed: () {
-                                            setState(() {
-                                              _tools.add(
-                                                PlayerBoxSettingsToolsOpponent(
-                                                  onBackClicked: () {
-                                                    setState(() {
-                                                      _tools.clear();
-                                                    });
-                                                  },
-                                                ),
-                                              );
-                                            });
-                                          },
+                                          onPressed: context
+                                                      .read<SettingNotifier>()
+                                                      .playersNumber ==
+                                                  2
+                                              ? null
+                                              : () {
+                                                  setState(() {
+                                                    _tools.add(
+                                                      PlayerBoxSettingsToolsOpponent(
+                                                        onBackClicked: () {
+                                                          setState(() {
+                                                            _tools.clear();
+                                                          });
+                                                        },
+                                                      ),
+                                                    );
+                                                  });
+                                                },
                                           child: const Icon(Icons.person),
                                         ),
                                       ],
