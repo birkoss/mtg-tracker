@@ -78,7 +78,8 @@ class _PlayerBoxSettingsToolsOpponentState
                 child: Icon(
                   Icons.person,
                   key: ValueKey<String>(
-                      DateTime.now().millisecondsSinceEpoch.toString()),
+                    DateTime.now().millisecondsSinceEpoch.toString(),
+                  ),
                   size: 100,
                   color: context
                       .read<Players>()

@@ -1,13 +1,10 @@
-// Tools : Roll Dice
-//  - d6, d20
-
 // Mana Tracker
 // Hold each mana from each colors @TheFeralFoxx
 
 // Replace light blue with ANOTHER color while picking a better solution to show which opponent
 // - Maybe an arrow?
 
-// Tools: Pick an opponent/toss coin WHEN the Widget loads
+// Tools: Pick an opponent/toss coin/dice roll WHEN the Widget loads to see it animate
 
 // @TODO: Anim PlayerBoxSettings
 //  - Fade in background color
@@ -16,14 +13,7 @@
 // @TODO: Change color when in Commander Damage State ?
 // - Expand button when active with label (Apply) ?
 
-// @TODO: Tools: Coin Toss
-// @TODO: Pick Number
-//  - Choose from 2 to 20
-//  - Button Pick and Close
-//  - Show result
-
 // @TODO: Animate when life = 0, poison = 10, one cmd = 21
-// @TODO: Animate when a popup is shown (settings, win)
 
 // @TODO: Select color within PlayerBox Settings
 // - Selected colors are inactive
