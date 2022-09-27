@@ -30,12 +30,21 @@ class _PlayerBoxSettingsToolsOpponentState
   void initState() {
     super.initState();
 
-    _pickOpponent();
-
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => setState(() {
         _isVisible = true;
       }),
+    );
+
+    waitForFirstPick();
+  }
+
+  void waitForFirstPick() async {
+    await Future.delayed(
+      const Duration(milliseconds: 250),
+      () {
+        _pickOpponent();
+      },
     );
   }
 
@@ -81,10 +90,10 @@ class _PlayerBoxSettingsToolsOpponentState
                     DateTime.now().millisecondsSinceEpoch.toString(),
                   ),
                   size: 100,
-                  color: context
-                      .read<Players>()
-                      .players[_opponent]
-                      .getColor(context.read<SettingNotifier>().isDarkTheme),
+                  color: _opponent == -1
+                      ? Colors.white
+                      : context.read<Players>().players[_opponent].getColor(
+                          context.read<SettingNotifier>().isDarkTheme),
                 ),
               ),
             ),

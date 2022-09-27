@@ -30,12 +30,21 @@ class _PlayerBoxSettingsToolsDiceState
   void initState() {
     super.initState();
 
-    _pickValue();
-
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => setState(() {
         _isVisible = true;
       }),
+    );
+
+    waitForFirstPick();
+  }
+
+  void waitForFirstPick() async {
+    await Future.delayed(
+      const Duration(milliseconds: 250),
+      () {
+        _pickValue();
+      },
     );
   }
 
@@ -70,7 +79,7 @@ class _PlayerBoxSettingsToolsDiceState
                   return ScaleTransition(scale: animation, child: child);
                 },
                 child: Text(
-                  _value.toString(),
+                  _value == 0 ? "" : _value.toString(),
                   key: ValueKey<String>(_value.toString()),
                   textAlign: TextAlign.end,
                   style: Theme.of(context).textTheme.headline1!.copyWith(

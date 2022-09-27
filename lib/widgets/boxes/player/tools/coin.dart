@@ -26,12 +26,21 @@ class _PlayerBoxSettingsToolsCoinState
   void initState() {
     super.initState();
 
-    _flipCoin();
-
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => setState(() {
         _isVisible = true;
       }),
+    );
+
+    waitForFirstPick();
+  }
+
+  void waitForFirstPick() async {
+    await Future.delayed(
+      const Duration(milliseconds: 250),
+      () {
+        _flipCoin();
+      },
     );
   }
 
@@ -112,14 +121,16 @@ class _PlayerBoxSettingsToolsCoinState
                       return ScaleTransition(scale: animation, child: child);
                     },
                     child: SvgPicture.asset(
-                      "assets/icons/coin_" +
-                          _results[_results.length - 1] +
+                      "assets/icons/" +
+                          (_results.isEmpty
+                              ? "coin_head"
+                              : "coin_" + _results[_results.length - 1]) +
                           ".svg",
                       key: ValueKey<String>(
                           "head-" + _results.length.toString()),
                       fit: BoxFit.scaleDown,
                       width: 100,
-                      color: Colors.orange,
+                      color: (_results.isEmpty ? Colors.white : Colors.orange),
                       semanticsLabel: 'Health',
                     ),
                   ),
