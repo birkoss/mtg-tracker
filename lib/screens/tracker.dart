@@ -69,17 +69,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
         );
       }
     });
-
-    /*context.read<Players>().pickPlayer();
-
-    Timer(
-      const Duration(seconds: 2),
-      () {
-        context.read<Players>().pickPlayer(resetPick: true);
-      },
-    );
-
-    */
   }
 
   @override
@@ -97,7 +86,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   child: Grid(),
                 ),
                 Align(
-                  alignment: Alignment.center,
+                  alignment:
+                      context.watch<SettingNotifier>().playersNumber == 3 &&
+                              context.watch<SettingNotifier>().tableLayout == 2
+                          ? const Alignment(0, 0.21)
+                          : Alignment.center,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).canvasColor,
@@ -111,8 +104,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       size: 30,
                     ),
                     onPressed: () {
-                      SettingNotifier setting =
-                          Provider.of<SettingNotifier>(context, listen: false);
+                      SettingNotifier setting = context.read<SettingNotifier>();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
