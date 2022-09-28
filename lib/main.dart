@@ -4,10 +4,6 @@
 // TODO: Options - Choose Random Player
 // - Smoother animation/transition instead of flashing WHITE windows poping around (from: JaqueLeKappa)
 
-// TODO: Tools - Dice Toss
-//  - Add more dice (D4, D6, D8 and D20) (from: Dropkick-Octopus)
-//  - Maybe allow more dice to be roll at the same time (from: Toxxazhe)
-
 // TODO: Player Box
 //  - See and Track
 //    - Commander track time casted

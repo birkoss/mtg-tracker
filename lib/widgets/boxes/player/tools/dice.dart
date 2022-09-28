@@ -19,8 +19,12 @@ class _PlayerBoxSettingsToolsDiceState
     extends State<PlayerBoxSettingsToolsDice> {
   bool _isVisible = false;
 
+  bool _selectDice = false;
+
   int _dice = 6;
   int _value = 0;
+
+  final List<String> _results = [];
 
   @override
   void initState() {
@@ -46,8 +50,39 @@ class _PlayerBoxSettingsToolsDiceState
 
   void _pickValue() {
     setState(() {
+      if (_value != 0) {
+        _results.add(_value.toString());
+      }
+
       _value = Random().nextInt(_dice) + 1;
     });
+  }
+
+  List<Widget> _generateDices() {
+    List<Widget> widgets = [];
+
+    List<int> dices = [4, 6, 8, 10, 12, 20];
+    for (int dice in dices) {
+      widgets.add(
+        TextButton.icon(
+          onPressed: () {
+            setState(() {
+              _dice = dice;
+              _selectDice = false;
+              _results.clear();
+              _value = 0;
+              _pickValue();
+            });
+          },
+          icon: const Icon(Icons.casino),
+          label: Text(
+            "D" + dice.toString(),
+          ),
+        ),
+      );
+    }
+
+    return widgets;
   }
 
   @override
@@ -64,85 +99,142 @@ class _PlayerBoxSettingsToolsDiceState
       child: Container(
         padding: const EdgeInsets.all(12),
         color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 160),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return ScaleTransition(scale: animation, child: child);
-                },
-                child: Text(
-                  _value == 0 ? "" : _value.toString(),
-                  key: ValueKey<String>(_value.toString()),
-                  textAlign: TextAlign.end,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 70,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                  style: const ButtonStyle(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        child: _selectDice
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "Select a dice size",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize: 16,
+                          color: Theme.of(context).primaryColor,
+                        ),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      _isVisible = false;
-                    });
-                  },
-                  icon: const Icon(Icons.arrow_back),
-                  label: const Text("Back"),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "6",
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                          ),
+                  Wrap(
+                    children: _generateDices(),
+                  ),
+                  TextButton.icon(
+                    style: const ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    Switch(
-                      value: _dice == 20,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _dice = (value ? 20 : 6);
-                        });
-                        _pickValue();
+                    onPressed: () {
+                      setState(() {
+                        _selectDice = false;
+                      });
+                    },
+                    icon: const Icon(Icons.cancel),
+                    label: const Text("Cancel"),
+                  ),
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Text(
+                          _results.isEmpty ? "" : "Previous results: ",
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 16,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        ),
+                        if (_results.isNotEmpty)
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: _results.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  _results[_results.length - index - 1] +
+                                      (index < _results.length - 1 ? "," : ""),
+                                  style: index == 0
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                            fontSize: 16,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          )
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(
+                                            fontSize: 16,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 160),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return ScaleTransition(scale: animation, child: child);
                       },
+                      child: Text(
+                        _value == 0 ? "" : _value.toString(),
+                        key: ValueKey<String>(_value.toString()),
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 70,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                      ),
                     ),
-                    Text(
-                      "20",
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                          ),
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  style: const ButtonStyle(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  onPressed: () {
-                    _pickValue();
-                  },
-                  child: const Text("Pick Again"),
-                ),
-              ],
-            ),
-          ],
-        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton.icon(
+                        style: const ButtonStyle(
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isVisible = false;
+                          });
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                        label: const Text("Back"),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            _selectDice = true;
+                          });
+                        },
+                        icon: const Icon(Icons.casino),
+                        label: Text(
+                          "D" + _dice.toString(),
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: const ButtonStyle(
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () {
+                          _pickValue();
+                        },
+                        child: const Text("Pick Again"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
       ),
     );
   }
