@@ -120,18 +120,29 @@ class _PlayerBoxSettingsToolsCoinState
                         (Widget child, Animation<double> animation) {
                       return ScaleTransition(scale: animation, child: child);
                     },
-                    child: SvgPicture.asset(
-                      "assets/icons/" +
-                          (_results.isEmpty
-                              ? "coin_head"
-                              : "coin_" + _results[_results.length - 1]) +
-                          ".svg",
+                    child: Material(
+                      borderRadius: BorderRadius.circular(50),
                       key: ValueKey<String>(
                           "head-" + _results.length.toString()),
-                      fit: BoxFit.scaleDown,
-                      width: 100,
-                      color: (_results.isEmpty ? Colors.white : Colors.orange),
-                      semanticsLabel: 'Health',
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          _flipCoin();
+                        },
+                        child: SvgPicture.asset(
+                          "assets/icons/" +
+                              (_results.isEmpty
+                                  ? "coin_head"
+                                  : "coin_" + _results[_results.length - 1]) +
+                              ".svg",
+                          fit: BoxFit.scaleDown,
+                          width: 100,
+                          color:
+                              (_results.isEmpty ? Colors.white : Colors.orange),
+                          semanticsLabel: 'Health',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -145,7 +156,7 @@ class _PlayerBoxSettingsToolsCoinState
                   onPressed: () {
                     _flipCoin();
                   },
-                  child: const Text("Pick"),
+                  child: const Text("Flip Again"),
                 )
               ],
             ),
