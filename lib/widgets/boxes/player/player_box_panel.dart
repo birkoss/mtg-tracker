@@ -439,11 +439,47 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       }
     }
 
+    // If the Partner is selected, but not available anymore, reset it
+    if (_selectedBoxType == PanelBoxType.commander) {
+      if (_selectedCommander[1] == 1 &&
+          player.opponents[_selectedCommander[0]].totalCommanders == 1) {
+        setState(() {
+          // TODO: Cleaner way to handle this. Method with new PanelBoxType, and param
+          _selectedCommander = [-1, 0];
+          _selectedBoxType = PanelBoxType.normal;
+        });
+      }
+    }
+
     // If a Commander Damage of a DEAD player is selected, reset it
     if (_selectedCommander[0] != -1 &&
         player.opponents[_selectedCommander[0]].isDead) {
       setState(() {
         _selectedCommander = [-1, 0];
+      });
+    }
+
+    // If the Energy is SELECTED, and not in SETTINGS, reset it
+    if (!context.watch<SettingNotifier>().showEnergyCounter &&
+        _selectedBoxType == PanelBoxType.energy) {
+      setState(() {
+        _selectedBoxType = PanelBoxType.normal;
+      });
+    }
+
+    // If the Experience is SELECTED, and not in SETTINGS, reset it
+    if (!context.watch<SettingNotifier>().showExperienceCounter &&
+        _selectedBoxType == PanelBoxType.experience) {
+      setState(() {
+        _selectedBoxType = PanelBoxType.normal;
+      });
+    }
+
+    // If the Poison is SELECTED, and not in SETTINGS, reset it
+    if (!context.watch<SettingNotifier>().showPoisonCounter &&
+        _selectedBoxType == PanelBoxType.poison) {
+      setState(() {
+        _selectedBoxType = PanelBoxType.normal;
       });
     }
 
