@@ -193,7 +193,7 @@ class _PlayerBoxSettingsToolsCoinState
                     setState(() {
                       _results = [];
                     });
-                    _flipCoin();
+                    //_flipCoin();
                   },
                   child: const Text("Reset"),
                 ),
