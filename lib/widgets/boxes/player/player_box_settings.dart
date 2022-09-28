@@ -55,7 +55,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.only(top: 6, left: 6, right: 6),
       child: AnimatedSlide(
         offset: Offset(0, _isVisible ? 0 : 1.1),
         onEnd: () {

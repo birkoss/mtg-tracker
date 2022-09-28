@@ -111,7 +111,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           Expanded(
             flex: 1,
             child: Container(
-              padding: const EdgeInsets.all(4),
+              padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
