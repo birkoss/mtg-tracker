@@ -7,7 +7,7 @@ import '../providers/player.dart';
 final List<Color> lightColors = [
   const Color.fromRGBO(228, 82, 95, 1),
   const Color.fromRGBO(156, 186, 96, 1),
-  const Color.fromRGBO(93, 46, 70, 1),
+  const Color.fromRGBO(245, 143, 41, 1),
   // const Color.fromRGBO(147, 187, 222, 1),
   const Color.fromRGBO(63, 116, 166, 1),
   const Color.fromRGBO(107, 95, 145, 1),
