@@ -6,7 +6,7 @@ class PressableButton extends StatefulWidget {
   final Widget inactiveWidget;
   final Color inactiveColor;
   final Color activeColor;
-  final VoidCallback onToggle;
+  final VoidCallback? onToggle;
 
   const PressableButton({
     Key? key,

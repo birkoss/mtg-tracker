@@ -24,6 +24,18 @@ class Player with ChangeNotifier {
     _poison = max(0, min(newPoison, 10));
   }
 
+  int _energy = 0;
+  int get energy => _energy;
+  set energy(int newEnergy) {
+    _energy = max(0, min(newEnergy, 99));
+  }
+
+  int _experience = 0;
+  int get experience => _experience;
+  set experience(int newExperience) {
+    _experience = max(0, min(newExperience, 99));
+  }
+
   int totalCommanders = 1;
 
   Player({

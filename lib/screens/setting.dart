@@ -75,6 +75,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,6 +98,71 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                       ],
                     ),
+                    const Divider(
+                      height: 30,
+                      thickness: 2,
+                    ),
+                    Text(
+                      "Show Additional Counters",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "Poison",
+                              textAlign: TextAlign.start,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Switch(
+                              value: setting.showPoisonCounter,
+                              onChanged: (bool value) {
+                                setting.togglePoisonCounter();
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Energy",
+                              textAlign: TextAlign.start,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Switch(
+                              value: setting.showEnergyCounter,
+                              onChanged: (bool value) {
+                                setting.toggleEnergyCounter();
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Experience",
+                              textAlign: TextAlign.start,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Switch(
+                              value: setting.showExperienceCounter,
+                              onChanged: (bool value) {
+                                setting.toggleExperienceCounter();
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

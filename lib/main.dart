@@ -11,7 +11,6 @@
 // TODO: Player Box
 //  - See and Track
 //    - Commander track time casted
-//    - Energy counters
 //    - Storm Count
 //    - Monarch
 //    - Initiative

@@ -25,8 +25,35 @@ class SettingNotifier extends ChangeNotifier {
   bool _isSimpleMode = false;
   bool get isSimpleMode => _isSimpleMode;
 
+  bool _showPoisonCounter = true;
+  bool get showPoisonCounter => _showPoisonCounter;
+
+  bool _showEnergyCounter = false;
+  bool get showEnergyCounter => _showEnergyCounter;
+
+  bool _showExperienceCounter = false;
+  bool get showExperienceCounter => _showExperienceCounter;
+
   SettingNotifier() {
     _load();
+  }
+
+  void togglePoisonCounter() {
+    _showPoisonCounter = !_showPoisonCounter;
+    _save();
+    notifyListeners();
+  }
+
+  void toggleEnergyCounter() {
+    _showEnergyCounter = !_showEnergyCounter;
+    _save();
+    notifyListeners();
+  }
+
+  void toggleExperienceCounter() {
+    _showExperienceCounter = !_showExperienceCounter;
+    _save();
+    notifyListeners();
   }
 
   void changeAutoApplyCommanderDamage(autoApplyCommanderDamage) {
@@ -78,8 +105,11 @@ class SettingNotifier extends ChangeNotifier {
     _autoApplyCommanderDamage =
         _pref!.getBool("AUTO_APPLY_COMMANDER_DAMAGE") ?? true;
 
-    notifyListeners();
-    _pref!.getBool("IS_SIMPLE_MODE") ?? false;
+    _showEnergyCounter = _pref!.getBool("SHOW_ENERGY_COUNTER") ?? false;
+    _showExperienceCounter = _pref!.getBool("SHOW_EXPERIENCE_COUNTER") ?? false;
+    _showPoisonCounter = _pref!.getBool("SHOW_POISON_COUNTER") ?? true;
+
+    _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
     notifyListeners();
 
     _isReady = true;
@@ -92,6 +122,10 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setInt("TABLE_LAYOUT", _tableLayout);
     _pref!.setBool("IS_DARK_THEME", _isDarkTheme);
     _pref!.setBool("AUTO_APPLY_COMMANDER_DAMAGE", _autoApplyCommanderDamage);
+
+    _pref!.setBool("SHOW_ENERGY_COUNTER", _showEnergyCounter);
+    _pref!.setBool("SHOW_EXPERIENCE_COUNTER", _showExperienceCounter);
+    _pref!.setBool("SHOW_POISON_COUNTER", _showPoisonCounter);
 
     _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
   }
