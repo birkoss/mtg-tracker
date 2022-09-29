@@ -13,10 +13,6 @@
 //  - Button + and -
 //    - if it's held, it added/removed points by 5 instead of 1 at the time. As an option (from: JaqueLeKappa)
 
-// TODO: Tools - Add a "reduce/add lifetotal by x part, rounded up/down" (from: JaqueLeKappa)
-//  - (Example, lose a third of your life rounded up/down)
-//  - There's a bunch of cards that do this and if there are multiple instances of it, a calculator is usually brought up so if this app had it, I'd be over the moon about it.
-
 // UI & Glitch
 //  - TODO: Only gripe i really have with it is that I don't find it a bit unpolished visually (which is to be expected at at this stage and by no means is meant like an insult).
 

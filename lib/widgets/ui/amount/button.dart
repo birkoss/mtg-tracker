@@ -52,7 +52,7 @@ class _AmountButtonState extends State<AmountButton> {
                     color: widget.isDarkBackground
                         ? Colors.black26
                         : Colors.white30,
-                    fontSize: 30,
+                    fontSize: 52,
                   ),
             ),
           ),

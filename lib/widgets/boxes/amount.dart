@@ -11,6 +11,7 @@ class AmountBox extends StatefulWidget {
   final Function getLabel;
   final Function setValue;
   final Function getValue;
+  final bool bigFont;
   final bool lightMode;
   final Function()? onPress;
 
@@ -22,6 +23,7 @@ class AmountBox extends StatefulWidget {
     required this.getLabel,
     required this.getValue,
     this.lightMode = true,
+    this.bigFont = true,
     this.onPress,
   }) : super(key: key);
 
@@ -123,7 +125,7 @@ class _AmountBox extends State<AmountBox> {
                 key: ValueKey<String>(widget.getValue()),
                 overflow: TextOverflow.visible,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: 40,
+                      fontSize: widget.bigFont ? 54 : 40,
                       color: (widget.lightMode
                           ? Colors.white
                           : Theme.of(context).primaryColor),

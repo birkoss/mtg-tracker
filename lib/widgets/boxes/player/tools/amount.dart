@@ -126,6 +126,7 @@ class _PlayerBoxSettingsToolsAmountState
                         ),
                         Expanded(
                           child: AmountBox(
+                            bigFont: false,
                             lightMode: false,
                             setValue: (int modifier) {
                               setState(() {
