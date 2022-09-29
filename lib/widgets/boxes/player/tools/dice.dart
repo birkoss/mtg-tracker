@@ -71,6 +71,10 @@ class _PlayerBoxSettingsToolsDiceState
               _selectDice = false;
               _results.clear();
               _value = 0;
+            });
+
+            // Wait a frame to pick the Value, to trigger the AnimatedSwitcher on the Text
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               _pickValue();
             });
           },
@@ -99,142 +103,155 @@ class _PlayerBoxSettingsToolsDiceState
       child: Container(
         padding: const EdgeInsets.all(12),
         color: Colors.white,
-        child: _selectDice
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "Select a dice size",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: 16,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                  ),
-                  Wrap(
-                    children: _generateDices(),
-                  ),
-                  TextButton.icon(
-                    style: const ButtonStyle(
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectDice = false;
-                      });
-                    },
-                    icon: const Icon(Icons.cancel),
-                    label: const Text("Cancel"),
-                  ),
-                ],
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          _results.isEmpty ? "" : "Previous results: ",
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                        ),
-                        if (_results.isNotEmpty)
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: _results.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Text(
-                                  _results[_results.length - index - 1] +
-                                      (index < _results.length - 1 ? "," : ""),
-                                  style: index == 0
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(
-                                            fontSize: 16,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          )
-                                      : Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(
-                                            fontSize: 16,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 160),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return ScaleTransition(scale: animation, child: child);
-                      },
-                      child: Text(
-                        _value == 0 ? "" : _value.toString(),
-                        key: ValueKey<String>(_value.toString()),
-                        textAlign: TextAlign.end,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        _results.isEmpty ? "" : "Previous results: ",
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: 70,
+                              fontSize: 16,
                               color: Theme.of(context).primaryColor,
                             ),
                       ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton.icon(
-                        style: const ButtonStyle(
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      if (_results.isNotEmpty)
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: _results.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(
+                                _results[_results.length - index - 1] +
+                                    (index < _results.length - 1 ? "," : ""),
+                                style: index == 0
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          color: Theme.of(context).primaryColor,
+                                        )
+                                    : Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                              ),
+                            ),
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isVisible = false;
-                          });
-                        },
-                        icon: const Icon(Icons.arrow_back),
-                        label: const Text("Back"),
-                      ),
-                      TextButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            _selectDice = true;
-                          });
-                        },
-                        icon: const Icon(Icons.casino),
-                        label: Text(
-                          "D" + _dice.toString(),
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: const ButtonStyle(
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        onPressed: () {
-                          _pickValue();
-                        },
-                        child: const Text("Pick Again"),
-                      ),
                     ],
                   ),
-                ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 160),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return ScaleTransition(scale: animation, child: child);
+                    },
+                    child: Text(
+                      _value == 0 ? "" : _value.toString(),
+                      key: ValueKey<String>(_value.toString()),
+                      textAlign: TextAlign.end,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 70,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton.icon(
+                      style: const ButtonStyle(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isVisible = false;
+                        });
+                      },
+                      icon: const Icon(Icons.arrow_back),
+                      label: const Text("Back"),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _selectDice = true;
+                        });
+                      },
+                      icon: const Icon(Icons.casino),
+                      label: Text(
+                        "D" + _dice.toString(),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: const ButtonStyle(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      onPressed: () {
+                        _pickValue();
+                      },
+                      child: const Text("Pick Again"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            AnimatedScale(
+              scale: _selectDice ? 1 : 0,
+              onEnd: () {
+                if (!_selectDice) {
+                  //widget.onBackClicked!();
+                }
+              },
+              duration: const Duration(milliseconds: 160),
+              curve: Curves.fastOutSlowIn,
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Select a dice size",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
+                    Wrap(
+                      children: _generateDices(),
+                    ),
+                    TextButton.icon(
+                      style: const ButtonStyle(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _selectDice = false;
+                        });
+                      },
+                      icon: const Icon(Icons.cancel),
+                      label: const Text("Cancel"),
+                    ),
+                  ],
+                ),
               ),
+            ),
+          ],
+        ),
       ),
     );
   }
