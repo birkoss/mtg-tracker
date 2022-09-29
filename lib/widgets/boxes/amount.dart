@@ -11,6 +11,7 @@ class AmountBox extends StatefulWidget {
   final Function getLabel;
   final Function setValue;
   final Function getValue;
+  final bool lightMode;
   final Function()? onPress;
 
   const AmountBox({
@@ -20,6 +21,7 @@ class AmountBox extends StatefulWidget {
     required this.getIcon,
     required this.getLabel,
     required this.getValue,
+    this.lightMode = true,
     this.onPress,
   }) : super(key: key);
 
@@ -122,6 +124,9 @@ class _AmountBox extends State<AmountBox> {
                 overflow: TextOverflow.visible,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: 40,
+                      color: (widget.lightMode
+                          ? Colors.white
+                          : Theme.of(context).primaryColor),
                     ),
               ),
             ),
@@ -148,6 +153,7 @@ class _AmountBox extends State<AmountBox> {
             Expanded(
               flex: 1,
               child: AmountButton(
+                isDarkBackground: !widget.lightMode,
                 label: "-",
                 onPress: () {
                   _changeValue(-1);
@@ -157,6 +163,7 @@ class _AmountBox extends State<AmountBox> {
             Expanded(
               flex: 1,
               child: AmountButton(
+                isDarkBackground: !widget.lightMode,
                 label: "+",
                 onPress: () {
                   _changeValue(1);

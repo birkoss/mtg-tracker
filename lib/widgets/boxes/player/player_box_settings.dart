@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/player.dart';
 import 'package:mtgtracker/providers/setting.dart';
+import 'package:mtgtracker/widgets/boxes/player/tools/amount.dart';
 import 'package:provider/provider.dart';
 
 import '../../../widgets/boxes/mana.dart';
@@ -292,6 +294,50 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                             });
                                           },
                                           child: const Icon(Icons.casino),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        FittedBox(
+                                          child: Text(
+                                            "Amount",
+                                            textAlign: TextAlign.start,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            minimumSize: Size.zero, // Set this
+                                            padding: const EdgeInsets.all(
+                                                6), // and this
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              _tools.add(
+                                                PlayerBoxSettingsToolsAmount(
+                                                  defaultValue: context
+                                                      .read<Player>()
+                                                      .health,
+                                                  onBackClicked: () {
+                                                    setState(() {
+                                                      _tools.clear();
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            });
+                                          },
+                                          child: const Icon(Icons.calculate),
                                         ),
                                       ],
                                     ),
