@@ -26,7 +26,6 @@ class _PlayerBox extends State<PlayerBox> {
   bool _showSettings = false;
 
   List<Widget> _getContent(Player player) {
-    bool isDarkTheme = context.watch<SettingNotifier>().isDarkTheme;
     bool isSimpleMode = context.watch<SettingNotifier>().isSimpleMode;
 
     List<Widget> widgets = [];
@@ -54,7 +53,7 @@ class _PlayerBox extends State<PlayerBox> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
-                color: context.read<Player>().getColor(isDarkTheme),
+                color: context.read<Player>().getColor(),
               ),
             ),
           ),
@@ -68,7 +67,7 @@ class _PlayerBox extends State<PlayerBox> {
       if (player.isDead) {
         widgets.add(
           PlayerBoxPopup(
-            backgroundColor: context.read<Player>().getColor(isDarkTheme),
+            backgroundColor: context.read<Player>().getColor(),
             onPress: () {
               setState(() {
                 _showSettings = true;
@@ -128,7 +127,7 @@ class _PlayerBox extends State<PlayerBox> {
         quarterTurns: widget.rotation,
         child: Container(
           margin: const EdgeInsets.only(top: 4, left: 4, right: 4),
-          color: player.getColor(context.read<SettingNotifier>().isDarkTheme),
+          color: player.getColor(),
           alignment: Alignment.center,
           child: Stack(
             children: _getContent(player),

@@ -50,10 +50,7 @@ class _SettingScreenState extends State<SettingScreen> {
     List<Color> colors = [];
     for (var i = 0; i < context.read<Players>().players.length; i++) {
       colors.add(
-        context
-            .read<Players>()
-            .players[i]
-            .getColor(context.read<SettingNotifier>().isDarkTheme),
+        context.read<Players>().players[i].getColor(),
       );
     }
 
@@ -61,9 +58,7 @@ class _SettingScreenState extends State<SettingScreen> {
       Player player = context.watch<Players>().players[i];
       List<Color> usedColors = List.from(colors);
       usedColors.removeWhere(
-        (color) =>
-            color ==
-            player.getColor(context.read<SettingNotifier>().isDarkTheme),
+        (color) => color == player.getColor(),
       );
 
       widgets.add(
@@ -75,8 +70,7 @@ class _SettingScreenState extends State<SettingScreen> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               minimumSize: Size.zero, // Set this
-              primary:
-                  player.getColor(context.read<SettingNotifier>().isDarkTheme),
+              primary: player.getColor(),
               padding: const EdgeInsets.all(6), // and this
             ),
             onPressed: () {
@@ -96,8 +90,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     context.read<Players>().hasChanged();
                   },
                   usedColors: usedColors,
-                  currentColor: player
-                      .getColor(context.read<SettingNotifier>().isDarkTheme),
+                  currentColor: player.getColor(),
                 ),
               );
             },

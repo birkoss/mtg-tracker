@@ -150,9 +150,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                         .copyWith(fontSize: 20),
                   ),
                 ),
-          inactiveColor: opponent.getColor(
-            context.read<SettingNotifier>().isDarkTheme,
-          ),
+          inactiveColor: opponent.getColor(),
           activeColor: Colors.white,
           onToggle: () {
             if (!opponent.isDead) {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Player with ChangeNotifier {
   String id = "";
 
-  List<Color> colors = []; // [0] = Light, [1] = Dark
+  Color color = Colors.red;
 
   bool isDead = false;
 
@@ -59,12 +59,12 @@ class Player with ChangeNotifier {
     commanderTax = 0;
   }
 
-  Color getColor(bool isDarkTheme) {
-    return colors[isDarkTheme ? 1 : 0];
+  Color getColor() {
+    return color;
   }
 
-  void setColor(Color color) {
-    colors[0] = color;
+  void setColor(Color newColor) {
+    color = newColor;
     notifyListeners();
   }
 }

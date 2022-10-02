@@ -189,8 +189,7 @@ class _PlayerBoxSettingsToolsOpponentState
                   size: 100,
                   color: _opponent == -1
                       ? Colors.white
-                      : context.read<Players>().players[_opponent].getColor(
-                          context.read<SettingNotifier>().isDarkTheme),
+                      : context.read<Players>().players[_opponent].getColor(),
                 ),
               ),
             ),
