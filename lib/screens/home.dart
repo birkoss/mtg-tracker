@@ -21,9 +21,7 @@ class HomeScreen extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 context.read<Players>().generate(
-                      nbrPlayers: context.read<SettingNotifier>().playersNumber,
-                      startingLives:
-                          context.read<SettingNotifier>().startingLives,
+                      context.read<SettingNotifier>(),
                     );
 
                 context.read<LayoutNotifier>().generate(

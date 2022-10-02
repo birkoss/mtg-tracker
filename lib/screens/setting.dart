@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/player.dart';
+import 'package:mtgtracker/providers/players.dart';
+import 'package:mtgtracker/screens/colors.dart';
 import 'package:mtgtracker/widgets/ui/tile_button.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +42,75 @@ class _SettingScreenState extends State<SettingScreen> {
     _selectedPlayersNumber = widget.playersNumber;
     _selectedStartingLives = widget.startingLives;
     _selectedTableLayout = widget.tableLayout;
+  }
+
+  List<Widget> _getPlayerColorsButtons() {
+    List<Widget> widgets = [];
+
+    List<Color> colors = [];
+    for (var i = 0; i < context.read<Players>().players.length; i++) {
+      colors.add(
+        context
+            .read<Players>()
+            .players[i]
+            .getColor(context.read<SettingNotifier>().isDarkTheme),
+      );
+    }
+
+    for (var i = 0; i < context.read<Players>().players.length; i++) {
+      Player player = context.watch<Players>().players[i];
+      List<Color> usedColors = List.from(colors);
+      usedColors.removeWhere(
+        (color) =>
+            color ==
+            player.getColor(context.read<SettingNotifier>().isDarkTheme),
+      );
+
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.only(
+            right: 20,
+            bottom: 20,
+          ),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size.zero, // Set this
+              primary:
+                  player.getColor(context.read<SettingNotifier>().isDarkTheme),
+              padding: const EdgeInsets.all(6), // and this
+            ),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                "/setting/colors",
+                arguments: SettingColorsScreenArguments(
+                  onChanged: (Color newColor) {
+                    setState(() {
+                      //player.colors[0] = newColor;
+                    });
+
+                    player.setColor(newColor);
+                    context.read<SettingNotifier>().colors[i] = newColor;
+                    context.read<SettingNotifier>().save();
+
+                    context.read<Players>().hasChanged();
+                  },
+                  usedColors: usedColors,
+                  currentColor: player
+                      .getColor(context.read<SettingNotifier>().isDarkTheme),
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Player " + (i + 1).toString()),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return widgets;
   }
 
   @override
@@ -106,7 +178,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       "Show Additional Counters",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -162,7 +233,22 @@ class _SettingScreenState extends State<SettingScreen> {
                         )
                       ],
                     ),
+                    const Divider(
+                      height: 30,
+                      thickness: 2,
+                    ),
+                    Text(
+                      "Player Colours",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                     const SizedBox(height: 20),
+                    Wrap(
+                      children: _getPlayerColorsButtons(),
+                    )
                   ],
                 ),
               ),

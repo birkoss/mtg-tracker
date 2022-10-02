@@ -34,61 +34,64 @@ class SettingNotifier extends ChangeNotifier {
   bool _showExperienceCounter = false;
   bool get showExperienceCounter => _showExperienceCounter;
 
+  final List<Color> _colors = [];
+  List<Color> get colors => _colors;
+
   SettingNotifier() {
     _load();
   }
 
   void togglePoisonCounter() {
     _showPoisonCounter = !_showPoisonCounter;
-    _save();
+    save();
     notifyListeners();
   }
 
   void toggleEnergyCounter() {
     _showEnergyCounter = !_showEnergyCounter;
-    _save();
+    save();
     notifyListeners();
   }
 
   void toggleExperienceCounter() {
     _showExperienceCounter = !_showExperienceCounter;
-    _save();
+    save();
     notifyListeners();
   }
 
   void changeAutoApplyCommanderDamage(autoApplyCommanderDamage) {
     _autoApplyCommanderDamage = autoApplyCommanderDamage;
-    _save();
+    save();
     notifyListeners();
   }
 
   void changePlayersNumber(playersNumber) {
     _playersNumber = playersNumber;
-    _save();
+    save();
     notifyListeners();
   }
 
   void toggleDarkTheme() {
     _isDarkTheme = !_isDarkTheme;
-    _save();
+    save();
     notifyListeners();
   }
 
   void toggleSimpleMode() {
     _isSimpleMode = !_isSimpleMode;
-    _save();
+    save();
     notifyListeners();
   }
 
   void changeStartingLives(startingLives) {
     _startingLives = startingLives;
-    _save();
+    save();
     notifyListeners();
   }
 
   void changeTableLayout(tableLayout) {
     _tableLayout = tableLayout;
-    _save();
+    save();
     notifyListeners();
   }
 
@@ -110,13 +113,31 @@ class SettingNotifier extends ChangeNotifier {
     _showPoisonCounter = _pref!.getBool("SHOW_POISON_COUNTER") ?? true;
 
     _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
+
+    // Default colors (and if the saved data is INVALID)
+    String defaultColors = "4293153375_4288461408_4294283049_4287871966";
+    String formattedColor = _pref!.getString("COLORS") ?? defaultColors;
+
+    List<String> textColors = formattedColor.split("_");
+
+    // Must have AT LEAST 4 entries, else use the defaultColors
+    if (textColors.length < 4) {
+      textColors = defaultColors.split("_");
+    }
+
+    // Convert the saved colors value in Color
+    for (String colorValue in textColors) {
+      _colors.add(Color(int.parse(colorValue)));
+    }
+
     notifyListeners();
 
     _isReady = true;
   }
 
-  Future _save() async {
+  Future save() async {
     await _init();
+
     _pref!.setInt("PLAYERS_NUMBER", _playersNumber);
     _pref!.setInt("STARTING_LIVES", _startingLives);
     _pref!.setInt("TABLE_LAYOUT", _tableLayout);
@@ -128,5 +149,19 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("SHOW_POISON_COUNTER", _showPoisonCounter);
 
     _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
+
+    // Format the colors in a String structure value1_value2_value3_value4
+    String formattedColors = "";
+    for (Color color in _colors) {
+      formattedColors += color.value.toString() + "_";
+    }
+
+    // Remove the trailing _ if something is there
+    if (formattedColors.endsWith("_")) {
+      formattedColors =
+          formattedColors.substring(0, formattedColors.length - 1);
+    }
+
+    _pref!.setString("COLORS", formattedColors);
   }
 }

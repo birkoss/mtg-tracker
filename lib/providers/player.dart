@@ -55,4 +55,9 @@ class Player with ChangeNotifier {
   Color getColor(bool isDarkTheme) {
     return colors[isDarkTheme ? 1 : 0];
   }
+
+  void setColor(Color color) {
+    colors[0] = color;
+    notifyListeners();
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:mtgtracker/providers/setting.dart';
 import 'package:flutter/material.dart';
 
 import '../providers/player.dart';
@@ -44,23 +45,22 @@ class Players extends ChangeNotifier {
   }
 
   /* Generate [nbrPlayers] players */
-  void generate({
-    required int nbrPlayers,
-    int startingLives = 40,
-  }) {
+  void generate(
+    SettingNotifier setting,
+  ) {
     players.clear();
 
     // Generate all Players
-    for (int i = 0; i < nbrPlayers; i++) {
+    for (int i = 0; i < setting.playersNumber; i++) {
       Player player = Player(
         id: i.toString() +
             "-" +
             DateTime.now().millisecondsSinceEpoch.toString(),
       );
-      player.reset(startingLives);
+      player.reset(setting.startingLives);
 
       // Set Colors
-      player.colors.add(lightColors[players.length]);
+      player.colors.add(setting.colors[i]);
       player.colors.add(darkColors[players.length]);
 
       addPlayer(player);
