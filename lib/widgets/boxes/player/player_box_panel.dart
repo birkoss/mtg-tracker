@@ -16,6 +16,7 @@ enum PanelBoxType {
   poison,
   energy,
   experience,
+  commanderTax,
 }
 
 class PanelBoxPanel extends StatefulWidget {
@@ -53,6 +54,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.poison:
         icon = "poison";
         break;
+      case PanelBoxType.commanderTax:
+        icon = "commander";
+        break;
       default:
         icon = "health";
         break;
@@ -77,6 +81,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       case PanelBoxType.poison:
         label = "Poison";
+        break;
+      case PanelBoxType.commanderTax:
+        label = "Commander Tax";
         break;
       default:
         label = "";
@@ -299,6 +306,50 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       );
     }
 
+    if (context.read<SettingNotifier>().showCommanderTax) {
+      trackers.add(
+        PressableButton(
+          isVisible: true,
+          isActive: (_selectedBoxType == PanelBoxType.commanderTax),
+          inactiveWidget: player.commanderTax == 0
+              ? const Icon(
+                  MtgIcons.commander,
+                  color: Colors.white,
+                )
+              : Stack(
+                  alignment: Alignment.centerLeft,
+                  children: [
+                    const Icon(
+                      MtgIcons.commander,
+                      size: 16,
+                      color: Colors.white30,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        player.commanderTax.toString(),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
+          activeColor: Colors.white,
+          onToggle: () {
+            setState(() {
+              _selectedCommander = [-1, 0];
+              _selectedBoxType = _selectedBoxType == PanelBoxType.commanderTax
+                  ? PanelBoxType.normal
+                  : PanelBoxType.commanderTax;
+            });
+          },
+        ),
+      );
+    }
+
     for (int i = 0; i < trackers.length; i++) {
       for (int j = list.length - 1; j >= 0; j--) {
         if (list[j] == null) {
@@ -365,6 +416,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.poison:
         value = player.poison.toString();
         break;
+      case PanelBoxType.commanderTax:
+        value = player.commanderTax.toString();
+        break;
       default:
         value = player.health.toString();
         break;
@@ -412,6 +466,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         }
 
         player.poison += modifier;
+        break;
+      case PanelBoxType.commanderTax:
+        player.commanderTax += modifier;
         break;
       default:
         player.health += modifier;

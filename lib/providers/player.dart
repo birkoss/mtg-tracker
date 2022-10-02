@@ -36,6 +36,12 @@ class Player with ChangeNotifier {
     _experience = max(0, min(newExperience, 99));
   }
 
+  int _commanderTax = 0;
+  int get commanderTax => _commanderTax;
+  set commanderTax(int newCommanderTax) {
+    _commanderTax = max(0, min(newCommanderTax, 99));
+  }
+
   int totalCommanders = 1;
 
   Player({
@@ -50,6 +56,7 @@ class Player with ChangeNotifier {
     health = startingLives;
     poison = 0;
     totalCommanders = 1;
+    commanderTax = 0;
   }
 
   Color getColor(bool isDarkTheme) {

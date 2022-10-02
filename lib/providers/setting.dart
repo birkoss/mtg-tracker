@@ -34,11 +34,20 @@ class SettingNotifier extends ChangeNotifier {
   bool _showExperienceCounter = false;
   bool get showExperienceCounter => _showExperienceCounter;
 
+  bool _showCommanderTax = false;
+  bool get showCommanderTax => _showCommanderTax;
+
   final List<Color> _colors = [];
   List<Color> get colors => _colors;
 
   SettingNotifier() {
     _load();
+  }
+
+  void toggleCommanderTax() {
+    _showCommanderTax = !_showCommanderTax;
+    save();
+    notifyListeners();
   }
 
   void togglePoisonCounter() {
@@ -111,6 +120,7 @@ class SettingNotifier extends ChangeNotifier {
     _showEnergyCounter = _pref!.getBool("SHOW_ENERGY_COUNTER") ?? false;
     _showExperienceCounter = _pref!.getBool("SHOW_EXPERIENCE_COUNTER") ?? false;
     _showPoisonCounter = _pref!.getBool("SHOW_POISON_COUNTER") ?? true;
+    _showCommanderTax = _pref!.getBool("SHOW_COMMANDER_TAX") ?? true;
 
     _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
 
@@ -147,6 +157,7 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("SHOW_ENERGY_COUNTER", _showEnergyCounter);
     _pref!.setBool("SHOW_EXPERIENCE_COUNTER", _showExperienceCounter);
     _pref!.setBool("SHOW_POISON_COUNTER", _showPoisonCounter);
+    _pref!.setBool("SHOW_COMMANDER_TAX", _showCommanderTax);
 
     _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
 

@@ -184,52 +184,84 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              "Poison",
-                              textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Switch(
-                              value: setting.showPoisonCounter,
-                              onChanged: (bool value) {
-                                setting.togglePoisonCounter();
-                              },
-                            ),
-                          ],
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Poison",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: setting.showPoisonCounter,
+                                onChanged: (bool value) {
+                                  setting.togglePoisonCounter();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              "Energy",
-                              textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Switch(
-                              value: setting.showEnergyCounter,
-                              onChanged: (bool value) {
-                                setting.toggleEnergyCounter();
-                              },
-                            ),
-                          ],
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Energy",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: setting.showEnergyCounter,
+                                onChanged: (bool value) {
+                                  setting.toggleEnergyCounter();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              "Experience",
-                              textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Switch(
-                              value: setting.showExperienceCounter,
-                              onChanged: (bool value) {
-                                setting.toggleExperienceCounter();
-                              },
-                            ),
-                          ],
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Experience",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: setting.showExperienceCounter,
+                                onChanged: (bool value) {
+                                  setting.toggleExperienceCounter();
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Commander Tax",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: setting.showCommanderTax,
+                                onChanged: (bool value) {
+                                  setting.toggleCommanderTax();
+                                },
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
