@@ -538,6 +538,14 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       });
     }
 
+    // If the CommanderTax is SELECTED, and not in SETTINGS, reset it
+    if (!context.watch<SettingNotifier>().showCommanderTax &&
+        _selectedBoxType == PanelBoxType.commanderTax) {
+      setState(() {
+        _selectedBoxType = PanelBoxType.normal;
+      });
+    }
+
     String amountBoxKey = _selectedBoxType.toString();
     if (_selectedCommander[0] != -1) {
       amountBoxKey = "commander-" +
