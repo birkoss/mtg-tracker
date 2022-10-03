@@ -96,7 +96,7 @@ class _AmountBox extends State<AmountBox> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(widget.getLabel() == "" ? 20 : 40.0),
+          padding: EdgeInsets.all(widget.getLabel() == "" ? 20 : 30),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 160),
             transitionBuilder: (Widget child, Animation<double> animation) {
@@ -126,9 +126,9 @@ class _AmountBox extends State<AmountBox> {
                 overflow: TextOverflow.visible,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: widget.bigFont ? 54 : 40,
-                      color: (widget.lightMode
+                      color: widget.lightMode
                           ? Colors.white
-                          : Theme.of(context).primaryColor),
+                          : Theme.of(context).primaryColor,
                     ),
               ),
             ),
