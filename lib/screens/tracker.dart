@@ -53,6 +53,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
       }
     }
 
+    context.read<Players>().pickPlayer(playersIndex.removeAt(0));
+    context.read<Players>().pickingPlayer(true);
+
     Timer.periodic(const Duration(milliseconds: 100), (timer) {
       context.read<Players>().pickPlayer(playersIndex.removeAt(0));
 
@@ -64,6 +67,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
           const Duration(seconds: 2),
           () {
             context.read<Players>().pickPlayer(-1);
+            //context.read<Players>().pickingPlayer(false);
           },
         );
       }

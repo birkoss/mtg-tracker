@@ -12,6 +12,9 @@ class Players extends ChangeNotifier {
   Player? _diceRollWinner;
   Player? get diceRollWinner => _diceRollWinner;
 
+  bool _isPickingPlayer = false;
+  bool get isPickingPlayer => _isPickingPlayer;
+
   void addPlayer(Player player) {
     _players.add(player);
 
@@ -83,6 +86,12 @@ class Players extends ChangeNotifier {
 
   int pickRandomPlayer() {
     return Random().nextInt(getActivePlayers().length);
+  }
+
+  void pickingPlayer(bool isPicking) {
+    _isPickingPlayer = isPicking;
+
+    notifyListeners();
   }
 
   void pickPlayer(int index) {

@@ -42,18 +42,22 @@ class _PlayerBox extends State<PlayerBox> {
     );
 
     // Show the dice roll winner
-    if (context.watch<Players>().diceRollWinner == player) {
+
+    if (context.watch<Players>().isPickingPlayer) {
       widgets.add(
         PlayerBoxPopup(
-          backgroundColor: Colors.white,
+          isVisible: (context.watch<Players>().diceRollWinner != null),
+          backgroundColor: context.read<Player>().getColor(),
           child: Align(
             alignment: Alignment.center,
             child: Text(
-              "You Win the Dice Roll",
+              context.watch<Players>().diceRollWinner == player
+                  ? "You Win the Dice Roll"
+                  : "",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
-                color: context.read<Player>().getColor(),
+                color: Colors.white,
               ),
             ),
           ),
