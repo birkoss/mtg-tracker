@@ -37,6 +37,16 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
   PanelBoxType _selectedBoxType = PanelBoxType.normal;
 
+  void changeSelectedBoxType(
+    PanelBoxType newType, [
+    List<int> newCommander = const [-1, 0],
+  ]) {
+    setState(() {
+      _selectedCommander = newCommander;
+      _selectedBoxType = newType;
+    });
+  }
+
   // Amount Box - Icon
   String _getIcon() {
     String icon = "health";
@@ -153,18 +163,13 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           activeColor: Colors.white,
           onToggle: () {
             if (!opponent.isDead) {
-              setState(() {
-                if (_selectedCommander[0] == opponentIndex &&
-                    _selectedCommander[1] == commanderIndex) {
-                  _selectedBoxType = PanelBoxType.normal;
-                  _selectedCommander[0] = -1;
-                  _selectedCommander[1] = 0;
-                } else {
-                  _selectedBoxType = PanelBoxType.commander;
-                  _selectedCommander[0] = opponentIndex;
-                  _selectedCommander[1] = commanderIndex;
-                }
-              });
+              if (_selectedCommander[0] == opponentIndex &&
+                  _selectedCommander[1] == commanderIndex) {
+                changeSelectedBoxType(PanelBoxType.normal);
+              } else {
+                changeSelectedBoxType(
+                    PanelBoxType.commander, [opponentIndex, commanderIndex]);
+              }
             }
           },
         );
@@ -206,12 +211,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                 ),
           activeColor: Colors.white,
           onToggle: () {
-            setState(() {
-              _selectedCommander = [-1, 0];
-              _selectedBoxType = _selectedBoxType == PanelBoxType.poison
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.poison
                   ? PanelBoxType.normal
-                  : PanelBoxType.poison;
-            });
+                  : PanelBoxType.poison,
+            );
           },
         ),
       );
@@ -249,12 +253,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                 ),
           activeColor: Colors.white,
           onToggle: () {
-            setState(() {
-              _selectedCommander = [-1, 0];
-              _selectedBoxType = _selectedBoxType == PanelBoxType.energy
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.energy
                   ? PanelBoxType.normal
-                  : PanelBoxType.energy;
-            });
+                  : PanelBoxType.energy,
+            );
           },
         ),
       );
@@ -292,12 +295,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                 ),
           activeColor: Colors.white,
           onToggle: () {
-            setState(() {
-              _selectedCommander = [-1, 0];
-              _selectedBoxType = _selectedBoxType == PanelBoxType.experience
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.experience
                   ? PanelBoxType.normal
-                  : PanelBoxType.experience;
-            });
+                  : PanelBoxType.experience,
+            );
           },
         ),
       );
@@ -336,12 +338,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                 ),
           activeColor: Colors.white,
           onToggle: () {
-            setState(() {
-              _selectedCommander = [-1, 0];
-              _selectedBoxType = _selectedBoxType == PanelBoxType.commanderTax
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.commanderTax
                   ? PanelBoxType.normal
-                  : PanelBoxType.commanderTax;
-            });
+                  : PanelBoxType.commanderTax,
+            );
           },
         ),
       );
@@ -480,74 +481,42 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     Player player = Provider.of<Player>(context, listen: false);
 
     // Disable previously OPEN other tracker or Commander Damage in SIMPLE mode
-    if (context.watch<SettingNotifier>().isSimpleMode) {
-      if (_selectedBoxType == PanelBoxType.commander) {
-        setState(() {
-          _selectedBoxType = PanelBoxType.normal;
-          _selectedCommander = [-1, 0];
-        });
-      } else if (_selectedBoxType != PanelBoxType.normal) {
-        setState(() {
-          _selectedBoxType = PanelBoxType.normal;
-        });
-      }
+    if (context.watch<SettingNotifier>().isSimpleMode &&
+        _selectedBoxType != PanelBoxType.normal) {
+      changeSelectedBoxType(PanelBoxType.normal);
     }
 
     // If the Partner is selected, but not available anymore, reset it
-    if (_selectedBoxType == PanelBoxType.commander) {
-      if (_selectedCommander[1] == 1 &&
-          player.opponents[_selectedCommander[0]].totalCommanders == 1) {
-        setState(() {
-          // TODO: Cleaner way to handle this. Method with new PanelBoxType, and param
-          _selectedCommander = [-1, 0];
-          _selectedBoxType = PanelBoxType.normal;
-        });
-      }
+    if (_selectedBoxType == PanelBoxType.commander &&
+        _selectedCommander[1] == 1 &&
+        player.opponents[_selectedCommander[0]].totalCommanders == 1) {
+      changeSelectedBoxType(PanelBoxType.normal);
     }
 
-    // TODO: Cleaner way
     // If a Commander Damage of a DEAD player is selected, reset it
     if (_selectedCommander[0] != -1 &&
         player.opponents[_selectedCommander[0]].isDead) {
-      setState(() {
-        _selectedCommander = [-1, 0];
-      });
+      changeSelectedBoxType(PanelBoxType.normal);
     }
 
-    // If the Energy is SELECTED, and not in SETTINGS, reset it
-    if (!context.watch<SettingNotifier>().showEnergyCounter &&
-        _selectedBoxType == PanelBoxType.energy) {
-      setState(() {
-        _selectedBoxType = PanelBoxType.normal;
-      });
-    }
+    // Remove dynamic SELECTED trackers, not available anymore
+    Map<PanelBoxType, bool> trackers = {
+      PanelBoxType.commanderTax:
+          context.watch<SettingNotifier>().showCommanderTax,
+      PanelBoxType.energy: context.watch<SettingNotifier>().showEnergyCounter,
+      PanelBoxType.experience:
+          context.watch<SettingNotifier>().showExperienceCounter,
+      PanelBoxType.poison: context.watch<SettingNotifier>().showPoisonCounter,
+    };
 
-    // If the Experience is SELECTED, and not in SETTINGS, reset it
-    if (!context.watch<SettingNotifier>().showExperienceCounter &&
-        _selectedBoxType == PanelBoxType.experience) {
-      setState(() {
-        _selectedBoxType = PanelBoxType.normal;
-      });
-    }
-
-    // If the Poison is SELECTED, and not in SETTINGS, reset it
-    if (!context.watch<SettingNotifier>().showPoisonCounter &&
-        _selectedBoxType == PanelBoxType.poison) {
-      setState(() {
-        _selectedBoxType = PanelBoxType.normal;
-      });
-    }
-
-    // If the CommanderTax is SELECTED, and not in SETTINGS, reset it
-    if (!context.watch<SettingNotifier>().showCommanderTax &&
-        _selectedBoxType == PanelBoxType.commanderTax) {
-      setState(() {
-        _selectedBoxType = PanelBoxType.normal;
-      });
+    if (_selectedBoxType != PanelBoxType.normal &&
+        trackers.containsKey(_selectedBoxType) &&
+        !trackers[_selectedBoxType]!) {
+      changeSelectedBoxType(PanelBoxType.normal);
     }
 
     String amountBoxKey = _selectedBoxType.toString();
-    if (_selectedCommander[0] != -1) {
+    if (_selectedBoxType == PanelBoxType.commander) {
       amountBoxKey = "commander-" +
           _selectedCommander[0].toString() +
           "-" +
