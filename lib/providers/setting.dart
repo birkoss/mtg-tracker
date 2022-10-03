@@ -37,11 +37,20 @@ class SettingNotifier extends ChangeNotifier {
   bool _showCommanderTax = false;
   bool get showCommanderTax => _showCommanderTax;
 
+  bool _pickPlayerOnNewGame = false;
+  bool get pickPlayerOnNewGame => _pickPlayerOnNewGame;
+
   final List<Color> _colors = [];
   List<Color> get colors => _colors;
 
   SettingNotifier() {
     _load();
+  }
+
+  void togglePickPlayerOnNewGame() {
+    _pickPlayerOnNewGame = !_pickPlayerOnNewGame;
+    save();
+    notifyListeners();
   }
 
   void toggleCommanderTax() {
@@ -124,6 +133,8 @@ class SettingNotifier extends ChangeNotifier {
 
     _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
 
+    _pickPlayerOnNewGame = _pref!.getBool("PICK_PLAYER_ON_NEW_GAME") ?? true;
+
     // Default colors (and if the saved data is INVALID)
     String defaultColors = "4293153375_4288461408_4294283049_4287871966";
     String formattedColor = _pref!.getString("COLORS") ?? defaultColors;
@@ -158,6 +169,8 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("SHOW_EXPERIENCE_COUNTER", _showExperienceCounter);
     _pref!.setBool("SHOW_POISON_COUNTER", _showPoisonCounter);
     _pref!.setBool("SHOW_COMMANDER_TAX", _showCommanderTax);
+
+    _pref!.setBool("PICK_PLAYER_ON_NEW_GAME", _pickPlayerOnNewGame);
 
     _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
 

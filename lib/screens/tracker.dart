@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mtgtracker/providers/layout.dart';
+import 'package:mtgtracker/widgets/boxes/player/player_box_popup.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/players.dart';
@@ -32,7 +33,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
           context.read<SettingNotifier>(),
         );
 
-    _pickNewPlayer();
+    if (context.read<SettingNotifier>().pickPlayerOnNewGame) {
+      _pickNewPlayer();
+    }
   }
 
   void _pickNewPlayer() {
@@ -67,7 +70,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
           const Duration(seconds: 2),
           () {
             context.read<Players>().pickPlayer(-1);
-            //context.read<Players>().pickingPlayer(false);
+
+            Timer(
+              const Duration(milliseconds: PlayerBoxPopup.animationDuration),
+              () {
+                context.read<Players>().pickingPlayer(false);
+              },
+            );
           },
         );
       }

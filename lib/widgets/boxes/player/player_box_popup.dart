@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PlayerBoxPopup extends StatefulWidget {
+  static const animationDuration = 280;
+
   final Color backgroundColor;
   final Widget child;
   final VoidCallback? onPress;
@@ -28,7 +30,7 @@ class _PlayerBoxPopupState extends State<PlayerBoxPopup> {
     return AnimatedOpacity(
       opacity: widget.isVisible ? 1 : 0, //_isVisible ? 1 : 0,
 
-      duration: const Duration(milliseconds: 280),
+      duration: const Duration(milliseconds: PlayerBoxPopup.animationDuration),
       //curve: Curves.fastOutSlowIn,
       //curve: Curves.easeOutExpo,
       child: Container(

@@ -435,6 +435,18 @@ class _SettingScreenState extends State<SettingScreen> {
                         setting.changeAutoApplyCommanderDamage(value);
                       },
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Always Pick Random Player on New Game?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Switch(
+                      value: setting.pickPlayerOnNewGame,
+                      onChanged: (bool value) {
+                        setting.togglePickPlayerOnNewGame();
+                      },
+                    ),
                   ],
                 ),
               ),
