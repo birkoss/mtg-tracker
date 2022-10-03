@@ -506,6 +506,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       }
     }
 
+    // TODO: Cleaner way
     // If a Commander Damage of a DEAD player is selected, reset it
     if (_selectedCommander[0] != -1 &&
         player.opponents[_selectedCommander[0]].isDead) {
