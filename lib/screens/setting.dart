@@ -161,6 +161,13 @@ class _SettingScreenState extends State<SettingScreen> {
                             widget.onPickNewPlayer();
                           },
                         ),
+                        TileButton(
+                          icon: Icons.history,
+                          label: "History",
+                          onPress: () {
+                            Navigator.pushReplacementNamed(context, '/history');
+                          },
+                        ),
                       ],
                     ),
                     const Divider(

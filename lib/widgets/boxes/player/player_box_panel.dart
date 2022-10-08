@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/providers/history.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/player.dart';
@@ -427,7 +428,16 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
   // Amount Box - Saving Value
   bool _setValue(int modifier) {
+    //HistoryNotifier
+
     Player player = Provider.of<Player>(context, listen: false);
+
+    context.read<HistoryNotifier>().log(
+          player: player,
+          type: _selectedBoxType,
+          from: int.parse(_getValue()),
+          to: modifier,
+        );
 
     switch (_selectedBoxType) {
       case PanelBoxType.commander:

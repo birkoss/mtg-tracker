@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
+import 'package:mtgtracker/providers/history.dart';
 import 'package:mtgtracker/screens/colors.dart';
+import 'package:mtgtracker/screens/history.dart';
 import 'package:mtgtracker/screens/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
@@ -31,6 +33,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => SettingNotifier()),
         ChangeNotifierProvider(create: (_) => Players()),
         ChangeNotifierProvider(create: (_) => LayoutNotifier()),
+        ChangeNotifierProvider(create: (_) => HistoryNotifier()),
       ],
       child: const MtgTrackerApp(),
     ),
@@ -54,6 +57,7 @@ class MtgTrackerApp extends StatelessWidget {
         '/play': (_) => const TrackerScreen(),
         //'/settings': (_) => const SettingScreen(),
         '/setting/colors': (_) => const SettingColorsScreen(),
+        '/history': (_) => const HistoryScreen(),
       },
     );
   }
