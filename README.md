@@ -1,15 +1,17 @@
 # MTG Tracker
 
+## TODO Next Release
 
-
-## TODO
+Add Storm Count Tracker
+  - Icon: Thunderstorm
 
 Is Dead Screen
   - Show the SETTINGS tabs with Is Dead Switch on click
 
+## TODO
+
 Player Box
  - See and Track
-   - Storm Count
    - Monarch
    - Initiative
  - Button + and -
@@ -18,13 +20,4 @@ Player Box
 UI & Glitch
  - Only gripe i really have with it is that I don't find it a bit unpolished visually (which is to be expected at at this stage and by no means is meant like an insult).
 
-- Changing the image in the background would be fun!
-
-Change color when in Commander Damage State ?
-- Expand button when active with label (Apply) ?
-
-Animate when life = 0, poison = 10, one cmd = 21
-
-Select color within PlayerBox Settings
-- Selected colors are inactive
-- Refresh players and CommanderDamage boxes on changes
+- Changing the image(Icon) in the background would be fun!
