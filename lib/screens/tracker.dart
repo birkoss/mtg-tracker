@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/layout.dart';
-import 'package:mtgtracker/widgets/boxes/player/player_box_popup.dart';
+
 import 'package:provider/provider.dart';
 
+import '../providers/layout.dart';
 import '../providers/players.dart';
 import '../providers/setting.dart';
+
 import '../screens/setting.dart';
+
+import '../widgets/boxes/player/player_box_popup.dart';
 import '../widgets/grid.dart';
 
 class TrackerScreen extends StatefulWidget {

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/player.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/screens/colors.dart';
-import 'package:mtgtracker/widgets/ui/tile_button.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/player.dart';
+import '../providers/players.dart';
 import '../providers/setting.dart';
+
+import '../screens/colors.dart';
+
+import '../widgets/ui/tile_button.dart';
 import '../widgets/ui/toggles.dart';
 
 class SettingScreen extends StatefulWidget {

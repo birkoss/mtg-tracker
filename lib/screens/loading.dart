@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:mtgtracker/providers/layout.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/providers/setting.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/layout.dart';
+import '../providers/players.dart';
+import '../providers/setting.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({Key? key}) : super(key: key);
