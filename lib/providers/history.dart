@@ -57,6 +57,10 @@ class HistoryNotifier extends ChangeNotifier {
       _histories.add(history);
     } else {
       _histories[index].update(to);
+      // Remove the entries if the values are not changed
+      if (_histories[index].from == _histories[index].to) {
+        _histories.removeAt(index);
+      }
     }
   }
 }
