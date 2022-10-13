@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/history.dart';
+import 'package:mtgtracker/providers/players.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/player.dart';
@@ -458,6 +459,16 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
               .autoApplyCommanderDamage) {
             player.health += (modifier * -1);
           }
+
+          /* If the Auto Eliminate settings is selected and enough Commander Damage */
+          if (Provider.of<SettingNotifier>(context, listen: false)
+                  .autoElimitatePlayer &&
+              player.commanderDamages[_selectedCommander[0]]
+                      [_selectedCommander[1]] >=
+                  21) {
+            player.isDead = true;
+            context.read<Players>().hasChanged();
+          }
         });
 
         break;
@@ -480,6 +491,14 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       default:
         player.health += modifier;
+
+        /* If the Auto Eliminate settings is selected and enough Damage */
+        if (Provider.of<SettingNotifier>(context, listen: false)
+                .autoElimitatePlayer &&
+            player.health <= 0) {
+          player.isDead = true;
+          context.read<Players>().hasChanged();
+        }
         break;
     }
 

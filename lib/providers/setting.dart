@@ -22,6 +22,9 @@ class SettingNotifier extends ChangeNotifier {
   bool _autoApplyCommanderDamage = true;
   bool get autoApplyCommanderDamage => _autoApplyCommanderDamage;
 
+  bool _autoEliminatePlayer = false;
+  bool get autoElimitatePlayer => _autoEliminatePlayer;
+
   bool _isSimpleMode = false;
   bool get isSimpleMode => _isSimpleMode;
 
@@ -83,6 +86,12 @@ class SettingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleAutoEliminatePlayer() {
+    _autoEliminatePlayer = !_autoEliminatePlayer;
+    save();
+    notifyListeners();
+  }
+
   void changePlayersNumber(playersNumber) {
     _playersNumber = playersNumber;
     save();
@@ -126,6 +135,8 @@ class SettingNotifier extends ChangeNotifier {
     _autoApplyCommanderDamage =
         _pref!.getBool("AUTO_APPLY_COMMANDER_DAMAGE") ?? true;
 
+    _autoEliminatePlayer = _pref!.getBool("AUTO_ELIMINATE_PLAYER") ?? false;
+
     _showEnergyCounter = _pref!.getBool("SHOW_ENERGY_COUNTER") ?? false;
     _showExperienceCounter = _pref!.getBool("SHOW_EXPERIENCE_COUNTER") ?? false;
     _showPoisonCounter = _pref!.getBool("SHOW_POISON_COUNTER") ?? true;
@@ -164,6 +175,7 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setInt("TABLE_LAYOUT", _tableLayout);
     _pref!.setBool("IS_DARK_THEME", _isDarkTheme);
     _pref!.setBool("AUTO_APPLY_COMMANDER_DAMAGE", _autoApplyCommanderDamage);
+    _pref!.setBool("AUTO_ELIMINATE_PLAYER", _autoEliminatePlayer);
 
     _pref!.setBool("SHOW_ENERGY_COUNTER", _showEnergyCounter);
     _pref!.setBool("SHOW_EXPERIENCE_COUNTER", _showExperienceCounter);

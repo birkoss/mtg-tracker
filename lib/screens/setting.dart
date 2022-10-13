@@ -454,6 +454,18 @@ class _SettingScreenState extends State<SettingScreen> {
                         setting.togglePickPlayerOnNewGame();
                       },
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Automatically Eliminate Player on Commander Damage or Normal Damage?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Switch(
+                      value: setting.autoElimitatePlayer,
+                      onChanged: (bool value) {
+                        setting.toggleAutoEliminatePlayer();
+                      },
+                    ),
                   ],
                 ),
               ),

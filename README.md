@@ -4,6 +4,9 @@
 
 ## TODO
 
+Is Dead Screen
+  - Show the SETTINGS tabs with Is Dead Switch on click
+
 Player Box
  - See and Track
    - Storm Count
