@@ -30,6 +30,12 @@ class Player with ChangeNotifier {
     _energy = max(0, min(newEnergy, 99));
   }
 
+  int _storm = 0;
+  int get storm => _storm;
+  set storm(int newStorm) {
+    _storm = max(0, min(newStorm, 99));
+  }
+
   int _experience = 0;
   int get experience => _experience;
   set experience(int newExperience) {

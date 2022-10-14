@@ -37,8 +37,14 @@ class SettingNotifier extends ChangeNotifier {
   bool _showExperienceCounter = false;
   bool get showExperienceCounter => _showExperienceCounter;
 
+  bool _showStormCounter = false;
+  bool get showStormCounter => _showStormCounter;
+
   bool _showCommanderTax = false;
   bool get showCommanderTax => _showCommanderTax;
+
+  bool _showCommanderDamage = true;
+  bool get showCommanderDamage => _showCommanderDamage;
 
   bool _pickPlayerOnNewGame = false;
   bool get pickPlayerOnNewGame => _pickPlayerOnNewGame;
@@ -62,8 +68,20 @@ class SettingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleCommanderDamage() {
+    _showCommanderDamage = !_showCommanderDamage;
+    save();
+    notifyListeners();
+  }
+
   void togglePoisonCounter() {
     _showPoisonCounter = !_showPoisonCounter;
+    save();
+    notifyListeners();
+  }
+
+  void toggleStormCounter() {
+    _showStormCounter = !_showStormCounter;
     save();
     notifyListeners();
   }
@@ -141,6 +159,8 @@ class SettingNotifier extends ChangeNotifier {
     _showExperienceCounter = _pref!.getBool("SHOW_EXPERIENCE_COUNTER") ?? false;
     _showPoisonCounter = _pref!.getBool("SHOW_POISON_COUNTER") ?? true;
     _showCommanderTax = _pref!.getBool("SHOW_COMMANDER_TAX") ?? true;
+    _showCommanderDamage = _pref!.getBool("SHOW_COMMANDER_DAMAGE") ?? true;
+    _showStormCounter = _pref!.getBool("SHOW_STORM_COUNTER") ?? false;
 
     _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
 
@@ -181,6 +201,8 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("SHOW_EXPERIENCE_COUNTER", _showExperienceCounter);
     _pref!.setBool("SHOW_POISON_COUNTER", _showPoisonCounter);
     _pref!.setBool("SHOW_COMMANDER_TAX", _showCommanderTax);
+    _pref!.setBool("SHOW_STORM_COUNTER", _showStormCounter);
+    _pref!.setBool("SHOW_COMMANDER_DAMAGE", _showCommanderDamage);
 
     _pref!.setBool("PICK_PLAYER_ON_NEW_GAME", _pickPlayerOnNewGame);
 

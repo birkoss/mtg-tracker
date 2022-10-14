@@ -267,6 +267,47 @@ class _SettingScreenState extends State<SettingScreen> {
                         )
                       ],
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Storm",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: setting.showStormCounter,
+                                onChanged: (bool value) {
+                                  setting.toggleStormCounter();
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Commander Damage",
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Switch(
+                                value: setting.showCommanderDamage,
+                                onChanged: (bool value) {
+                                  setting.toggleCommanderDamage();
+                                },
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                     const Divider(
                       height: 30,
                       thickness: 2,

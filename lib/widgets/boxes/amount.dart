@@ -102,13 +102,15 @@ class _AmountBox extends State<AmountBox> {
             transitionBuilder: (Widget child, Animation<double> animation) {
               return ScaleTransition(scale: animation, child: child);
             },
-            child: SvgPicture.asset(
-              "assets/icons/" + widget.getIcon() + ".svg",
-              key: ValueKey<String>(widget.getIcon()),
-              fit: BoxFit.scaleDown,
-              color: Colors.white10,
-              semanticsLabel: 'Health',
-            ),
+            child: widget.getIcon() != ""
+                ? SvgPicture.asset(
+                    "assets/icons/" + widget.getIcon() + ".svg",
+                    key: ValueKey<String>(widget.getIcon()),
+                    fit: BoxFit.scaleDown,
+                    color: Colors.white10,
+                    semanticsLabel: 'Health',
+                  )
+                : null,
           ),
         ),
         Align(

@@ -19,6 +19,7 @@ enum PanelBoxType {
   energy,
   experience,
   commanderTax,
+  storm,
 }
 
 class PanelBoxPanel extends StatefulWidget {
@@ -57,6 +58,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.commander:
         icon = "commander";
         break;
+      case PanelBoxType.storm:
+        icon = "";
+        break;
       case PanelBoxType.energy:
         icon = "energy";
         break;
@@ -87,6 +91,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       case PanelBoxType.energy:
         label = "Energy";
+        break;
+      case PanelBoxType.storm:
+        label = "Storm";
         break;
       case PanelBoxType.experience:
         label = "Experience";
@@ -127,54 +134,56 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     ];
 
     // Add all opponent Commander and Partner if necessary
-    for (var opponentIndex = 0;
-        opponentIndex < player.opponents.length;
-        opponentIndex++) {
-      Player opponent = player.opponents[opponentIndex];
+    if (context.read<SettingNotifier>().showCommanderDamage) {
+      for (var opponentIndex = 0;
+          opponentIndex < player.opponents.length;
+          opponentIndex++) {
+        Player opponent = player.opponents[opponentIndex];
 
-      for (var commanderIndex in [0, 1]) {
-        // Must have a Partner to add 2 trackers
-        if (commanderIndex + 1 > opponent.totalCommanders) {
-          continue;
-        }
-        list[commanderIndex == 0 ? opponentIndex : opponentIndex + 4] =
-            PressableButton(
-          isActive: (_selectedBoxType == PanelBoxType.commander &&
-              _selectedCommander[0] == opponentIndex &&
-              _selectedCommander[1] == commanderIndex),
-          inactiveWidget: opponent.isDead
-              ? SvgPicture.asset(
-                  "assets/icons/skull.svg",
-                  fit: BoxFit.scaleDown,
-                  width: 22,
-                  color: Colors.white70,
-                  semanticsLabel: 'Health',
-                )
-              : FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    player.commanderDamages[opponentIndex][commanderIndex]
-                        .toString(),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: 20,
-                        ),
+        for (var commanderIndex in [0, 1]) {
+          // Must have a Partner to add 2 trackers
+          if (commanderIndex + 1 > opponent.totalCommanders) {
+            continue;
+          }
+          list[commanderIndex == 0 ? opponentIndex : opponentIndex + 4] =
+              PressableButton(
+            isActive: (_selectedBoxType == PanelBoxType.commander &&
+                _selectedCommander[0] == opponentIndex &&
+                _selectedCommander[1] == commanderIndex),
+            inactiveWidget: opponent.isDead
+                ? SvgPicture.asset(
+                    "assets/icons/skull.svg",
+                    fit: BoxFit.scaleDown,
+                    width: 22,
+                    color: Colors.white70,
+                    semanticsLabel: 'Health',
+                  )
+                : FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      player.commanderDamages[opponentIndex][commanderIndex]
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 20,
+                          ),
+                    ),
                   ),
-                ),
-          inactiveColor: opponent.getColor(),
-          activeColor: Colors.white,
-          onToggle: () {
-            if (!opponent.isDead) {
-              if (_selectedCommander[0] == opponentIndex &&
-                  _selectedCommander[1] == commanderIndex) {
-                changeSelectedBoxType(PanelBoxType.normal);
-              } else {
-                changeSelectedBoxType(
-                    PanelBoxType.commander, [opponentIndex, commanderIndex]);
+            inactiveColor: opponent.getColor(),
+            activeColor: Colors.white,
+            onToggle: () {
+              if (!opponent.isDead) {
+                if (_selectedCommander[0] == opponentIndex &&
+                    _selectedCommander[1] == commanderIndex) {
+                  changeSelectedBoxType(PanelBoxType.normal);
+                } else {
+                  changeSelectedBoxType(
+                      PanelBoxType.commander, [opponentIndex, commanderIndex]);
+                }
               }
-            }
-          },
-        );
+            },
+          );
+        }
       }
     }
 
@@ -264,6 +273,51 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         ),
       );
     }
+
+    if (context.read<SettingNotifier>().showStormCounter) {
+      trackers.add(
+        PressableButton(
+          isVisible: true,
+          isActive: (_selectedBoxType == PanelBoxType.storm),
+          inactiveWidget: player.storm == 0
+              ? const Icon(
+                  Icons.thunderstorm,
+                  color: Colors.white,
+                )
+              : Stack(
+                  alignment: Alignment.centerLeft,
+                  children: [
+                    const Icon(
+                      Icons.thunderstorm,
+                      size: 16,
+                      color: Colors.white30,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        player.storm.toString(),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
+          activeColor: Colors.white,
+          onToggle: () {
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.storm
+                  ? PanelBoxType.normal
+                  : PanelBoxType.storm,
+            );
+          },
+        ),
+      );
+    }
+
+    // TODO: Create widget those widgets
     if (context.read<SettingNotifier>().showExperienceCounter) {
       trackers.add(
         PressableButton(
@@ -410,6 +464,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.energy:
         value = player.energy.toString();
         break;
+      case PanelBoxType.storm:
+        value = player.storm.toString();
+        break;
       case PanelBoxType.experience:
         value = player.experience.toString();
         break;
@@ -475,6 +532,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.energy:
         player.energy += modifier;
         break;
+      case PanelBoxType.storm:
+        player.storm += modifier;
+        break;
       case PanelBoxType.experience:
         player.experience += modifier;
         break;
@@ -536,11 +596,18 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       PanelBoxType.experience:
           context.watch<SettingNotifier>().showExperienceCounter,
       PanelBoxType.poison: context.watch<SettingNotifier>().showPoisonCounter,
+      PanelBoxType.storm: context.watch<SettingNotifier>().showStormCounter,
     };
 
     if (_selectedBoxType != PanelBoxType.normal &&
         trackers.containsKey(_selectedBoxType) &&
         !trackers[_selectedBoxType]!) {
+      changeSelectedBoxType(PanelBoxType.normal);
+    }
+
+    // Close commander Window when they are open and not available anymore
+    if (!context.watch<SettingNotifier>().showCommanderDamage &&
+        _selectedBoxType == PanelBoxType.commander) {
       changeSelectedBoxType(PanelBoxType.normal);
     }
 
