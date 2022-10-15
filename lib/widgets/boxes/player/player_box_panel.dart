@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mtgtracker/providers/history.dart';
 import 'package:mtgtracker/providers/players.dart';
+import 'package:mtgtracker/widgets/dynamic_pressable_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/player.dart';
@@ -191,36 +192,10 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     List<Widget> trackers = [];
     if (context.read<SettingNotifier>().showPoisonCounter) {
       trackers.add(
-        PressableButton(
-          isVisible: true,
+        DynamicPressableButton(
           isActive: (_selectedBoxType == PanelBoxType.poison),
-          inactiveWidget: player.poison == 0
-              ? const Icon(
-                  MtgIcons.poison,
-                  color: Colors.white,
-                )
-              : Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    const Icon(
-                      MtgIcons.poison,
-                      size: 16,
-                      color: Colors.white30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        player.poison.toString(),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-          activeColor: Colors.white,
+          value: player.poison,
+          icon: MtgIcons.poison,
           onToggle: () {
             changeSelectedBoxType(
               _selectedBoxType == PanelBoxType.poison
@@ -233,36 +208,10 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     }
     if (context.read<SettingNotifier>().showEnergyCounter) {
       trackers.add(
-        PressableButton(
-          isVisible: true,
+        DynamicPressableButton(
           isActive: (_selectedBoxType == PanelBoxType.energy),
-          inactiveWidget: player.energy == 0
-              ? const Icon(
-                  MtgIcons.energy,
-                  color: Colors.white,
-                )
-              : Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    const Icon(
-                      MtgIcons.energy,
-                      size: 16,
-                      color: Colors.white30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        player.energy.toString(),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-          activeColor: Colors.white,
+          value: player.energy,
+          icon: MtgIcons.energy,
           onToggle: () {
             changeSelectedBoxType(
               _selectedBoxType == PanelBoxType.energy
@@ -276,36 +225,10 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
     if (context.read<SettingNotifier>().showStormCounter) {
       trackers.add(
-        PressableButton(
-          isVisible: true,
+        DynamicPressableButton(
           isActive: (_selectedBoxType == PanelBoxType.storm),
-          inactiveWidget: player.storm == 0
-              ? const Icon(
-                  Icons.thunderstorm,
-                  color: Colors.white,
-                )
-              : Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    const Icon(
-                      Icons.thunderstorm,
-                      size: 16,
-                      color: Colors.white30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        player.storm.toString(),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-          activeColor: Colors.white,
+          value: player.storm,
+          icon: Icons.thunderstorm,
           onToggle: () {
             changeSelectedBoxType(
               _selectedBoxType == PanelBoxType.storm
@@ -317,39 +240,12 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       );
     }
 
-    // TODO: Create widget those widgets
     if (context.read<SettingNotifier>().showExperienceCounter) {
       trackers.add(
-        PressableButton(
-          isVisible: true,
-          isActive: (_selectedBoxType == PanelBoxType.experience),
-          inactiveWidget: player.experience == 0
-              ? const Icon(
-                  MtgIcons.experience,
-                  color: Colors.white,
-                )
-              : Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    const Icon(
-                      MtgIcons.experience,
-                      size: 16,
-                      color: Colors.white30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        player.experience.toString(),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-          activeColor: Colors.white,
+        DynamicPressableButton(
+          isActive: _selectedBoxType == PanelBoxType.experience,
+          value: player.experience,
+          icon: MtgIcons.experience,
           onToggle: () {
             changeSelectedBoxType(
               _selectedBoxType == PanelBoxType.experience
@@ -363,36 +259,10 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
     if (context.read<SettingNotifier>().showCommanderTax) {
       trackers.add(
-        PressableButton(
-          isVisible: true,
-          isActive: (_selectedBoxType == PanelBoxType.commanderTax),
-          inactiveWidget: player.commanderTax == 0
-              ? const Icon(
-                  MtgIcons.commander,
-                  color: Colors.white,
-                )
-              : Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    const Icon(
-                      MtgIcons.commander,
-                      size: 16,
-                      color: Colors.white30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        player.commanderTax.toString(),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-          activeColor: Colors.white,
+        DynamicPressableButton(
+          isActive: _selectedBoxType == PanelBoxType.commanderTax,
+          value: player.commanderTax,
+          icon: MtgIcons.commander,
           onToggle: () {
             changeSelectedBoxType(
               _selectedBoxType == PanelBoxType.commanderTax
