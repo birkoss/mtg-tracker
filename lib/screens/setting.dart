@@ -178,134 +178,122 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     Text(
                       "Show Additional Counters",
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Those counters will be added, depending on Commanders and Partners, in the same order they are presented here.",
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Poison",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: setting.showPoisonCounter,
-                                onChanged: (bool value) {
-                                  setting.togglePoisonCounter();
-                                },
-                              ),
-                            ],
-                          ),
+                        Text(
+                          "Commander Damage",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Energy",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: setting.showEnergyCounter,
-                                onChanged: (bool value) {
-                                  setting.toggleEnergyCounter();
-                                },
-                              ),
-                            ],
-                          ),
+                        Switch(
+                          value: setting.showCommanderDamage,
+                          onChanged: (bool value) {
+                            setting.toggleCommanderDamage();
+                          },
                         ),
                       ],
                     ),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Experience",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: setting.showExperienceCounter,
-                                onChanged: (bool value) {
-                                  setting.toggleExperienceCounter();
-                                },
-                              ),
-                            ],
-                          ),
+                        Text(
+                          "Commander Tax",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Commander Tax",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: setting.showCommanderTax,
-                                onChanged: (bool value) {
-                                  setting.toggleCommanderTax();
-                                },
-                              ),
-                            ],
-                          ),
-                        )
+                        Switch(
+                          value: setting.showCommanderTax,
+                          onChanged: (bool value) {
+                            setting.toggleCommanderTax();
+                          },
+                        ),
                       ],
                     ),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Storm",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: setting.showStormCounter,
-                                onChanged: (bool value) {
-                                  setting.toggleStormCounter();
-                                },
-                              ),
-                            ],
-                          ),
+                        Text(
+                          "Poison",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Commander Damage",
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Switch(
-                                value: setting.showCommanderDamage,
-                                onChanged: (bool value) {
-                                  setting.toggleCommanderDamage();
-                                },
-                              ),
-                            ],
-                          ),
-                        )
+                        Switch(
+                          value: setting.showPoisonCounter,
+                          onChanged: (bool value) {
+                            setting.togglePoisonCounter();
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Energy",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Switch(
+                          value: setting.showEnergyCounter,
+                          onChanged: (bool value) {
+                            setting.toggleEnergyCounter();
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Experience",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Switch(
+                          value: setting.showExperienceCounter,
+                          onChanged: (bool value) {
+                            setting.toggleExperienceCounter();
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Storm",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Switch(
+                          value: setting.showStormCounter,
+                          onChanged: (bool value) {
+                            setting.toggleStormCounter();
+                          },
+                        ),
                       ],
                     ),
                     const Divider(

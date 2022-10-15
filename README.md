@@ -1,9 +1,9 @@
 # MTG Tracker
 
-## TODO Next Release
+- Added Storm Count Tracker
+- Added more options and customizations
 
-Add Storm Count Tracker
-  - Icon: Thunderstorm
+## TODO Next Release
 
 Add Icons to settings, better ui, less space
 

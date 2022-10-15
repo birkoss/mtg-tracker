@@ -190,6 +190,24 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
     // Add additional trackers (Poison, Energy, Experience) if there's still enough space
     List<Widget> trackers = [];
+
+    if (context.read<SettingNotifier>().showCommanderTax) {
+      trackers.add(
+        DynamicPressableButton(
+          isActive: _selectedBoxType == PanelBoxType.commanderTax,
+          value: player.commanderTax,
+          icon: MtgIcons.commander,
+          onToggle: () {
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.commanderTax
+                  ? PanelBoxType.normal
+                  : PanelBoxType.commanderTax,
+            );
+          },
+        ),
+      );
+    }
+
     if (context.read<SettingNotifier>().showPoisonCounter) {
       trackers.add(
         DynamicPressableButton(
@@ -206,6 +224,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         ),
       );
     }
+
     if (context.read<SettingNotifier>().showEnergyCounter) {
       trackers.add(
         DynamicPressableButton(
@@ -217,23 +236,6 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
               _selectedBoxType == PanelBoxType.energy
                   ? PanelBoxType.normal
                   : PanelBoxType.energy,
-            );
-          },
-        ),
-      );
-    }
-
-    if (context.read<SettingNotifier>().showStormCounter) {
-      trackers.add(
-        DynamicPressableButton(
-          isActive: (_selectedBoxType == PanelBoxType.storm),
-          value: player.storm,
-          icon: Icons.thunderstorm,
-          onToggle: () {
-            changeSelectedBoxType(
-              _selectedBoxType == PanelBoxType.storm
-                  ? PanelBoxType.normal
-                  : PanelBoxType.storm,
             );
           },
         ),
@@ -257,25 +259,26 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       );
     }
 
-    if (context.read<SettingNotifier>().showCommanderTax) {
+    if (context.read<SettingNotifier>().showStormCounter) {
       trackers.add(
         DynamicPressableButton(
-          isActive: _selectedBoxType == PanelBoxType.commanderTax,
-          value: player.commanderTax,
-          icon: MtgIcons.commander,
+          isActive: (_selectedBoxType == PanelBoxType.storm),
+          value: player.storm,
+          icon: Icons.thunderstorm,
           onToggle: () {
             changeSelectedBoxType(
-              _selectedBoxType == PanelBoxType.commanderTax
+              _selectedBoxType == PanelBoxType.storm
                   ? PanelBoxType.normal
-                  : PanelBoxType.commanderTax,
+                  : PanelBoxType.storm,
             );
           },
         ),
       );
     }
 
+    // Fit the additionnal trackers in the remaining spaces
     for (int i = 0; i < trackers.length; i++) {
-      for (int j = list.length - 1; j >= 0; j--) {
+      for (int j = 0; j < list.length; j++) {
         if (list[j] == null) {
           list[j] = trackers[i];
           break;
