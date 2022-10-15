@@ -430,6 +430,17 @@ class _SettingScreenState extends State<SettingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      "Global Settings",
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
                       "Use Dark Theme?",
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1,
@@ -463,18 +474,6 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "Auto Apply Commander Damage?",
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    Switch(
-                      value: setting.autoApplyCommanderDamage,
-                      onChanged: (bool value) {
-                        setting.changeAutoApplyCommanderDamage(value);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
                       "Always Pick Random Player on New Game?",
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1,
@@ -483,6 +482,31 @@ class _SettingScreenState extends State<SettingScreen> {
                       value: setting.pickPlayerOnNewGame,
                       onChanged: (bool value) {
                         setting.togglePickPlayerOnNewGame();
+                      },
+                    ),
+                    const Divider(
+                      height: 30,
+                      thickness: 2,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Trackers Settings",
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Auto Apply Commander Damage?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Switch(
+                      value: setting.autoApplyCommanderDamage,
+                      onChanged: (bool value) {
+                        setting.changeAutoApplyCommanderDamage(value);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -497,6 +521,18 @@ class _SettingScreenState extends State<SettingScreen> {
                         setting.toggleAutoEliminatePlayer();
                       },
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Revert to life tracker after 5 seconds of inactivity after assigning Commander Damage?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Switch(
+                      value: setting.autoCloseTracker,
+                      onChanged: (bool value) {
+                        setting.toggleAutoCloseTracker();
+                      },
+                    )
                   ],
                 ),
               ),

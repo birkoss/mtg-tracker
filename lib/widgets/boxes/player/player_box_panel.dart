@@ -516,6 +516,13 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
               return ScaleTransition(scale: animation, child: child);
             },
             child: AmountBox(
+              onAutoClose: _selectedBoxType == PanelBoxType.commander
+                  ? () {
+                      if (context.read<SettingNotifier>().autoCloseTracker) {
+                        changeSelectedBoxType(PanelBoxType.normal);
+                      }
+                    }
+                  : null,
               key: ValueKey<String>(amountBoxKey),
               getIcon: _getIcon,
               getLabel: _getLabel,

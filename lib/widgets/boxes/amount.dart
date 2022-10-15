@@ -14,6 +14,7 @@ class AmountBox extends StatefulWidget {
   final bool bigFont;
   final bool lightMode;
   final Function()? onPress;
+  final Function()? onAutoClose;
 
   const AmountBox({
     Key? key,
@@ -25,6 +26,7 @@ class AmountBox extends StatefulWidget {
     this.lightMode = true,
     this.bigFont = true,
     this.onPress,
+    this.onAutoClose,
   }) : super(key: key);
 
   @override
@@ -34,10 +36,13 @@ class AmountBox extends StatefulWidget {
 class _AmountBox extends State<AmountBox> {
   int _amountChanges = 0;
   late RestartableTimer _timerAmountChanges;
+  late RestartableTimer _timerAutoClose;
   bool _isTooltipVisible = false;
 
   void updateAmount(int value) {
     _timerAmountChanges.reset();
+    _timerAutoClose.reset();
+
     setState(() {
       _isTooltipVisible = true;
       _amountChanges += value;
@@ -56,11 +61,21 @@ class _AmountBox extends State<AmountBox> {
         });
       },
     );
+
+    _timerAutoClose = RestartableTimer(
+      const Duration(seconds: 5),
+      () {
+        if (widget.onAutoClose != null) {
+          widget.onAutoClose!();
+        }
+      },
+    );
   }
 
   @override
   void dispose() {
     _timerAmountChanges.cancel();
+    _timerAutoClose.cancel();
     super.dispose();
   }
 

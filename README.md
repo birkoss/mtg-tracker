@@ -1,19 +1,10 @@
 # MTG Tracker
 
-- Added Storm Count Tracker
+- Added more trackers
 - Added more options and customizations
 
 ## TODO Next Release
 
-Is Dead Screen
-  - Show the SETTINGS tabs with Is Dead Switch on click
-
-Add Settings to track commander damage or not
-  - Enabled by default
-
-The app has been great so far. A piece of feedback: after assigning Commander damage, it should reset to the life total screen after a short period with no further inputs
-  - I'll add an option named "Revert to life total after X seconds of inactivity", disabled by default. I'll apply this to all Trackers (commander, poison, etc..)
-  - I would say 5 or 10 seconds personally. The app is very clean and easy to use! Great work
 
 ## TODO
 

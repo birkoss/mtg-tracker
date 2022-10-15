@@ -25,6 +25,9 @@ class SettingNotifier extends ChangeNotifier {
   bool _autoEliminatePlayer = false;
   bool get autoElimitatePlayer => _autoEliminatePlayer;
 
+  bool _autoCloseTracker = false;
+  bool get autoCloseTracker => _autoCloseTracker;
+
   bool _isSimpleMode = false;
   bool get isSimpleMode => _isSimpleMode;
 
@@ -106,6 +109,12 @@ class SettingNotifier extends ChangeNotifier {
 
   void toggleAutoEliminatePlayer() {
     _autoEliminatePlayer = !_autoEliminatePlayer;
+    save();
+    notifyListeners();
+  }
+
+  void toggleAutoCloseTracker() {
+    _autoCloseTracker = !_autoCloseTracker;
     save();
     notifyListeners();
   }
