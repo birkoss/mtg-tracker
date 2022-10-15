@@ -5,8 +5,6 @@
 
 ## TODO Next Release
 
-Add Icons to settings, better ui, less space
-
 Is Dead Screen
   - Show the SETTINGS tabs with Is Dead Switch on click
 

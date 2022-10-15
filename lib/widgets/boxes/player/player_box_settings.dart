@@ -45,7 +45,11 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 3, vsync: this, initialIndex: 1);
+    _controller = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: (widget.isDead ? 0 : 1),
+    );
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => setState(() {
