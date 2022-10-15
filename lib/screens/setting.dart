@@ -177,7 +177,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       thickness: 2,
                     ),
                     Text(
-                      "Show Additional Counters",
+                      "Show Additional Trackers",
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 18,
@@ -186,7 +186,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Those counters will be added, depending on Commanders and Partners, in the same order they are presented here.",
+                      "Those counters will be added, depending on Commanders and Partners, in the same order they are presented here. There are seven spaces for trackers.",
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
@@ -448,7 +448,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Lighter UI, without Commander Damage tracking",
+                      "Lighter UI, without additional trackers",
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontWeight: FontWeight.normal,
@@ -487,7 +487,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "Automatically Eliminate Player on Commander Damage or Normal Damage?",
+                      "Auto Eliminate Player on Commander Damage or Normal Damage?",
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
