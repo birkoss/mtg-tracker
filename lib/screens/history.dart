@@ -32,81 +32,93 @@ class _HistoryScreenState extends State<HistoryScreen> {
         title: const Text("History"),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: ListView.separated(
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.all(10),
-            shrinkWrap: true,
-            itemCount: history.histories.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 10,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                color: history
-                    .histories[history.histories.length - index - 1].player
-                    .getColor(),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        (titles.containsKey(history
-                                .histories[history.histories.length - index - 1]
-                                .type
-                                .toString())
-                            ? titles[history
-                                .histories[history.histories.length - index - 1]
-                                .type
-                                .toString()]!
-                            : ""),
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 20,
-                              color: Colors.white,
+        child: Column(
+          children: [
+            ListView.separated(
+              padding: const EdgeInsets.all(10),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: history.histories.length,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(
+                height: 10,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  color: history
+                      .histories[history.histories.length - index - 1].player
+                      .getColor(),
+                  key: ValueKey<String>(index.toString()),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          (titles.containsKey(history
+                                  .histories[
+                                      history.histories.length - index - 1]
+                                  .type
+                                  .toString())
+                              ? titles[history
+                                  .histories[
+                                      history.histories.length - index - 1]
+                                  .type
+                                  .toString()]!
+                              : ""),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              history
+                                  .histories[
+                                      history.histories.length - index - 1]
+                                  .from
+                                  .toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
                             ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            history
-                                .histories[history.histories.length - index - 1]
-                                .from
-                                .toString(),
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                    ),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          Text(
-                            history
-                                .histories[history.histories.length - index - 1]
-                                .to
-                                .toString(),
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            Text(
+                              history
+                                  .histories[
+                                      history.histories.length - index - 1]
+                                  .to
+                                  .toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
