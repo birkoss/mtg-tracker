@@ -1,12 +1,11 @@
 # MTG Tracker
 
-- Added more trackers
-- Added more options and customizations
-
 ## TODO Next Release
 
 
 ## TODO
+
+Try to add 5 players back
 
 Test on Ipad + Enable iPad support
 
