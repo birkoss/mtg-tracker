@@ -7,6 +7,8 @@ class Player with ChangeNotifier {
 
   Color color = Colors.red;
 
+  String name = "";
+
   bool isDead = false;
 
   List<Player> opponents = [];
@@ -52,6 +54,7 @@ class Player with ChangeNotifier {
 
   Player({
     required this.id,
+    required this.name,
   }) {
     reset(40);
   }

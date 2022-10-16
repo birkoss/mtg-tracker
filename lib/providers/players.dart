@@ -30,10 +30,10 @@ class Players extends ChangeNotifier {
     // Generate all Players
     for (int i = 0; i < setting.playersNumber; i++) {
       Player player = Player(
-        id: i.toString() +
-            "-" +
-            DateTime.now().millisecondsSinceEpoch.toString(),
-      );
+          id: i.toString() +
+              "-" +
+              DateTime.now().millisecondsSinceEpoch.toString(),
+          name: "Player #" + (i + 1).toString());
       player.reset(setting.startingLives);
 
       // Set Colors

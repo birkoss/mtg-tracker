@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:mtgtracker/providers/player.dart';
-import 'package:mtgtracker/widgets/boxes/player/player_box_panel.dart';
+import '../providers/player.dart';
+import '../widgets/boxes/player/player_box_panel.dart';
 
 class History {
   Player player;
@@ -9,6 +9,7 @@ class History {
   int from;
   int to;
   int lastChanged;
+  Player? opponent;
 
   History({
     required this.player,
@@ -16,6 +17,7 @@ class History {
     required this.from,
     required this.to,
     required this.lastChanged,
+    this.opponent,
   });
 
   void update(int modifier) {
@@ -34,6 +36,7 @@ class HistoryNotifier extends ChangeNotifier {
     required PanelBoxType type,
     required int from,
     required int to,
+    Player? opponent,
   }) {
     int threshold = 2000; // Milliseconds
 
@@ -44,16 +47,19 @@ class HistoryNotifier extends ChangeNotifier {
       (history) =>
           history.player == player &&
           history.type == type &&
-          history.lastChanged + threshold >= now,
+          history.lastChanged + threshold >= now &&
+          history.opponent == opponent,
     );
 
     if (index == -1) {
       History history = History(
-          from: from,
-          to: from + to,
-          player: player,
-          type: type,
-          lastChanged: now);
+        from: from,
+        to: from + to,
+        player: player,
+        type: type,
+        lastChanged: now,
+        opponent: opponent,
+      );
       _histories.add(history);
     } else {
       _histories[index].update(to);

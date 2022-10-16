@@ -363,12 +363,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
     Player player = Provider.of<Player>(context, listen: false);
 
-    context.read<HistoryNotifier>().log(
-          player: player,
-          type: _selectedBoxType,
-          from: int.parse(_getValue()),
-          to: modifier,
-        );
+    Player? opponent;
 
     switch (_selectedBoxType) {
       case PanelBoxType.commander:
@@ -379,6 +374,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                 21) {
           return false;
         }
+
+        // Set the right opponent for the logs
+        opponent = player.opponents[_selectedCommander[0]];
 
         setState(() {
           player.commanderDamages[_selectedCommander[0]]
@@ -434,6 +432,14 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         }
         break;
     }
+
+    context.read<HistoryNotifier>().log(
+          player: player,
+          type: _selectedBoxType,
+          from: int.parse(_getValue()),
+          to: modifier,
+          opponent: opponent,
+        );
 
     return true;
   }

@@ -9,6 +9,10 @@ Try to add 5 players back
 
 Test on Ipad + Enable iPad support
 
+Logs & History
+  - Convert to line of text (easier to manage) ?
+  - Add a new log when new game
+
 Player Box
  - See and Track
    - Monarch
