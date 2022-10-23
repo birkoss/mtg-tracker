@@ -147,48 +147,92 @@ class LayoutNotifier extends ChangeNotifier {
         }
         break;
       case 7:
-        _rows.add([
-          Layout(player: players[0], direction: LayoutDirection.left),
-          Layout(player: players[1], direction: LayoutDirection.right),
-        ]);
+        if (setting.tableLayout == 2) {
+          _rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
 
-        _rows.add([
-          Layout(player: players[2], direction: LayoutDirection.left),
-          Layout(player: players[3], direction: LayoutDirection.right),
-        ]);
+          _rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
 
-        _rows.add([
-          Layout(player: players[4], direction: LayoutDirection.left),
-          Layout(player: players[5], direction: LayoutDirection.right),
-        ]);
+          _rows.add([
+            Layout(player: players[4], direction: LayoutDirection.left),
+            Layout(player: players[5], direction: LayoutDirection.right),
+          ]);
 
-        _rows.add([
-          Layout(player: players[6], direction: LayoutDirection.bottom),
-        ]);
+          _rows.add([
+            Layout(player: players[6], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          _rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
+
+          _rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
+
+          _rows.add([
+            Layout(player: players[4], direction: LayoutDirection.left),
+            Layout(player: players[5], direction: LayoutDirection.right),
+          ]);
+
+          _rows.add([
+            Layout(player: players[6], direction: LayoutDirection.left),
+            Layout(player: null, direction: null),
+          ]);
+        }
         break;
       case 8:
-        _rows.add([
-          Layout(player: players[0], direction: LayoutDirection.top),
-        ]);
+        if (setting.tableLayout == 2) {
+          _rows.add([
+            Layout(player: players[0], direction: LayoutDirection.top),
+          ]);
 
-        _rows.add([
-          Layout(player: players[1], direction: LayoutDirection.left),
-          Layout(player: players[2], direction: LayoutDirection.right),
-        ]);
+          _rows.add([
+            Layout(player: players[1], direction: LayoutDirection.left),
+            Layout(player: players[2], direction: LayoutDirection.right),
+          ]);
 
-        _rows.add([
-          Layout(player: players[3], direction: LayoutDirection.left),
-          Layout(player: players[4], direction: LayoutDirection.right),
-        ]);
+          _rows.add([
+            Layout(player: players[3], direction: LayoutDirection.left),
+            Layout(player: players[4], direction: LayoutDirection.right),
+          ]);
 
-        _rows.add([
-          Layout(player: players[5], direction: LayoutDirection.left),
-          Layout(player: players[6], direction: LayoutDirection.right),
-        ]);
+          _rows.add([
+            Layout(player: players[5], direction: LayoutDirection.left),
+            Layout(player: players[6], direction: LayoutDirection.right),
+          ]);
 
-        _rows.add([
-          Layout(player: players[7], direction: LayoutDirection.bottom),
-        ]);
+          _rows.add([
+            Layout(player: players[7], direction: LayoutDirection.bottom),
+          ]);
+        } else {
+          _rows.add([
+            Layout(player: players[0], direction: LayoutDirection.left),
+            Layout(player: players[1], direction: LayoutDirection.right),
+          ]);
+
+          _rows.add([
+            Layout(player: players[2], direction: LayoutDirection.left),
+            Layout(player: players[3], direction: LayoutDirection.right),
+          ]);
+
+          _rows.add([
+            Layout(player: players[4], direction: LayoutDirection.left),
+            Layout(player: players[5], direction: LayoutDirection.right),
+          ]);
+
+          _rows.add([
+            Layout(player: players[6], direction: LayoutDirection.left),
+            Layout(player: players[7], direction: LayoutDirection.right),
+          ]);
+        }
         break;
       default:
         _rows.add([

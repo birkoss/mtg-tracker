@@ -1,6 +1,8 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/providers/setting.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/ui/amount/button.dart';
 import '../../widgets/ui/amount/text.dart';
@@ -79,17 +81,25 @@ class _AmountBox extends State<AmountBox> {
     super.dispose();
   }
 
+  void _changeValue(int modifier) {
+    // Do NOT decrease bellow 0
+    if (modifier == -1 && int.parse(widget.getValue()) <= 0) {
+      return;
+    }
+
+    if (widget.setValue(modifier)) {
+      updateAmount(modifier);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _changeValue(int modifier) {
-      // Do NOT decrease bellow 0
-      if (modifier == -1 && int.parse(widget.getValue()) <= 0) {
-        return;
-      }
-
-      if (widget.setValue(modifier)) {
-        updateAmount(modifier);
-      }
+    double fontSize = 54;
+    if (context.read<SettingNotifier>().playersNumber >= 6) {
+      fontSize = 30;
+    }
+    if (!widget.bigFont) {
+      fontSize = 40;
     }
 
     return Stack(
@@ -142,7 +152,7 @@ class _AmountBox extends State<AmountBox> {
                 key: ValueKey<String>(widget.getValue()),
                 overflow: TextOverflow.visible,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: widget.bigFont ? 54 : 40,
+                      fontSize: fontSize,
                       color: widget.lightMode
                           ? Colors.white
                           : Theme.of(context).primaryColor,

@@ -501,7 +501,8 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     return Row(
       children: [
         // Commander Damages, Settings and other Trackers
-        if (!context.read<SettingNotifier>().isSimpleMode)
+        if (!context.read<SettingNotifier>().isSimpleMode &&
+            context.read<SettingNotifier>().playersNumber <= 4)
           Expanded(
             flex: 1,
             child: Container(
