@@ -119,6 +119,16 @@ class _SettingScreenState extends State<SettingScreen> {
       nbrPlayers.add({"value": i.toString(), "label": i.toString()});
     }
 
+    bool warnAboutTracker = false;
+
+    if (_selectedPlayersNumber > 6) {
+      warnAboutTracker = true;
+    }
+    // All Around is NOT possible with all the visible trackers
+    if (_selectedPlayersNumber > 4 && _selectedTableLayout == 2) {
+      warnAboutTracker = true;
+    }
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -395,6 +405,28 @@ class _SettingScreenState extends State<SettingScreen> {
                       height: 30,
                       thickness: 2,
                     ),
+                    if (warnAboutTracker)
+                      Column(
+                        children: const [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.0),
+                            child: Text(
+                              "This layout will not have the players individual trackers. An update will allow it down the road!",
+                              style: TextStyle(
+                                color: Colors.redAccent,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                          Divider(
+                            height: 30,
+                            thickness: 2,
+                          )
+                        ],
+                      ),
                     const Padding(
                       padding: EdgeInsets.only(bottom: 10.0),
                       child: Text(
