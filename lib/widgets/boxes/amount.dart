@@ -95,7 +95,7 @@ class _AmountBox extends State<AmountBox> {
   @override
   Widget build(BuildContext context) {
     double fontSize = 54;
-    if (context.read<SettingNotifier>().playersNumber >= 6) {
+    if (context.read<SettingNotifier>().playersNumber >= 5) {
       fontSize = 30;
     }
     if (!widget.bigFont) {

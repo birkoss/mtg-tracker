@@ -498,13 +498,27 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           _selectedCommander[1].toString();
     }
 
+    bool showTrackers = true;
+
+    // Hide the trackers depending on SimpleMode, more than 6 players, etc.
+    if (context.read<SettingNotifier>().isSimpleMode) {
+      showTrackers = false;
+    }
+    if (context.read<SettingNotifier>().playersNumber > 6) {
+      showTrackers = false;
+    }
+    // All Around is NOT possible with all the visible trackers
+    if (context.read<SettingNotifier>().playersNumber > 4 &&
+        context.read<SettingNotifier>().tableLayout == 2) {
+      showTrackers = false;
+    }
+
     return Row(
       children: [
         // Commander Damages, Settings and other Trackers
-        if (!context.read<SettingNotifier>().isSimpleMode &&
-            context.read<SettingNotifier>().playersNumber <= 4)
+        if (showTrackers)
           Expanded(
-            flex: 1,
+            flex: context.read<SettingNotifier>().playersNumber <= 4 ? 1 : 2,
             child: Container(
               padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
               child: Column(
@@ -516,7 +530,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           ),
         // Amount Boxes
         Expanded(
-          flex: 2,
+          flex: context.read<SettingNotifier>().playersNumber <= 4 ? 2 : 3,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 160),
             transitionBuilder: (Widget child, Animation<double> animation) {
