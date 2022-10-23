@@ -2,15 +2,16 @@
 
 ## TODO Next Release
 
-
 ## TODO
 
 Try to add 5 players back
+  - When more than 4 players
+    - Disable all button, and instead, allow the click on the container, to open the Panel in full screen instead
+    - Clicking on it again should close it
 
 Test on Ipad + Enable iPad support
 
 Logs & History
-  - Convert to line of text (easier to manage) ?
   - Add a new log when new game
 
 Player Box

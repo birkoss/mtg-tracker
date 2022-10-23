@@ -2,6 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingNotifier extends ChangeNotifier {
+  static Map<String, List<Color>> colorSchemes = {
+    "light": const [
+      Color.fromRGBO(228, 82, 95, 1),
+      Color.fromRGBO(156, 186, 96, 1),
+      Color.fromRGBO(245, 143, 41, 1),
+      Color.fromRGBO(147, 187, 222, 1),
+      Color.fromRGBO(63, 116, 166, 1),
+      Color.fromRGBO(107, 95, 145, 1),
+      Color.fromRGBO(91, 162, 224, 1),
+      Color.fromRGBO(255, 120, 124, 1),
+      Color.fromRGBO(77, 205, 204, 1),
+      Color.fromRGBO(253, 197, 86, 1),
+      Color.fromRGBO(233, 91, 55, 1),
+      //Color.fromRGBO(255, 0, 255, 1), // Only for test!
+    ],
+    "dark": const [
+      Color.fromRGBO(67, 63, 64, 1),
+      Color.fromRGBO(178, 172, 171, 1),
+      Color.fromRGBO(114, 107, 104, 1),
+      Color.fromRGBO(131, 135, 141, 1),
+      Color.fromRGBO(121, 121, 121, 1),
+      Color.fromRGBO(72, 61, 65, 1),
+      Color.fromRGBO(200, 200, 200, 1),
+      Color.fromRGBO(88, 98, 97, 1),
+      Color.fromRGBO(148, 147, 145, 1),
+    ],
+  };
+
+  static int maximumPlayers = 8;
+
   SharedPreferences? _pref;
 
   bool _isReady = false;
@@ -175,15 +205,28 @@ class SettingNotifier extends ChangeNotifier {
 
     _pickPlayerOnNewGame = _pref!.getBool("PICK_PLAYER_ON_NEW_GAME") ?? true;
 
-    // Default colors (and if the saved data is INVALID)
-    String defaultColors = "4293153375_4288461408_4294283049_4287871966";
-    String formattedColor = _pref!.getString("COLORS") ?? defaultColors;
+    // Pick defaultColors based on the maximum players number
+    List<String> defaultColors = [];
+    for (int i = 0; i < SettingNotifier.maximumPlayers; i++) {
+      defaultColors.add(
+        SettingNotifier.colorSchemes['light']![i].value.toString(),
+      );
+    }
 
+    // Load save colors
+    String formattedColor = _pref!.getString("COLORS") ?? defaultColors[0];
     List<String> textColors = formattedColor.split("_");
 
-    // Must have AT LEAST 4 entries, else use the defaultColors
-    if (textColors.length < 4) {
-      textColors = defaultColors.split("_");
+    // Fill the colors to the maximum players available with remaining default colors
+    if (textColors.length < defaultColors.length) {
+      // Remove the choosen color from the list to prevent duplicate
+      for (String colorValue in textColors) {
+        defaultColors.remove(colorValue);
+      }
+      // Add remaining default colors
+      for (int i = textColors.length; i < defaultColors.length; i++) {
+        textColors.add(defaultColors.removeAt(0));
+      }
     }
 
     // Convert the saved colors value in Color

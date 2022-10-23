@@ -1,31 +1,5 @@
 import 'package:flutter/material.dart';
-
-Map<String, List<Color>> colors = {
-  "light": const [
-    Color.fromRGBO(228, 82, 95, 1),
-    Color.fromRGBO(156, 186, 96, 1),
-    Color.fromRGBO(245, 143, 41, 1),
-    Color.fromRGBO(147, 187, 222, 1),
-    Color.fromRGBO(63, 116, 166, 1),
-    Color.fromRGBO(107, 95, 145, 1),
-    Color.fromRGBO(91, 162, 224, 1),
-    Color.fromRGBO(255, 120, 124, 1),
-    Color.fromRGBO(77, 205, 204, 1),
-    Color.fromRGBO(253, 197, 86, 1),
-    Color.fromRGBO(233, 91, 55, 1),
-  ],
-  "dark": const [
-    Color.fromRGBO(67, 63, 64, 1),
-    Color.fromRGBO(178, 172, 171, 1),
-    Color.fromRGBO(114, 107, 104, 1),
-    Color.fromRGBO(131, 135, 141, 1),
-    Color.fromRGBO(121, 121, 121, 1),
-    Color.fromRGBO(72, 61, 65, 1),
-    Color.fromRGBO(200, 200, 200, 1),
-    Color.fromRGBO(88, 98, 97, 1),
-    Color.fromRGBO(148, 147, 145, 1),
-  ],
-};
+import 'package:mtgtracker/providers/setting.dart';
 
 class SettingColorsScreenArguments {
   final Color currentColor;
@@ -100,8 +74,8 @@ class _SettingColorsScreenState extends State<SettingColorsScreen> {
 
     List<Widget> widgets = [];
 
-    for (var i = 0; i < colors[theme]!.length; i++) {
-      Color color = colors[theme]![i];
+    for (var i = 0; i < SettingNotifier.colorSchemes[theme]!.length; i++) {
+      Color color = SettingNotifier.colorSchemes[theme]![i];
 
       widgets.add(
         Padding(
