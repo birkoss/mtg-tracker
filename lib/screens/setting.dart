@@ -414,7 +414,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           Padding(
                             padding: EdgeInsets.only(bottom: 10.0),
                             child: Text(
-                              "This layout will not have the players individual trackers. An update will allow it down the road!",
+                              "This layout will not have the individual trackers for each players. An update will allow it down the road!",
                               style: TextStyle(
                                 color: Colors.redAccent,
                                 fontStyle: FontStyle.italic,
