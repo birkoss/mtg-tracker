@@ -2,12 +2,17 @@
 
 ## TODO Next Release
 
-## TODO
+- Better colors management
 
-Try to add 5 players back
+- branch: more_players
+  - Try to add 5 players back
   - When more than 4 players
     - Disable all button, and instead, allow the click on the container, to open the Panel in full screen instead
     - Clicking on it again should close it
+
+## TODO
+
+
 
 Test on Ipad + Enable iPad support
 

@@ -113,6 +113,12 @@ class _SettingScreenState extends State<SettingScreen> {
     SettingNotifier setting =
         Provider.of<SettingNotifier>(context, listen: false);
 
+    // Generate the players choice from the SettingNotifier
+    List<Map<String, String>> nbrPlayers = [];
+    for (int i = 2; i <= SettingNotifier.maximumPlayers; i++) {
+      nbrPlayers.add({"value": i.toString(), "label": i.toString()});
+    }
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -330,15 +336,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     const SizedBox(height: 10),
                     Toggles(
                       defaultValue: setting.playersNumber,
-                      values: const [
-                        {"value": "2", "label": "2"},
-                        {"value": "3", "label": "3"},
-                        {"value": "4", "label": "4"},
-                        // {"value": "5", "label": "5"},
-                        // {"value": "6", "label": "6"},
-                        // {"value": "7", "label": "7"},
-                        // {"value": "8", "label": "8"},
-                      ],
+                      values: nbrPlayers,
                       onChanged: (int value) {
                         setState(() {
                           _selectedPlayersNumber = value;
