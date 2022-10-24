@@ -108,7 +108,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                           : Alignment.center,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).canvasColor,
+                      backgroundColor: Theme.of(context).canvasColor,
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(10),
                       shadowColor: Colors.transparent,

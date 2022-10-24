@@ -86,7 +86,7 @@ class _SettingColorsScreenState extends State<SettingColorsScreen> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               minimumSize: Size.zero,
-              primary: color,
+              backgroundColor: color,
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
             ),
             onPressed: () {

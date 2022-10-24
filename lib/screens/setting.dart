@@ -72,7 +72,7 @@ class _SettingScreenState extends State<SettingScreen> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               minimumSize: Size.zero, // Set this
-              primary: player.getColor(),
+              backgroundColor: player.getColor(),
               padding: const EdgeInsets.all(6), // and this
             ),
             onPressed: () {
