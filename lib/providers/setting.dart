@@ -186,7 +186,6 @@ class SettingNotifier extends ChangeNotifier {
   Future _load() async {
     await _init();
 
-    print("load...");
     _playersNumber = _pref!.getInt("PLAYERS_NUMBER") ?? 4;
     _startingLives = _pref!.getInt("STARTING_LIVES") ?? 40;
     _tableLayout = _pref!.getInt("TABLE_LAYOUT") ?? 1;

@@ -119,15 +119,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       null,
       null,
       null,
-      PressableButton(
-        isActive: false,
-        inactiveWidget: const Icon(
-          Icons.settings,
-          color: Colors.white,
-        ),
-        activeColor: Colors.transparent,
-        onToggle: widget.showSettings,
-      ),
+      null,
       null,
       null,
       null,
@@ -146,8 +138,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           if (commanderIndex + 1 > opponent.totalCommanders) {
             continue;
           }
-          list[commanderIndex == 0 ? opponentIndex : opponentIndex + 4] =
-              PressableButton(
+          int widgetIndex = opponentIndex;
+          if (commanderIndex > 0) {
+            widgetIndex = opponentIndex + (opponentIndex < 4 ? 4 : 1);
+          }
+          list[widgetIndex] = PressableButton(
             isActive: (_selectedBoxType == PanelBoxType.commander &&
                 _selectedCommander[0] == opponentIndex &&
                 _selectedCommander[1] == commanderIndex),
@@ -186,6 +181,32 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           );
         }
       }
+    }
+
+    // Try to add the SETTINGS, in the BOTTOM LEFT space if available
+    // - Else, Pick the first empty spot
+    int settingButtonIndex = 3;
+
+    if (list[settingButtonIndex] != null) {
+      settingButtonIndex = -1;
+      for (int i = list.length - 1; i >= 0; i--) {
+        if (list[i] == null) {
+          settingButtonIndex = i;
+          break;
+        }
+      }
+    }
+
+    if (settingButtonIndex != -1) {
+      list[settingButtonIndex] = PressableButton(
+        isActive: false,
+        inactiveWidget: const Icon(
+          Icons.settings,
+          color: Colors.white,
+        ),
+        activeColor: Colors.transparent,
+        onToggle: widget.showSettings,
+      );
     }
 
     // Add additional trackers (Poison, Energy, Experience) if there's still enough space
@@ -444,6 +465,23 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     return true;
   }
 
+  bool _showTrackers() {
+    // Hide the trackers depending on SimpleMode, more than 6 players, etc.
+    if (context.read<SettingNotifier>().isSimpleMode) {
+      return false;
+    }
+    if (context.read<SettingNotifier>().playersNumber > 6) {
+      return false;
+    }
+    // All Around is NOT possible with all the visible trackers
+    if (context.read<SettingNotifier>().playersNumber > 4 &&
+        context.read<SettingNotifier>().tableLayout == 2) {
+      return false;
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     Player player = Provider.of<Player>(context, listen: false);
@@ -498,25 +536,10 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           _selectedCommander[1].toString();
     }
 
-    bool showTrackers = true;
-
-    // Hide the trackers depending on SimpleMode, more than 6 players, etc.
-    if (context.read<SettingNotifier>().isSimpleMode) {
-      showTrackers = false;
-    }
-    if (context.read<SettingNotifier>().playersNumber > 6) {
-      showTrackers = false;
-    }
-    // All Around is NOT possible with all the visible trackers
-    if (context.read<SettingNotifier>().playersNumber > 4 &&
-        context.read<SettingNotifier>().tableLayout == 2) {
-      showTrackers = false;
-    }
-
     return Row(
       children: [
         // Commander Damages, Settings and other Trackers
-        if (showTrackers)
+        if (_showTrackers())
           Expanded(
             flex: context.read<SettingNotifier>().playersNumber <= 4 ? 1 : 2,
             child: Container(
