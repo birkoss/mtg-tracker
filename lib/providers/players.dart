@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:mtgtracker/providers/setting.dart';
 import 'package:flutter/material.dart';
 
 import '../providers/player.dart';
+import '../providers/setting.dart';
 
 class Players extends ChangeNotifier {
   List<Player> _players = [];

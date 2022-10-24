@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/setting.dart';
+
+import '../providers/setting.dart';
 
 class SettingColorsScreenArguments {
   final Color currentColor;

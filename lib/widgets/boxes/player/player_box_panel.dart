@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mtgtracker/providers/history.dart';
-import 'package:mtgtracker/providers/players.dart';
-import 'package:mtgtracker/widgets/dynamic_pressable_button.dart';
 import 'package:provider/provider.dart';
 
+import '../../../providers/history.dart';
 import '../../../providers/player.dart';
+import '../../../providers/players.dart';
 import '../../../providers/setting.dart';
 
 import '../amount.dart';
+import '../../dynamic_pressable_button.dart';
+import '../../mtgicons.dart';
 import '../../pressable_button.dart';
-import '../../../widgets/mtgicons.dart';
 
 // What are we modifying in the Panel
 enum PanelBoxType {

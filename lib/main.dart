@@ -1,16 +1,18 @@
 import 'package:flutter/services.dart';
-import 'package:mtgtracker/providers/history.dart';
-import 'package:mtgtracker/screens/colors.dart';
-import 'package:mtgtracker/screens/history.dart';
-import 'package:mtgtracker/screens/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';
 
+import '../providers/history.dart';
 import '../providers/layout.dart';
 import '../providers/players.dart';
 import '../providers/setting.dart';
+
+import '../screens/colors.dart';
+import '../screens/history.dart';
+import '../screens/loading.dart';
 import '../screens/tracker.dart';
+
 import '../themes/custom.dart';
 
 /*

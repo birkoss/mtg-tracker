@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mtgtracker/providers/player.dart';
-import 'package:mtgtracker/providers/setting.dart';
-import 'package:mtgtracker/widgets/boxes/player/tools/amount.dart';
 import 'package:provider/provider.dart';
 
+import '../../../providers/player.dart';
+import '../../../providers/setting.dart';
+
 import '../../../widgets/boxes/mana.dart';
+import '../../../widgets/boxes/player/tools/amount.dart';
 import '../../../widgets/boxes/player/tools/coin.dart';
 import '../../../widgets/boxes/player/tools/dice.dart';
 import '../../../widgets/boxes/player/tools/opponent.dart';

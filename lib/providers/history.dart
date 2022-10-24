@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../providers/player.dart';
+
 import '../widgets/boxes/player/player_box_panel.dart';
 
 class History {

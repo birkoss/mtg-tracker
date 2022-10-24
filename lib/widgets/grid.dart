@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/layout.dart';
+
 import '../providers/layout.dart';
+
 import '../widgets/boxes/empty.dart';
-import 'boxes/player/player_box.dart';
+import '../widgets/boxes/player/player_box.dart';
 
 class Grid extends StatelessWidget {
   const Grid({

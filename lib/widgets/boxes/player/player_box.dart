@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mtgtracker/widgets/boxes/player/player_box_popup.dart';
-import 'package:mtgtracker/widgets/boxes/player/player_box_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/players.dart';
 import '../../../providers/player.dart';
 import '../../../providers/setting.dart';
-import 'player_box_panel.dart';
+
+import '../../../widgets/boxes/player/player_box_panel.dart';
+import '../../../widgets/boxes/player/player_box_popup.dart';
+import '../../../widgets/boxes/player/player_box_settings.dart';
 
 class PlayerBox extends StatefulWidget {
   // Rotation of this widget within the Grid

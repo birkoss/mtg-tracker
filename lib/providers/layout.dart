@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../models/layout.dart';
+
 import '../providers/player.dart';
 import '../providers/setting.dart';
-import '../models/layout.dart';
 
 class LayoutNotifier extends ChangeNotifier {
   final List<List<Layout>> _rows = [];
