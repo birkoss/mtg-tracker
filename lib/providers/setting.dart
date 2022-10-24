@@ -185,6 +185,8 @@ class SettingNotifier extends ChangeNotifier {
 
   Future _load() async {
     await _init();
+
+    print("load...");
     _playersNumber = _pref!.getInt("PLAYERS_NUMBER") ?? 4;
     _startingLives = _pref!.getInt("STARTING_LIVES") ?? 40;
     _tableLayout = _pref!.getInt("TABLE_LAYOUT") ?? 1;
@@ -223,9 +225,10 @@ class SettingNotifier extends ChangeNotifier {
       for (String colorValue in textColors) {
         defaultColors.remove(colorValue);
       }
+
       // Add remaining default colors
-      for (int i = textColors.length; i < defaultColors.length; i++) {
-        textColors.add(defaultColors.removeAt(0));
+      for (int i = 0; i < defaultColors.length; i++) {
+        textColors.add(defaultColors[i]);
       }
     }
 
