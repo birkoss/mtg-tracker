@@ -6,18 +6,17 @@
 
 - Support up to 8 players
 
+- iPad support
+
 ## TODO Next Release
 
-- branch: more_players
-  - More than 4 players
-    - Missing Settings Buttons
-  - When the trackers are hidden
-    - Find a way to allow the other trackers
+
 
 ## TODO
 
-- iPad support
-  - Allow tracker for more players ?
+- More than 6 players
+  - When the trackers are hidden
+    - Find a way to allow the other trackers
 
 - Logs & History
   - Add a new log when new game
