@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:mtgtracker/providers/player.dart';
-import 'package:mtgtracker/widgets/pressable_button.dart';
+import '../../providers/player.dart';
+
+import '../../widgets/pressable_button.dart';
 
 class CommanderDamage extends StatelessWidget {
   final Player opponent;
