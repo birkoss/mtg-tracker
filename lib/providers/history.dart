@@ -43,6 +43,8 @@ class HistoryNotifier extends ChangeNotifier {
 
     int now = DateTime.now().millisecondsSinceEpoch;
 
+    print(from.toString() + " ... " + to.toString());
+
     // Has a previous entries within the treeshold ?
     int index = _histories.indexWhere(
       (history) =>

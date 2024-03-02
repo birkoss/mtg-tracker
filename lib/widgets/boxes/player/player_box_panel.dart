@@ -386,6 +386,14 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
     Player? opponent;
 
+    context.read<HistoryNotifier>().log(
+          player: player,
+          type: _selectedBoxType,
+          from: int.parse(_getValue()),
+          to: modifier,
+          opponent: opponent,
+        );
+
     switch (_selectedBoxType) {
       case PanelBoxType.commander:
         // Do NOT increase Commander Damage over 21
@@ -453,14 +461,6 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         }
         break;
     }
-
-    context.read<HistoryNotifier>().log(
-          player: player,
-          type: _selectedBoxType,
-          from: int.parse(_getValue()),
-          to: modifier,
-          opponent: opponent,
-        );
 
     return true;
   }
