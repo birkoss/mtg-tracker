@@ -32,6 +32,10 @@ class HistoryNotifier extends ChangeNotifier {
 
   List<History> get histories => _histories;
 
+  void clear() {
+    _histories.clear();
+  }
+
   void log({
     required Player player,
     required PanelBoxType type,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/widgets/ui/tile_button.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/history.dart';
@@ -30,6 +31,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("History"),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.delete,
+            ),
+            onPressed: () {
+              setState(() {
+                history.clear();
+              });
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
