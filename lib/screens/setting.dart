@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/providers/history.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/player.dart';
@@ -167,6 +168,9 @@ class _SettingScreenState extends State<SettingScreen> {
                           icon: Icons.restart_alt,
                           label: "Reset Game",
                           onPress: () {
+                            if (setting.clearHistoryOnNewGame) {
+                              context.read<HistoryNotifier>().clear();
+                            }
                             Navigator.pop(context);
                             widget.onNewGame();
                           },
@@ -439,6 +443,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
+                        if (setting.clearHistoryOnNewGame) {
+                          context.read<HistoryNotifier>().clear();
+                        }
                         setting.changePlayersNumber(_selectedPlayersNumber);
                         setting.changeStartingLives(_selectedStartingLives);
                         setting.changeTableLayout(_selectedTableLayout);
@@ -512,6 +519,18 @@ class _SettingScreenState extends State<SettingScreen> {
                       value: setting.pickPlayerOnNewGame,
                       onChanged: (bool value) {
                         setting.togglePickPlayerOnNewGame();
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Clear History on New Game?",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Switch(
+                      value: setting.clearHistoryOnNewGame,
+                      onChanged: (bool value) {
+                        setting.toggleClearHistoryOnNewGame();
                       },
                     ),
                     const Divider(

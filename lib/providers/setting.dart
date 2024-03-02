@@ -82,11 +82,20 @@ class SettingNotifier extends ChangeNotifier {
   bool _pickPlayerOnNewGame = false;
   bool get pickPlayerOnNewGame => _pickPlayerOnNewGame;
 
+  bool _clearHistoryOnNewGame = false;
+  bool get clearHistoryOnNewGame => _clearHistoryOnNewGame;
+
   final List<Color> _colors = [];
   List<Color> get colors => _colors;
 
   SettingNotifier() {
     _load();
+  }
+
+  void toggleClearHistoryOnNewGame() {
+    _clearHistoryOnNewGame = !_clearHistoryOnNewGame;
+    save();
+    notifyListeners();
   }
 
   void togglePickPlayerOnNewGame() {
@@ -205,6 +214,8 @@ class SettingNotifier extends ChangeNotifier {
     _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
 
     _pickPlayerOnNewGame = _pref!.getBool("PICK_PLAYER_ON_NEW_GAME") ?? true;
+    _clearHistoryOnNewGame =
+        _pref!.getBool("CLEAR_HISTORY_ON_NEW_GAME") ?? false;
 
     // Pick defaultColors based on the maximum players number
     List<String> defaultColors = [];
@@ -259,6 +270,7 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("SHOW_COMMANDER_DAMAGE", _showCommanderDamage);
 
     _pref!.setBool("PICK_PLAYER_ON_NEW_GAME", _pickPlayerOnNewGame);
+    _pref!.setBool("CLEAR_HISTORY_ON_NEW_GAME", _clearHistoryOnNewGame);
 
     _pref!.setBool("IS_SIMPLE_MODE", _isSimpleMode);
 
