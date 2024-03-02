@@ -187,7 +187,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           icon: Icons.history,
                           label: "History",
                           onPress: () {
-                            Navigator.pushReplacementNamed(context, '/history');
+                            Navigator.pushNamed(context, '/history');
                           },
                         ),
                       ],
