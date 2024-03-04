@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TileButton extends StatelessWidget {
   final void Function() onPress;
   final IconData icon;
+  final bool isDisabled;
   final String label;
 
   const TileButton({
@@ -10,6 +11,7 @@ class TileButton extends StatelessWidget {
     required this.onPress,
     required this.icon,
     required this.label,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
@@ -19,16 +21,20 @@ class TileButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onPress,
+          onTap: (isDisabled ? () {} : onPress),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context)
+                        .primaryColor
+                        .withOpacity(isDisabled ? 0.3 : 1),
                     border: Border.all(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context)
+                          .primaryColor
+                          .withOpacity(isDisabled ? 0.3 : 1),
                     ),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(20),
@@ -44,6 +50,9 @@ class TileButton extends StatelessWidget {
                 Text(
                   label,
                   textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(isDisabled ? 0.3 : 1),
+                  ),
                 ),
               ],
             ),

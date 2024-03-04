@@ -41,6 +41,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _pickNewPlayer() {
+    print("_pickNewPlayer");
     List<int> playersIndex = [];
 
     List<int> indexes = context.read<Players>().getActivePlayers();
@@ -51,6 +52,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
     }
 
     int winner = context.read<Players>().pickRandomPlayer();
+
     for (int i in indexes) {
       playersIndex.add(i);
       if (i == winner) {
@@ -58,31 +60,33 @@ class _TrackerScreenState extends State<TrackerScreen> {
       }
     }
 
-    context.read<Players>().pickPlayer(playersIndex.removeAt(0));
-    context.read<Players>().pickingPlayer(true);
-
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    if (!context.read<Players>().isPickingPlayer) {
       context.read<Players>().pickPlayer(playersIndex.removeAt(0));
+      context.read<Players>().pickingPlayer(true);
 
-      // Stop the timer when it matches a condition
-      if (playersIndex.isEmpty) {
-        timer.cancel();
+      Timer.periodic(const Duration(milliseconds: 100), (timer) {
+        context.read<Players>().pickPlayer(playersIndex.removeAt(0));
 
-        Timer(
-          const Duration(seconds: 2),
-          () {
-            context.read<Players>().pickPlayer(-1);
+        // Stop the timer when it matches a condition
+        if (playersIndex.isEmpty) {
+          timer.cancel();
 
-            Timer(
-              const Duration(milliseconds: PlayerBoxPopup.animationDuration),
-              () {
-                context.read<Players>().pickingPlayer(false);
-              },
-            );
-          },
-        );
-      }
-    });
+          Timer(
+            const Duration(seconds: 2),
+            () {
+              context.read<Players>().pickPlayer(-1);
+
+              Timer(
+                const Duration(milliseconds: PlayerBoxPopup.animationDuration),
+                () {
+                  context.read<Players>().pickingPlayer(false);
+                },
+              );
+            },
+          );
+        }
+      });
+    }
   }
 
   @override

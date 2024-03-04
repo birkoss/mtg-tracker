@@ -178,6 +178,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         TileButton(
                           icon: Icons.people,
                           label: "Choose\nRandom Player",
+                          isDisabled: context.read<Players>().isPickingPlayer,
                           onPress: () {
                             Navigator.pop(context);
                             widget.onPickNewPlayer();
