@@ -36,9 +36,35 @@ class _HistoryScreenState extends State<HistoryScreen> {
               Icons.delete,
             ),
             onPressed: () {
-              setState(() {
-                history.clear();
-              });
+              AlertDialog alert = AlertDialog(
+                title: const Text("Confirmation"),
+                content: const Text(
+                    "Please confirm you want to clear the History!\n\nThis action cannot be undone."),
+                actions: [
+                  TextButton(
+                    child: const Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TextButton(
+                    child: const Text("Clear History"),
+                    onPressed: () {
+                      setState(() {
+                        history.clear();
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return alert;
+                },
+              );
             },
           ),
         ],
