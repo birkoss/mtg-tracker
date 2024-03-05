@@ -170,6 +170,8 @@ class _SettingScreenState extends State<SettingScreen> {
                           onPress: () {
                             if (setting.clearHistoryOnNewGame) {
                               context.read<HistoryNotifier>().clear();
+                            } else {
+                              context.read<HistoryNotifier>().newGame();
                             }
                             Navigator.pop(context);
                             widget.onNewGame();
@@ -446,6 +448,8 @@ class _SettingScreenState extends State<SettingScreen> {
                       onPressed: () {
                         if (setting.clearHistoryOnNewGame) {
                           context.read<HistoryNotifier>().clear();
+                        } else {
+                          context.read<HistoryNotifier>().newGame();
                         }
                         setting.changePlayersNumber(_selectedPlayersNumber);
                         setting.changeStartingLives(_selectedStartingLives);

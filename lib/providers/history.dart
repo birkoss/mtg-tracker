@@ -30,10 +30,21 @@ class History {
 class HistoryNotifier extends ChangeNotifier {
   final List<History> _histories = [];
 
+  final List<int> _separations = [];
+
   List<History> get histories => _histories;
+
+  bool hasSplitted(int index) {
+    return _separations.contains(index);
+  }
 
   void clear() {
     _histories.clear();
+    _separations.clear();
+  }
+
+  void newGame() {
+    _separations.add(_histories.length);
   }
 
   void log({
