@@ -307,6 +307,23 @@ class _SettingScreenState extends State<SettingScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
+                          "Rad",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Switch(
+                          value: setting.showRadCounter,
+                          onChanged: (bool value) {
+                            setting.toggleRadCounter();
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
                           "Storm",
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.bodyText1,

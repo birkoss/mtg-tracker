@@ -73,6 +73,9 @@ class SettingNotifier extends ChangeNotifier {
   bool _showStormCounter = false;
   bool get showStormCounter => _showStormCounter;
 
+  bool _showRadCounter = false;
+  bool get showRadCounter => _showRadCounter;
+
   bool _showCommanderTax = false;
   bool get showCommanderTax => _showCommanderTax;
 
@@ -118,6 +121,12 @@ class SettingNotifier extends ChangeNotifier {
 
   void togglePoisonCounter() {
     _showPoisonCounter = !_showPoisonCounter;
+    save();
+    notifyListeners();
+  }
+
+  void toggleRadCounter() {
+    _showRadCounter = !_showRadCounter;
     save();
     notifyListeners();
   }
@@ -210,6 +219,7 @@ class SettingNotifier extends ChangeNotifier {
     _showCommanderTax = _pref!.getBool("SHOW_COMMANDER_TAX") ?? true;
     _showCommanderDamage = _pref!.getBool("SHOW_COMMANDER_DAMAGE") ?? true;
     _showStormCounter = _pref!.getBool("SHOW_STORM_COUNTER") ?? false;
+    _showRadCounter = _pref!.getBool("SHOW_RAD_COUNTER") ?? false;
 
     _isSimpleMode = _pref!.getBool("IS_SIMPLE_MODE") ?? false;
 
@@ -268,6 +278,7 @@ class SettingNotifier extends ChangeNotifier {
     _pref!.setBool("SHOW_COMMANDER_TAX", _showCommanderTax);
     _pref!.setBool("SHOW_STORM_COUNTER", _showStormCounter);
     _pref!.setBool("SHOW_COMMANDER_DAMAGE", _showCommanderDamage);
+    _pref!.setBool("SHOW_RAD_COUNTER", _showRadCounter);
 
     _pref!.setBool("PICK_PLAYER_ON_NEW_GAME", _pickPlayerOnNewGame);
     _pref!.setBool("CLEAR_HISTORY_ON_NEW_GAME", _clearHistoryOnNewGame);

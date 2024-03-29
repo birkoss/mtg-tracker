@@ -21,6 +21,7 @@ enum PanelBoxType {
   experience,
   commanderTax,
   storm,
+  rad,
 }
 
 class PanelBoxPanel extends StatefulWidget {
@@ -56,6 +57,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     String icon = "health";
 
     switch (_selectedBoxType) {
+      case PanelBoxType.rad:
+        icon = "";
+        break;
       case PanelBoxType.commander:
         icon = "commander";
         break;
@@ -101,6 +105,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       case PanelBoxType.poison:
         label = "Poison";
+        break;
+      case PanelBoxType.rad:
+        label = "Rad";
         break;
       case PanelBoxType.commanderTax:
         label = "Commander Tax";
@@ -297,6 +304,23 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       );
     }
 
+    if (context.read<SettingNotifier>().showRadCounter) {
+      trackers.add(
+        DynamicPressableButton(
+          isActive: (_selectedBoxType == PanelBoxType.rad),
+          value: player.rad,
+          icon: MtgIcons.rad,
+          onToggle: () {
+            changeSelectedBoxType(
+              _selectedBoxType == PanelBoxType.rad
+                  ? PanelBoxType.normal
+                  : PanelBoxType.rad,
+            );
+          },
+        ),
+      );
+    }
+
     // Fit the additionnal trackers in the remaining spaces
     for (int i = 0; i < trackers.length; i++) {
       for (int j = 0; j < list.length; j++) {
@@ -367,6 +391,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.poison:
         value = player.poison.toString();
         break;
+      case PanelBoxType.rad:
+        value = player.rad.toString();
+        break;
       case PanelBoxType.commanderTax:
         value = player.commanderTax.toString();
         break;
@@ -423,6 +450,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       case PanelBoxType.energy:
         player.energy += modifier;
+        break;
+      case PanelBoxType.rad:
+        player.rad += modifier;
         break;
       case PanelBoxType.storm:
         player.storm += modifier;
@@ -514,6 +544,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           context.watch<SettingNotifier>().showExperienceCounter,
       PanelBoxType.poison: context.watch<SettingNotifier>().showPoisonCounter,
       PanelBoxType.storm: context.watch<SettingNotifier>().showStormCounter,
+      PanelBoxType.rad: context.watch<SettingNotifier>().showRadCounter,
     };
 
     if (_selectedBoxType != PanelBoxType.normal &&

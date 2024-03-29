@@ -26,6 +26,12 @@ class Player with ChangeNotifier {
     _poison = max(0, min(newPoison, 10));
   }
 
+  int _rad = 0;
+  int get rad => _rad;
+  set rad(int newRad) {
+    _rad = max(0, min(newRad, 99));
+  }
+
   int _energy = 0;
   int get energy => _energy;
   set energy(int newEnergy) {
