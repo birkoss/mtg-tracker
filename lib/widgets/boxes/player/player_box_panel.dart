@@ -93,6 +93,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     switch (_selectedBoxType) {
       case PanelBoxType.commander:
         label = "Commander Damage";
+        if (_selectedCommander[1] == 1) {
+          label = "Partner Damage";
+        }
         break;
       case PanelBoxType.energy:
         label = "Energy";
@@ -161,17 +164,34 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                     color: Colors.white70,
                     semanticsLabel: 'Health',
                   )
-                : FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      player.commanderDamages[opponentIndex][commanderIndex]
-                          .toString(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 20,
-                          ),
-                    ),
-                  ),
+                : opponent.totalCommanders == 1
+                    ? FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          player.commanderDamages[opponentIndex][commanderIndex]
+                              .toString(),
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 20,
+                                  ),
+                        ),
+                      )
+                    : FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          (commanderIndex == 0 ? "C" : "P") +
+                              " " +
+                              player.commanderDamages[opponentIndex]
+                                      [commanderIndex]
+                                  .toString(),
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 20,
+                                  ),
+                        ),
+                      ),
             inactiveColor: opponent.getColor(),
             activeColor: Colors.white,
             onToggle: () {
