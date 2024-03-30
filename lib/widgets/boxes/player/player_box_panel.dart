@@ -20,6 +20,7 @@ enum PanelBoxType {
   energy,
   experience,
   commanderTax,
+  partnerTax,
   storm,
   rad,
 }
@@ -114,6 +115,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       case PanelBoxType.commanderTax:
         label = "Commander Tax";
+        break;
+      case PanelBoxType.partnerTax:
+        label = "Partner Tax";
         break;
       default:
         label = "";
@@ -254,6 +258,23 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           },
         ),
       );
+
+      if (player.totalCommanders > 1) {
+        trackers.add(
+          DynamicPressableButton(
+            isActive: _selectedBoxType == PanelBoxType.partnerTax,
+            value: player.partnerTax,
+            icon: MtgIcons.commander,
+            onToggle: () {
+              changeSelectedBoxType(
+                _selectedBoxType == PanelBoxType.partnerTax
+                    ? PanelBoxType.normal
+                    : PanelBoxType.partnerTax,
+              );
+            },
+          ),
+        );
+      }
     }
 
     if (context.read<SettingNotifier>().showPoisonCounter) {
@@ -417,6 +438,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       case PanelBoxType.commanderTax:
         value = player.commanderTax.toString();
         break;
+      case PanelBoxType.partnerTax:
+        value = player.partnerTax.toString();
+        break;
       default:
         value = player.health.toString();
         break;
@@ -488,6 +512,9 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
         break;
       case PanelBoxType.commanderTax:
         player.commanderTax += modifier;
+        break;
+      case PanelBoxType.partnerTax:
+        player.partnerTax += modifier;
         break;
       default:
         player.health += modifier;

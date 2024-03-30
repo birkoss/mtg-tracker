@@ -56,6 +56,12 @@ class Player with ChangeNotifier {
     _commanderTax = max(0, min(newCommanderTax, 99));
   }
 
+  int _partnerTax = 0;
+  int get partnerTax => _partnerTax;
+  set partnerTax(int newPartnerTax) {
+    _partnerTax = max(0, min(newPartnerTax, 99));
+  }
+
   int totalCommanders = 1;
 
   Player({
@@ -72,6 +78,7 @@ class Player with ChangeNotifier {
     poison = 0;
     totalCommanders = 1;
     commanderTax = 0;
+    partnerTax = 0;
   }
 
   Color getColor() {

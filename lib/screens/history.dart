@@ -26,6 +26,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       "PanelBoxType.energy": "Energy Counter",
       "PanelBoxType.experience": "Experience Counter",
       "PanelBoxType.commanderTax": "Commander Tax",
+      "PanelBoxType.partnerTax": "Partner Tax",
     };
 
     return Scaffold(
