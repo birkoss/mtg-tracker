@@ -209,7 +209,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Those counters will be added, depending on Commanders and Partners, in the same order they are presented here. There are seven spaces for trackers.",
+                      "Those counters will be added, depending on Commanders and Partners, in the same order they are presented here. \n\nIf there is no more space, a navigation system will be available..",
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
