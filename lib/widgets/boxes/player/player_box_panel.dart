@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mtgtracker/widgets/ui/commander_partner_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/history.dart';
@@ -168,6 +169,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
             widgetIndex = opponentIndex + (opponentIndex < 4 ? 4 : 1);
           }
           list[widgetIndex] = PressableButton(
+            overlayWidget: (opponent.totalCommanders > 1
+                ? CommanderPartnerIndicator(
+                    label: commanderIndex == 0 ? "C" : "P",
+                  )
+                : null),
             isActive: (_selectedBoxType == PanelBoxType.commander &&
                 _selectedCommander[0] == opponentIndex &&
                 _selectedCommander[1] == commanderIndex),
@@ -179,34 +185,17 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                     color: Colors.white70,
                     semanticsLabel: 'Health',
                   )
-                : opponent.totalCommanders == 1
-                    ? FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          player.commanderDamages[opponentIndex][commanderIndex]
-                              .toString(),
-                          textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 20,
-                                  ),
-                        ),
-                      )
-                    : FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          (commanderIndex == 0 ? "C" : "P") +
-                              " " +
-                              player.commanderDamages[opponentIndex]
-                                      [commanderIndex]
-                                  .toString(),
-                          textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 20,
-                                  ),
-                        ),
-                      ),
+                : FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      player.commanderDamages[opponentIndex][commanderIndex]
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 20,
+                          ),
+                    ),
+                  ),
             inactiveColor: opponent.getColor(),
             activeColor: Colors.white,
             onToggle: () {
@@ -257,6 +246,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     if (context.read<SettingNotifier>().showCommanderTax) {
       trackers.add(
         DynamicPressableButton(
+          overlayWidget: (player.totalCommanders > 1
+              ? const CommanderPartnerIndicator(
+                  label: "C",
+                )
+              : null),
           isActive: _selectedBoxType == PanelBoxType.commanderTax,
           value: player.commanderTax,
           icon: MtgIcons.commander,
@@ -273,6 +267,11 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       if (player.totalCommanders > 1) {
         trackers.add(
           DynamicPressableButton(
+            overlayWidget: (player.totalCommanders > 1
+                ? const CommanderPartnerIndicator(
+                    label: "P",
+                  )
+                : null),
             isActive: _selectedBoxType == PanelBoxType.partnerTax,
             value: player.partnerTax,
             icon: MtgIcons.commander,

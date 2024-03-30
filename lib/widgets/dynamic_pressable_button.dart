@@ -7,6 +7,7 @@ class DynamicPressableButton extends StatelessWidget {
   final int value;
   final IconData icon;
   final VoidCallback onToggle;
+  final Widget? overlayWidget;
 
   const DynamicPressableButton({
     Key? key,
@@ -14,11 +15,13 @@ class DynamicPressableButton extends StatelessWidget {
     required this.value,
     required this.icon,
     required this.onToggle,
+    this.overlayWidget,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PressableButton(
+      overlayWidget: overlayWidget,
       isVisible: true,
       isActive: isActive,
       inactiveWidget: value == 0
