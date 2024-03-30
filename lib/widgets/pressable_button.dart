@@ -82,7 +82,8 @@ class _PressableButtonState extends State<PressableButton> {
                     ),
                   ),
                 ),
-                if (widget.overlayWidget != null) widget.overlayWidget!,
+                if (!widget.isActive && widget.overlayWidget != null)
+                  widget.overlayWidget!,
               ],
             ),
     );
