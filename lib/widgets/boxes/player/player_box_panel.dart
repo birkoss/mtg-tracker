@@ -427,8 +427,6 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
   // Amount Box - Saving Value
   bool _setValue(int modifier) {
-    //HistoryNotifier
-
     Player player = Provider.of<Player>(context, listen: false);
 
     Player? opponent;
@@ -510,6 +508,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
           from: int.parse(_getValue()) + (modifier * -1),
           to: modifier,
           opponent: opponent,
+          commanderOrPartner: _selectedCommander[1],
         );
 
     return true;

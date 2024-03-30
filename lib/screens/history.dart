@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtgtracker/widgets/boxes/player/player_box_panel.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/history.dart';
@@ -141,6 +142,39 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     color: Colors.white,
                                   ),
                             ),
+                            if (history
+                                        .histories[history.histories.length -
+                                            index -
+                                            1]
+                                        .type ==
+                                    PanelBoxType.commander &&
+                                history
+                                        .histories[history.histories.length -
+                                            index -
+                                            1]
+                                        .opponent!
+                                        .totalCommanders >
+                                    1)
+                              Text(
+                                "(" +
+                                    (history
+                                                .histories[
+                                                    history.histories.length -
+                                                        index -
+                                                        1]
+                                                .commanderOrPartner ==
+                                            0
+                                        ? "Main Commander"
+                                        : "Partner Commander") +
+                                    ")",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                    ),
+                              ),
                             if (history
                                     .histories[
                                         history.histories.length - index - 1]

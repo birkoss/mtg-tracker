@@ -11,6 +11,7 @@ class History {
   int to;
   int lastChanged;
   Player? opponent;
+  int commanderOrPartner;
 
   History({
     required this.player,
@@ -19,6 +20,7 @@ class History {
     required this.to,
     required this.lastChanged,
     this.opponent,
+    this.commanderOrPartner = 0,
   });
 
   void update(int modifier) {
@@ -53,6 +55,7 @@ class HistoryNotifier extends ChangeNotifier {
     required int from,
     required int to,
     Player? opponent,
+    int commanderOrPartner = 0,
   }) {
     int threshold = 2000; // Milliseconds
 
@@ -64,7 +67,8 @@ class HistoryNotifier extends ChangeNotifier {
           history.player == player &&
           history.type == type &&
           history.lastChanged + threshold >= now &&
-          history.opponent == opponent,
+          history.opponent == opponent &&
+          history.commanderOrPartner == commanderOrPartner,
     );
 
     if (index == -1) {
@@ -75,6 +79,7 @@ class HistoryNotifier extends ChangeNotifier {
         type: type,
         lastChanged: now,
         opponent: opponent,
+        commanderOrPartner: commanderOrPartner,
       );
       _histories.add(history);
     } else {
