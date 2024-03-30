@@ -157,8 +157,6 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                   setState(() {
                                     _isVisible = false;
                                   });
-
-                                  //widget.onClose,
                                 },
                                 icon: const Icon(Icons.close),
                                 label: const Text("Close"),
@@ -193,9 +191,8 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                         ),
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            minimumSize: Size.zero, // Set this
-                                            padding: const EdgeInsets.all(
-                                                6), // and this
+                                            minimumSize: Size.zero,
+                                            padding: const EdgeInsets.all(6),
                                           ),
                                           onPressed: () {
                                             setState(() {
@@ -235,9 +232,8 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                         ),
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            minimumSize: Size.zero, // Set this
-                                            padding: const EdgeInsets.all(
-                                                6), // and this
+                                            minimumSize: Size.zero,
+                                            padding: const EdgeInsets.all(6),
                                           ),
                                           onPressed: context
                                                       .read<SettingNotifier>()
@@ -281,9 +277,8 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                         ),
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            minimumSize: Size.zero, // Set this
-                                            padding: const EdgeInsets.all(
-                                                6), // and this
+                                            minimumSize: Size.zero,
+                                            padding: const EdgeInsets.all(6),
                                           ),
                                           onPressed: () {
                                             setState(() {
@@ -322,9 +317,8 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                         ),
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            minimumSize: Size.zero, // Set this
-                                            padding: const EdgeInsets.all(
-                                                6), // and this
+                                            minimumSize: Size.zero,
+                                            padding: const EdgeInsets.all(6),
                                           ),
                                           onPressed: () {
                                             setState(() {
@@ -357,8 +351,6 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                   setState(() {
                                     _isVisible = false;
                                   });
-
-                                  //widget.onClose,
                                 },
                                 icon: const Icon(Icons.close),
                                 label: const Text("Close"),

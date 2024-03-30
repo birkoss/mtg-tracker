@@ -28,11 +28,8 @@ class _PlayerBoxPopupState extends State<PlayerBoxPopup> {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: widget.isVisible ? 1 : 0, //_isVisible ? 1 : 0,
-
+      opacity: widget.isVisible ? 1 : 0,
       duration: const Duration(milliseconds: PlayerBoxPopup.animationDuration),
-      //curve: Curves.fastOutSlowIn,
-      //curve: Curves.easeOutExpo,
       child: Container(
         padding: const EdgeInsets.all(6),
         width: double.infinity,
