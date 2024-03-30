@@ -38,10 +38,20 @@ class PanelBoxPanel extends StatefulWidget {
 }
 
 class _PanelBoxPanelState extends State<PanelBoxPanel> {
+  int _trackerPage = 0;
+
   // [0] = Opponent, [1] = Commander,Partner (0,1)
   List<int> _selectedCommander = [-1, 0];
 
   PanelBoxType _selectedBoxType = PanelBoxType.normal;
+
+  void changeTrackerPage() {
+    setState(() {
+      _selectedBoxType = PanelBoxType.normal;
+      _trackerPage = (_trackerPage == 0 ? 1 : 0);
+    });
+    //
+  }
 
   void changeSelectedBoxType(
     PanelBoxType newType, [
@@ -129,6 +139,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
 
   List<Widget> _getPanelTrackers(Player player) {
     // General layout for trackers (7 max + Settings)
+    // - If more than 7, add a BROWSE button next to Settings
     List<Widget?> list = [
       null,
       null,
@@ -362,6 +373,41 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
       );
     }
 
+    int emptySlots = 0;
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == null) {
+        emptySlots++;
+      }
+    }
+
+    // Add a NEXT button if possible at [7]
+    if (trackers.length > emptySlots && list[7] == null) {
+      // ...
+      list[7] = PressableButton(
+        isActive: false,
+        inactiveWidget: const Icon(
+          Icons.arrow_downward,
+          color: Colors.white,
+        ),
+        activeColor: Colors.transparent,
+        onToggle: changeTrackerPage,
+      );
+
+      for (int i = 0; i < 8; i++) {
+        list.add(null);
+      }
+
+      list[7 + 8] = PressableButton(
+        isActive: false,
+        inactiveWidget: const Icon(
+          Icons.arrow_upward,
+          color: Colors.white,
+        ),
+        activeColor: Colors.transparent,
+        onToggle: changeTrackerPage,
+      );
+    }
+
     // Fit the additionnal trackers in the remaining spaces
     for (int i = 0; i < trackers.length; i++) {
       for (int j = 0; j < list.length; j++) {
@@ -375,7 +421,8 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
     // Arrange the list in ROW
     List<Widget> widgets = [];
 
-    for (int i = 0; i < list.length / 2; i++) {
+    int startIndex = (_trackerPage == 0 ? 0 : 8);
+    for (int i = startIndex; i < startIndex + 4; i++) {
       List<Widget> content = [];
       for (int j = 0; j < 2; j++) {
         int index = i + (j * 4);

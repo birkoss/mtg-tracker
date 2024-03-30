@@ -29,7 +29,8 @@ class _PressableButtonState extends State<PressableButton> {
       flex: 1,
       child: !widget.isVisible
           ? const SizedBox(
-              width: 2,
+              width: 20,
+              height: 40,
             )
           : Padding(
               padding: const EdgeInsets.all(2.0),
