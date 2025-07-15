@@ -191,7 +191,7 @@ class _PanelBoxPanelState extends State<PanelBoxPanel> {
                       player.commanderDamages[opponentIndex][commanderIndex]
                           .toString(),
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 20,
                           ),
                     ),

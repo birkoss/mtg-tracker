@@ -121,7 +121,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     ),
                     child: Icon(
                       Icons.menu,
-                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
                       size: 30,
                     ),
                     onPressed: () {

@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../providers/history.dart';
@@ -23,7 +23,7 @@ import '../themes/custom.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Wakelock.enable();
+  WakelockPlus.enable();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

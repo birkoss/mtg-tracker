@@ -24,7 +24,7 @@ class AmountText extends StatelessWidget {
       opacity: isVisible ? 1.0 : 0.0,
       child: Text(
         amount == 0 ? "" : (amount > 0 ? "+" : "") + amount.toString(),
-        style: Theme.of(context).textTheme.headline2,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }

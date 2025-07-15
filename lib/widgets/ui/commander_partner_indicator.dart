@@ -23,7 +23,7 @@ class CommanderPartnerIndicator extends StatelessWidget {
           child: Text(
             label,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.normal,
                   color: Colors.white,

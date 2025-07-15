@@ -48,7 +48,7 @@ class _AmountButtonState extends State<AmountButton> {
             alignment: Alignment.center,
             child: Text(
               widget.label,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: widget.isDarkBackground
                         ? Colors.black26
                         : Colors.white30,

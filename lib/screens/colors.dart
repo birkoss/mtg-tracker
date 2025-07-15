@@ -118,7 +118,7 @@ class _SettingColorsScreenState extends State<SettingColorsScreen> {
       Text(
         theme[0].toUpperCase() + theme.substring(1),
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

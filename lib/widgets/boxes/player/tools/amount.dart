@@ -97,7 +97,7 @@ class _PlayerBoxSettingsToolsAmountState
                               "Add",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     color: Theme.of(context).primaryColor,
@@ -116,7 +116,7 @@ class _PlayerBoxSettingsToolsAmountState
                               "Reduce",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 16,
                                     color: Theme.of(context).primaryColor,
@@ -161,7 +161,7 @@ class _PlayerBoxSettingsToolsAmountState
                           "By",
                           textAlign: TextAlign.center,
                           style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 16,
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -173,7 +173,7 @@ class _PlayerBoxSettingsToolsAmountState
                               "Half",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context).primaryColor,
@@ -193,7 +193,7 @@ class _PlayerBoxSettingsToolsAmountState
                               "Third",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context).primaryColor,
@@ -205,7 +205,7 @@ class _PlayerBoxSettingsToolsAmountState
                           "Rounded",
                           textAlign: TextAlign.center,
                           style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 16,
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -217,7 +217,7 @@ class _PlayerBoxSettingsToolsAmountState
                               "Up",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context).primaryColor,
@@ -236,7 +236,7 @@ class _PlayerBoxSettingsToolsAmountState
                               "Down",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context).primaryColor,
@@ -271,14 +271,14 @@ class _PlayerBoxSettingsToolsAmountState
                     children: [
                       Text(
                         "Result: ",
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontSize: 22,
                               color: Theme.of(context).primaryColor,
                             ),
                       ),
                       Text(
                         _value.toString(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontSize: 30,
                               color: Theme.of(context).primaryColor,
                             ),

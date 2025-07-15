@@ -119,7 +119,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText1,
+                                              .bodyLarge,
                                         ),
                                         Switch(
                                           value: widget.hasPartner,
@@ -138,7 +138,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText1,
+                                              .bodyLarge,
                                         ),
                                         Switch(
                                           value: widget.isDead,
@@ -184,7 +184,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText1,
+                                              .bodyLarge,
                                         ),
                                         const SizedBox(
                                           height: 6,
@@ -224,7 +224,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                             textAlign: TextAlign.start,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1,
+                                                .bodyLarge,
                                           ),
                                         ),
                                         const SizedBox(
@@ -269,7 +269,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                             textAlign: TextAlign.start,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1,
+                                                .bodyLarge,
                                           ),
                                         ),
                                         const SizedBox(
@@ -309,7 +309,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                                             textAlign: TextAlign.start,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1,
+                                                .bodyLarge,
                                           ),
                                         ),
                                         const SizedBox(
@@ -358,13 +358,13 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                             ),
                           ],
                         ),
-                        Column(
+                        const Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               flex: 1,
                               child: Row(
-                                children: const [
+                                children: [
                                   Expanded(
                                     flex: 1,
                                     child: ManaBox(
@@ -389,7 +389,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                             Expanded(
                               flex: 1,
                               child: Row(
-                                children: const [
+                                children: [
                                   Expanded(
                                     flex: 1,
                                     child: ManaBox(

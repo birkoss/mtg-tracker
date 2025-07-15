@@ -79,7 +79,7 @@ class _PlayerBoxSettingsToolsCoinState
                       "Tail",
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 20),
                     ),
                     const SizedBox(height: 12),
@@ -90,7 +90,7 @@ class _PlayerBoxSettingsToolsCoinState
                           .toString(),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 30),
                     ),
                   ],
@@ -169,7 +169,7 @@ class _PlayerBoxSettingsToolsCoinState
                       "Head",
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 20),
                     ),
                     const SizedBox(height: 12),
@@ -180,7 +180,7 @@ class _PlayerBoxSettingsToolsCoinState
                           .toString(),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .copyWith(fontSize: 30),
                     ),
                   ],

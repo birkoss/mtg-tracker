@@ -92,7 +92,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         child: Text(
                           "New Game",
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 20,
                                     color: Colors.black,
                                   ),
@@ -116,7 +116,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                   .name,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 20,
                                     color: Colors.white,
@@ -137,7 +137,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                   : ""),
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                     fontSize: 20,
                                     color: Colors.white,
@@ -170,7 +170,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     ")",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(
                                       fontSize: 15,
                                       color: Colors.white,
@@ -193,7 +193,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         .name,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText1!
+                                        .bodyLarge!
                                         .copyWith(
                                           fontSize: 16,
                                           color: Colors.white,
@@ -213,7 +213,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       .toString(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                         fontSize: 30,
                                         color: Colors.white,
@@ -234,7 +234,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       .toString(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                         fontSize: 30,
                                         color: Colors.white,

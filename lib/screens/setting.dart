@@ -202,7 +202,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Show Additional Trackers",
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -211,7 +211,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Those counters will be added, depending on Commanders and Partners, in the same order they are presented here. \n\nIf there is no more space, a navigation system will be available..",
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
@@ -224,7 +224,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Commander Damage",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showCommanderDamage,
@@ -241,7 +241,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Commander Tax",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showCommanderTax,
@@ -258,7 +258,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Poison",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showPoisonCounter,
@@ -275,7 +275,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Energy",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showEnergyCounter,
@@ -292,7 +292,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Experience",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showExperienceCounter,
@@ -309,7 +309,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Rad",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showRadCounter,
@@ -326,7 +326,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Storm",
                           textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Switch(
                           value: setting.showStormCounter,
@@ -343,7 +343,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Player Colours",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -365,7 +365,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Number of players",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 10),
                     Toggles(
@@ -381,7 +381,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Table Layouts",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 10),
                     Toggles(
@@ -408,7 +408,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Starting lives",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 10),
                     Toggles(
@@ -430,8 +430,8 @@ class _SettingScreenState extends State<SettingScreen> {
                       thickness: 2,
                     ),
                     if (warnAboutTracker)
-                      Column(
-                        children: const [
+                      const Column(
+                        children: [
                           SizedBox(
                             height: 10,
                           ),
@@ -491,7 +491,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Global Settings",
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -502,7 +502,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Use Dark Theme?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Switch(
                       value: setting.isDarkTheme,
@@ -514,13 +514,13 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Simple Mode?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 10),
                     Text(
                       "Lighter UI, without additional trackers",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.normal,
                             fontSize: 12,
                           ),
@@ -535,7 +535,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Always Pick Random Player on New Game?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Switch(
                       value: setting.pickPlayerOnNewGame,
@@ -547,7 +547,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Clear History on New Game?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Switch(
                       value: setting.clearHistoryOnNewGame,
@@ -563,7 +563,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Trackers Settings",
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -572,7 +572,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Auto Apply Commander Damage?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Switch(
                       value: setting.autoApplyCommanderDamage,
@@ -584,7 +584,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Auto Eliminate Player on Commander Damage or Normal Damage?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Switch(
                       value: setting.autoElimitatePlayer,
@@ -596,7 +596,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Text(
                       "Revert to life tracker after 5 seconds of inactivity after assigning Commander Damage?",
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Switch(
                       value: setting.autoCloseTracker,

@@ -113,7 +113,7 @@ class _AmountBox extends State<AmountBox> {
               opacity: 1,
               child: Text(
                 widget.getLabel(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                     ),
@@ -152,7 +152,7 @@ class _AmountBox extends State<AmountBox> {
                 widget.getValue(),
                 key: ValueKey<String>(widget.getValue()),
                 overflow: TextOverflow.visible,
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: fontSize,
                       color: widget.lightMode
                           ? Colors.white

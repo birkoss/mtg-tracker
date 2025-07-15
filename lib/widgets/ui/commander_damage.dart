@@ -44,7 +44,7 @@ class CommanderDamage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .bodyLarge!
                         .copyWith(fontSize: 20),
                   ),
                 ),
