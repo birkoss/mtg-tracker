@@ -134,7 +134,11 @@ class _SettingScreenState extends State<SettingScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("MTG Life Tracker"),
+          title: Text("MTG Life Tracker",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary)),
           bottom: const TabBar(
             tabs: [
               Tab(

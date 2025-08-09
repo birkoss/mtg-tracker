@@ -40,7 +40,7 @@ class _ManaBox extends State<ManaBox> {
               _value.toString(),
               key: ValueKey<String>(_value.toString()),
               overflow: TextOverflow.visible,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontSize: 24,
                     color: widget.color == Colors.white
                         ? Theme.of(context).primaryColor

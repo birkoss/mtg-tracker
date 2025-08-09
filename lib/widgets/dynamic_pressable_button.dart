@@ -44,7 +44,7 @@ class DynamicPressableButton extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyLarge!
+                        .displayLarge!
                         .copyWith(fontSize: 20),
                   ),
                 ),

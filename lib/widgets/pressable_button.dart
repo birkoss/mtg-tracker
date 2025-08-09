@@ -72,7 +72,7 @@ class _PressableButtonState extends State<PressableButton> {
                                     key: const ValueKey<String>("X"),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyLarge!
+                                        .displayLarge!
                                         .copyWith(fontSize: 20),
                                   )
                                 : widget.inactiveWidget,

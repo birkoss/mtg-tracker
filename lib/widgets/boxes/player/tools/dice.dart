@@ -113,10 +113,11 @@ class _PlayerBoxSettingsToolsDiceState
                     children: [
                       Text(
                         _results.isEmpty ? "" : "Previous results: ",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 16,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: 16,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                       ),
                       if (_results.isNotEmpty)
                         Expanded(
@@ -131,14 +132,14 @@ class _PlayerBoxSettingsToolsDiceState
                                 style: index == 0
                                     ? Theme.of(context)
                                         .textTheme
-                                        .bodyLarge!
+                                        .displayLarge!
                                         .copyWith(
                                           fontSize: 16,
                                           color: Theme.of(context).primaryColor,
                                         )
                                     : Theme.of(context)
                                         .textTheme
-                                        .bodyLarge!
+                                        .displayMedium!
                                         .copyWith(
                                           fontSize: 16,
                                           color: Theme.of(context).primaryColor,
@@ -162,7 +163,7 @@ class _PlayerBoxSettingsToolsDiceState
                       _value == 0 ? "" : _value.toString(),
                       key: ValueKey<String>(_value.toString()),
                       textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 70,
                             color: Theme.of(context).primaryColor,
                           ),
@@ -226,7 +227,7 @@ class _PlayerBoxSettingsToolsDiceState
                     Text(
                       "Select a dice size",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 16,
                             color: Theme.of(context).primaryColor,
                           ),
