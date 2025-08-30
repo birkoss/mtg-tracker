@@ -30,11 +30,11 @@ class TileButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context)
                         .primaryColor
-                        .withOpacity(isDisabled ? 0.3 : 1),
+                        .withAlpha((isDisabled ? (0.3 * 255).toInt() : 255)),
                     border: Border.all(
                       color: Theme.of(context)
                           .primaryColor
-                          .withOpacity(isDisabled ? 0.3 : 1),
+                          .withAlpha((isDisabled ? (0.3 * 255).toInt() : 255)),
                     ),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(20),
@@ -51,7 +51,8 @@ class TileButton extends StatelessWidget {
                   label,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black.withOpacity(isDisabled ? 0.3 : 1),
+                    color: Colors.black
+                        .withAlpha((isDisabled ? (0.3 * 255).toInt() : 255)),
                   ),
                 ),
               ],

@@ -85,6 +85,7 @@ class _PlayerBoxSettingsState extends State<PlayerBoxSettings>
                         BoxDecoration(color: Theme.of(context).primaryColor),
                     child: TabBar(
                       indicatorColor: Colors.white,
+                      labelColor: Colors.white,
                       indicatorWeight: 6,
                       controller: _controller,
                       tabs: const [

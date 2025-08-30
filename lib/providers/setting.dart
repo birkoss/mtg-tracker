@@ -231,7 +231,7 @@ class SettingNotifier extends ChangeNotifier {
     List<String> defaultColors = [];
     for (int i = 0; i < SettingNotifier.maximumPlayers; i++) {
       defaultColors.add(
-        SettingNotifier.colorSchemes['light']![i].value.toString(),
+        SettingNotifier.colorSchemes['light']![i].toARGB32().toString(),
       );
     }
 
@@ -288,7 +288,7 @@ class SettingNotifier extends ChangeNotifier {
     // Format the colors in a String structure value1_value2_value3_value4
     String formattedColors = "";
     for (Color color in _colors) {
-      formattedColors += color.value.toString() + "_";
+      formattedColors += color.toARGB32().toString() + "_";
     }
 
     // Remove the trailing _ if something is there

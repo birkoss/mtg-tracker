@@ -14,12 +14,12 @@ class CustomTheme {
         backgroundColor: Colors.blueGrey.shade50,
         brightness: Brightness.light,
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.blueGrey,
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(Colors.blueGrey),
-        trackColor: MaterialStateProperty.all(Colors.blueGrey.shade200),
+        thumbColor: WidgetStateProperty.all(Colors.blueGrey),
+        trackColor: WidgetStateProperty.all(Colors.blueGrey.shade200),
       ),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: Colors.blueGrey,
@@ -114,12 +114,12 @@ class CustomTheme {
         backgroundColor: Colors.blueGrey.shade900,
         brightness: Brightness.dark,
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.blueGrey,
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(Colors.blueGrey),
-        trackColor: MaterialStateProperty.all(Colors.blueGrey.shade700),
+        thumbColor: WidgetStateProperty.all(Colors.blueGrey),
+        trackColor: WidgetStateProperty.all(Colors.blueGrey.shade700),
       ),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: Colors.blueGrey,
